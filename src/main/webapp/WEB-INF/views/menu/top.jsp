@@ -14,7 +14,15 @@
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
               <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
                   <li class="nav-item"><a class="nav-link active" aria-current="page" href="#!" style="margin-right: 10px;">Home</a></li>
-                  <li class="nav-item"><a class="nav-link" href="/register/register.do" style="margin-right: 10px;">로그인</a></li>
+                  <c:choose>
+                    <c:when test="${sessionScope.id == null}"> <%-- 로그인 안 한 경 우 --%>
+                      <li class="nav-item"><a class="nav-link" href="/register/login.do" style="margin-right: 10px;">로그인</a></li>
+                      <li class="nav-item"><a class="nav-link" href="/register/create.do" style="margin-right: 10px;">회원가입</a></li>
+                    </c:when>
+                    <c:otherwise>
+                      <li class="nav-item"><a class="nav-link" href="/register/logout.do" style="margin-right: 10px;">로그아웃</a></li>
+                    </c:otherwise>
+                  </c:choose>   
                   <li class="nav-item"><a class="nav-link" href="#!" style="margin-right: 10px;">카테고리</a></li>
                   <li class="nav-item"><a class="nav-link" href="#!" style="margin-right: 10px;">커뮤니티</a></li>
                   <li class="nav-item"><a class="nav-link" href="#!" style="margin-right: 10px;">공지사항</a></li>
@@ -43,11 +51,23 @@
               </ul>
               
               <form class="d-flex">
-                  <button class="btn btn-outline-dark" style="border: solid 1px;" type="submit">
-                      <i class="bi-cart-fill me-1"></i>
-                      Cart
-                      <span class="badge bg-dark text-white ms-1 rounded-pill">0</span>
-                  </button>
+                <c:choose>
+                  <c:when test="${sessionScope.id == null}"> <%-- 로그인 안 한 경 우 --%>
+                    <button class="btn btn-outline-dark" style="border: solid 1px;" type="submit">
+                        <i class="bi-cart-fill me-1"></i>
+                          Cart
+                        <span class="badge bg-dark text-white ms-1 rounded-pill">0</span>
+                    </button>
+                  </c:when>
+                  <c:otherwise> <%-- 로그인 한 경 우 --%>
+                    <button class="btn btn-outline-dark" style="border: solid 1px; margin-right:5px;" type="submit">${sessionScope.id }</button> 
+                    <button class="btn btn-outline-dark" style="border: solid 1px;" type="submit">
+                        <i class="bi-cart-fill me-1"></i>
+                          Cart
+                        <span class="badge bg-dark text-white ms-1 rounded-pill">0</span>
+                    </button>
+                  </c:otherwise>
+                </c:choose>
               </form>
           </div>
       </div>

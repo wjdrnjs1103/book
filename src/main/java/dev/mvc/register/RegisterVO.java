@@ -2,46 +2,50 @@ package dev.mvc.register;
 
 public class RegisterVO {
   /*
-    member_no                       NUMBER(10)     NOT NULL    PRIMARY KEY,
-    id                                    VARCHAR(20)    NOT NULL,
-    passwd                            VARCHAR(60)    NOT NULL,
-    m_name                            VARCHAR(30)    NOT NULL,
-    tel                                   VARCHAR(14)    NOT NULL,
-    zipcode                           VARCHAR(5)     NULL ,
-    email                             VARCHAR(30)    NOT NULL,
-    oauth                             VARCHAR(10)    NULL ,
-    address                           VARCHAR(80)    NULL ,
-    rdate                             DATE     NOT NULL,
-    grade                             NUMBER(2)    NOT NULL
+    MEMBERNO                          NUMBER(10)     NOT NULL    PRIMARY KEY,
+    ID                                VARCHAR2(20)     NOT NULL,
+    PASSWD                            VARCHAR2(60)     NOT NULL,
+    MNAME                             VARCHAR2(30)     NOT NULL,
+    EMAIL                             VARCHAR2(30)     NOT NULL,
+    TEL                               VARCHAR2(14)     NOT NULL,
+    ZIPCODE                           VARCHAR2(5)    NULL ,
+    ADDRESS1                          VARCHAR2(80)     NULL ,
+    ADDRESS2                          VARCHAR2(50)     NULL ,
+    GRADE                             NUMBER(2)    NOT NULL,
+    OAUTH                             VARCHAR2(30)     NULL ,
+    MDATE                             DATE     NOT NULL
    */
 
   /** 회원 번호 */
-  private int member_no;  
+  private int memberno;  
   /** 아이디 */
-  private String id;
+  private String id = "";
   /** 비밀번호 */
-  private String passwd;
+  private String passwd = "";
   /** 회원이름 */
-  private String m_name;
+  private String mname = "";
   /** 전화번호 */
-  private String tel;
+  private String tel = "";
   /** 우편번호 */
-  private String zipcode;
+  private String zipcode = "";
   /** 이메일 */
-  private String email;
+  private String email = "";
   /** SNS */
-  private String oauth;
-  /** 주소 */
-  private String address1;
+  private String oauth = "";
+  /** 주소1 */
+  private String address1 = "";
+  /** 주소2 */
+  private String address2 = "";
   /** 가입일 */
-  private String rdate;
+  private String mdate = "";
   /** 회원등급 */
-  private int grade;
-  public int getMember_no() {
-    return member_no;
+  private int grade = 0;
+  
+  public int getMemberno() {
+    return memberno;
   }
-  public void setMember_no(int member_no) {
-    this.member_no = member_no;
+  public void setMemberno(int memberno) {
+    this.memberno = memberno;
   }
   public String getId() {
     return id;
@@ -55,11 +59,11 @@ public class RegisterVO {
   public void setPasswd(String passwd) {
     this.passwd = passwd;
   }
-  public String getM_name() {
-    return m_name;
+  public String getMname() {
+    return mname;
   }
-  public void setM_name(String m_name) {
-    this.m_name = m_name;
+  public void setMname(String mname) {
+    this.mname = mname;
   }
   public String getTel() {
     return tel;
@@ -91,11 +95,17 @@ public class RegisterVO {
   public void setAddress1(String address1) {
     this.address1 = address1;
   }
-  public String getRdate() {
-    return rdate;
+  public String getAddress2() {
+    return address2;
   }
-  public void setRdate(String rdate) {
-    this.rdate = rdate;
+  public void setAddress2(String address2) {
+    this.address2 = address2;
+  }
+  public String getMdate() {
+    return mdate;
+  }
+  public void setMdate(String mdate) {
+    this.mdate = mdate;
   }
   public int getGrade() {
     return grade;
@@ -103,6 +113,5 @@ public class RegisterVO {
   public void setGrade(int grade) {
     this.grade = grade;
   }
-  
   
 }
