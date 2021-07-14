@@ -3172,7 +3172,6 @@ textarea.form-control-lg {
   background-color: #f8f9fa;
   border-color: #f8f9fa;
 }
-
 .btn-dark {
   color: #fff;
   background-color: #212529;
@@ -3183,6 +3182,7 @@ textarea.form-control-lg {
   background-color: #1c1f23;
   border-color: #1a1e21;
 }
+
 .btn-check:focus + .btn-dark, .btn-dark:focus {
   color: #fff;
   background-color: #1c1f23;
@@ -6127,10 +6127,10 @@ textarea.form-control-lg {
 }
 
 .link-primary {
-  color: #0d6efd;
+  color: #212529;
 }
 .link-primary:hover, .link-primary:focus {
-  color: #0a58ca;
+  color: #212529;
 }
 
 .link-secondary {
@@ -10861,6 +10861,95 @@ textarea.form-control-lg {
 
   .d-print-none {
     display: none !important;
-  }
-   
+  }  
+}
+/*--------- 커뮤니티 css 추가 ---------*/
+/* 커뮤니티 테이블 head 검은색으로 변경 */
+.table_title{
+  background-color: black;
+  color: white;
+}
+
+.btn_gray {
+  background-color: black;
+  border: none;
+  color: white;
+  padding: 7px 14px;
+  text-align: center;
+  font-size: 14px;
+  margin: 2px 1px;
+  opacity: 0.6;
+  transition: 0.3s;
+  display: inline-block;
+  text-decoration: none;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.btn_gray:hover {
+  opacity: 1
+}
+
+/* 화면 내용 하단 padding : 10%*/
+.c_bottom_10{
+  clear: both;
+  padding-bottom: 10%;
+}
+/*---------------------------------*/
+
+/*--- resort 기존 css 부분 추가 ---*/
+.title_line {
+  text-align: left;
+  border-bottom: solid 3px #555555;
+  width: 100%;
+  margin-bottom: 50px;
+  font-size: 20px;    
+}
+
+.th_basic {
+  font-size: 0.8em;
+  border-bottom: solid 3px #DDDDDD; 
+}
+
+.th_bs {
+  text-align: center;
+}
+
+.td_basic {
+  border-top: none;
+  border-right: none;
+  border-bottom: solid 1px #DDDDDD;
+  border-left: none;
+  text-align: center;
+}
+
+.td_left {
+  border-top: none;
+  border-right: none;
+  border-bottom: solid 1px #DDDDDD;
+  border-left: none;
+  text-align: left;
+}
+
+.td_bs {
+  text-align: center;
+}
+
+.td_bs_left {
+  text-align: left;
+}
+
+A:link{  /* 방문전 상태 */
+  text-decoration: none; /* 밑줄 삭제 */
+  color: #555555;
+}
+
+A:visited{  /* 방문후 상태 */
+  text-decoration: none; /* 밑줄 삭제 */
+  color: #555555;
+}
+
+A:hover{  /* A 태그에 마우스가 올라간 상태 */
+  text-decoration: underline; /* 밑줄 출력 */
+  color: #7777FF;
 }
