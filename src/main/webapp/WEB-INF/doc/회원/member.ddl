@@ -5,13 +5,13 @@ DROP TABLE member;
 CREATE TABLE MEMBER(
 		MEMBERNO                      		NUMBER(10)		 NOT NULL		 PRIMARY KEY,
 		ID                            		VARCHAR(20)		 NOT NULL,
-		PASSWD                        		VARCHAR(60)		 NOT NULL,
+		PASSWD                        		VARCHAR(100)		 NOT NULL,
 		MNAME                         		VARCHAR(30)		 NOT NULL,
 		EMAIL                         		VARCHAR(30)		 NOT NULL,
 		TEL                           		VARCHAR(14)		 NOT NULL,
-		ZIPCODE                       		VARCHAR(5)		 NULL ,
+		ZIPCODE                       		VARCHAR(6)		 NULL ,
 		ADDRESS1                      		VARCHAR(80)		 NULL ,
-		ADDRESS2                      		VARCHAR(50)		 NULL ,
+		ADDRESS2                      		VARCHAR(80)		 NULL ,
 		GRADE                         		NUMBER(2)		 NOT NULL,
 		OAUTH                         		VARCHAR(30)		 NULL ,
 		MDATE                         		DATE		 NOT NULL
@@ -40,9 +40,15 @@ CREATE SEQUENCE member_seq
   CACHE 2                     -- 2번은 메모리에서만 계산
   NOCYCLE;                   -- 다시 1부터 생성되는 것을 방지
 
+-- 관리자 계정 생성
+-- **관리자 계정은 꼭 DB에서 직접 인서트해주셔야 합니다.**
 INSERT INTO member(memberno, ID, PASSWD, MNAME, EMAIL,
                         TEL, ZIPCODE, ADDRESS1, ADDRESS2, GRADE, OAUTH, MDATE)
-VALUES(member_seq.nextval, 'jong', 1234, 'jong', 'jong',
-            010,000,'대화','성저마을',10,'kakao',sysdate);
-            
+VALUES(member_seq.nextval, 'admin', '03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4', '관리자', 'whitebello14@gmail.com',
+            01053050315,000,'종로','솔데스크',1, null ,sysdate);
+INSERT INTO member(memberno, ID, PASSWD, MNAME, EMAIL,
+                        TEL, ZIPCODE, ADDRESS1, ADDRESS2, GRADE, OAUTH, MDATE)
+VALUES(member_seq.nextval, 'admin1', '03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4', '관리자', 'whitebello14@gmail.com',
+            01053050315,000,'종로','솔데스크',1, null ,sysdate);            
+commit;
 SELECT * FROM member;
