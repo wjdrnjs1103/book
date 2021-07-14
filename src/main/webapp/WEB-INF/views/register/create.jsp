@@ -59,7 +59,7 @@ function checkID() {
     $('#modal_title').html('ID 중복 확인'); // 제목 
     $('#modal_content').html(msg);        // 내용
     $('#btn_close').attr("data-focus", "id");  // 닫기 버튼 클릭시 id 입력으로 focus 이동
-    $('#modal_panel').modal();               // 다이얼로그 출력
+    $('#modal_panel').modal('show');               // 다이얼로그 출력
     return false;
   } else {  // when ID is entered
     params = 'id=' + id;
@@ -90,7 +90,7 @@ function checkID() {
         
         $('#modal_title').html('ID 중복 확인'); // 제목 
         $('#modal_content').html(msg);        // 내용
-        $('#modal_panel').modal();              // 다이얼로그 출력
+        $('#modal_panel').modal('show');              // 다이얼로그 출력
       },
       // Ajax 통신 에러, 응답 코드가 200이 아닌경우, dataType이 다른경우 
       error: function(request, status, error) { // callback 함수
@@ -116,27 +116,38 @@ function setFocus() {  // focus 이동
   
   var tag = $('#btn_close').attr('data-focus'); // data-focus 속성에 선언된 값을 읽음 
   // console.log('tag: ' + tag);
-  
   $('#' + tag).focus(); // data-focus 속성에 선언된 태그를 찾아서 포커스 이동
+  $('#modal_panel').modal('hide');
 }
 
 function register() { // 회원 가입 처리
-  // 패스워드를 정상적으로 2번 입력했는지 확인
-  if ($('#passwd').val() != $('#passwd2').val()) {
+  if ($('#id').val()=="" || $('#passwd').val()=="" || $('#email').val()=="" || $('#name').val()=="" || $('#tel').val()=="" 
+      || $('#zipcode').val()=="" || $('#address1').val()=="" || $('#address2').val()=="") {
+    msg = '개인정보를 입력해주세요';
+    
+    $('#modal_content').attr('class', 'alert alert-danger'); // CSS 변경
+    $('#modal_title').html('개인정보 입력여부');   // 제목 
+    $('#modal_content').html(msg);  // 내용
+    $('#modal_panel').modal('show');         // 다이얼로그 출력
+
+    return false; // submit 중지
+  } else if($('#passwd').val() != $('#passwd2').val()) {   // 패스워드를 정상적으로 2번 입력했는지 확인
     msg = '입력된 패스워드가 일치하지 않습니다.<br>';
     msg += "패스워드를 다시 입력해주세요.<br>"; 
     
     $('#modal_content').attr('class', 'alert alert-danger'); // CSS 변경
     $('#modal_title').html('패스워드 일치 여부  확인'); // 제목 
     $('#modal_content').html(msg);  // 내용
-    $('#modal_panel').modal();         // 다이얼로그 출력
+    $('#modal_panel').modal('show');         // 다이얼로그 출력
     
-    $('#btn_send').attr('data-focus', 'passwd');
+    // $('#btn_send').attr('data-focus', 'passwd');
     
     return false; // submit 중지
+  } else {
+    $('#frm').submit();
+    alert('회원가입에 성공했습니다.');
   }
-
-  $('#frm').submit();
+  
 }
 </script>
 </head>
@@ -144,13 +155,11 @@ function register() { // 회원 가입 처리
 <jsp:include page="../menu/top.jsp" flush='false' />
 
 <!-- ******************** Modal 알림창 시작 ******************** -->
-<%-- ---------------- css 충돌 모달인식에러(보류) ---------------- --%>
 <div id="modal_panel" class="modal fade"  role="dialog">
   <div class="modal-dialog">
     <!-- Modal content-->
     <div class="modal-content">
       <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal">×</button>
         <h4 class="modal-title" id='modal_title'></h4><!-- 제목 -->
       </div>
       <div class="modal-body">

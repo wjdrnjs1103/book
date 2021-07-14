@@ -5239,10 +5239,12 @@ textarea.form-control-lg {
   word-wrap: break-word;
 }
 
-.modal {
+.content .modal {
   position: fixed;
   top: 0;
   left: 0;
+  right: auto;
+  bottom: auto;
   z-index: 1060;
   display: none;
   width: 100%;
@@ -5258,15 +5260,21 @@ textarea.form-control-lg {
   margin: 0.5rem;
   pointer-events: none;
 }
-.modal.fade .modal-dialog {
+.content .modal.fade .modal-dialog {
   transition: transform 0.3s ease-out;
-  transform: translate(0, -50px);
+  /* transform: translate(0, -50px); */
+  transform: translate(0, -10%);
 }
 @media (prefers-reduced-motion: reduce) {
   .modal.fade .modal-dialog {
     transition: none;
   }
 }
+/* 추가된 모달속성 */
+.modal.show {
+  opacity: 1;
+}
+
 .modal.show .modal-dialog {
   transform: none;
 }
