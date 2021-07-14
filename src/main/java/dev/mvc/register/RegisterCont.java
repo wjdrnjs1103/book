@@ -19,6 +19,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import dev.mvc.tool.BCrypt;
+import dev.mvc.tool.SHA256;
+
 @Controller
 public class RegisterCont {
   @Autowired // CategrpProcInter를 구현한 CategrpProc.java의 객체가 할당
@@ -35,7 +38,7 @@ public class RegisterCont {
    * @return
    */
   @RequestMapping(value="/register/msg.do", method=RequestMethod.GET)
-  public ModelAndView msg(String url){
+  public ModelAndView msg(String url) {
     ModelAndView mav = new ModelAndView();
     
     // 등록 처리 메시지: create_msg --> /member/create_msg.jsp
@@ -46,7 +49,8 @@ public class RegisterCont {
     return mav; // forward
   }
   
-  // http://localhost:9091/member/checkID.do?id=user1
+  // http://localhost:9091/register/checkID.do?id=user2
+  // http://localhost:9091/register/checkID.do?id=user1
   /**
   * ID 중복 체크, JSON 출력
   * @return
@@ -85,9 +89,20 @@ public class RegisterCont {
    */
   @RequestMapping(value = "/register/create.do", method = RequestMethod.POST)
   public ModelAndView create(RegisterVO registerVO) {
-    System.out.println("ㅅㅂㅅㅂㅅㅂ 호출이 도 대 체 왜 안 도 ㅐ 냐 고");
     ModelAndView mav = new ModelAndView();
     
+    // 1. SHA256 을 활용한 비밀번호 해쉬암호화(단방향)
+    // 같은 비밀번호를 암호화 하였을때 동일한 해쉬코드 생성
+    SHA256 sha = new SHA256();
+    String passwd = sha.getInstance(registerVO.getPasswd());
+    
+    // 2. BCrypt 를 활용한 비밀번호 해쉬암호화(단방향) 
+    // ★ 같은 비밀번호를 암호화해도 매번 다른 해쉬코드가 생성되어서 더 안전하지만
+    // ★ 복호화가 불가능하다는 단점때문에 DB와 비교를 할수없어 사용이 불가능하다.
+    // String passwd = registerVO.getPasswd();
+    //String bcPass = BCrypt.hashpw(passwd, BCrypt.gensalt());
+    
+    registerVO.setPasswd(passwd);  // 암호화된 비밀번호 할당
     registerVO.setGrade(11); // 기본 회원 가입 등록 11 지정
     
     int cnt = this.registerProc.create(registerVO);
@@ -187,9 +202,12 @@ public class RegisterCont {
                              @RequestParam(value="passwd_save", defaultValue="") String passwd_save,
                              @RequestParam(value="return_url", defaultValue="") String return_url) {
     ModelAndView mav = new ModelAndView();
+    SHA256 sha = new SHA256();
+    String pw = sha.getInstance(passwd);
+    
     Map<String, Object> map = new HashMap<String, Object>();
     map.put("id", id);
-    map.put("passwd", passwd);
+    map.put("passwd", pw);  // passwd라는 id에 암호화된 pw 저장해서 비교 (복호화과정이 필요없다)
     
     int count = registerProc.login(map);
     if (count == 1) { // 로그인 성공

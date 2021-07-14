@@ -53,7 +53,7 @@ $(function(){
       <UL>
         <H3>회원 로그인에 실패했습니다.</H3>
         <H3>ID 또는 패스워드가 일치하지 않습니다.</H3>
-        <H3>계속 실패시 ☏ 000-0000-0000 문의해주세요.</H3>
+        <H3>계속 실패시 ☏ 010-5305-0315 문의해주세요.</H3>
         <br>
         <button type='button' id="btn_retry" class="btn btn-primary">로그인 다시 시도</button>
         <button type='button' id="btn_home" class="btn btn-primary">확인</button>
