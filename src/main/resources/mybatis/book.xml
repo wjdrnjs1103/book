@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ 
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+<!-- dev.mvc.book.bookDAOInter 패키지에 등록된 interface 명시,
+      패키지명과 인터페이스명은 실제로 존재해야함,
+      Spring이 내부적으로 자동으로 interface를 구현해줌. -->
+<mapper namespace="dev.mvc.book.BookDAOInter">
+  <!-- 
+  insert: INSERT SQL 실행
+  id: Spring에서 호출시 사용
+  parameterType: 전달받는 데이터 객체의 타입
+  return: 등록한 레코드 갯수 리턴
+  SQL선언시 ';'은 삭제
+  #{}: ? 동일
+  #{name}: public String getName() 자동 호출
+   --> 
+  <insert id="create" parameterType="dev.mvc.book.BookVO">
+    INSERT INTO book(bookno, bookgrpno, name, rdate, cnt)
+    VALUES(book_seq.nextval, #{bookgrpno}, #{name}, sysdate, 0)
+  </insert> 
+  
+  <!-- 
+  전체 목록
+  레코드 갯수 만큼 bookgrpVO 객체를 만들어 ArrayList에 저장하여 리턴,
+  List<bookVO> list = new ArrayList<bookVO>(); 
+  -->
+  <select id="list_all" resultType="dev.mvc.book.BookVO">
+    SELECT bookno, bookgrpno, name, rdate, cnt
+    FROM book
+    ORDER BY bookno ASC
+  </select>
+  
+    <!-- 카테고리 그룹별 목록 -->
+  <select id="list_by_bookgrpno" resultType="dev.mvc.book.BookVO" parameterType="int">
+    SELECT bookno, bookgrpno, name, rdate, cnt
+    FROM book
+    WHERE bookgrpno = #{bookgrpno}
+    ORDER BY bookno ASC
+  </select>
+  
+   <!-- 조회, id: read, 입력: bookno, 리턴: bookVO -->
+  <select id="read" resultType="dev.mvc.book.BookVO" parameterType="int">
+    SELECT bookno, bookgrpno, name, rdate, cnt
+    FROM book
+    WHERE bookno=#{bookno}
+  </select>  
+  
+  <update id="update" parameterType="dev.mvc.book.BookVO">
+    UPDATE book
+    SET bookgrpno=#{bookgrpno}, name=#{name}, cnt=#{cnt}
+    WHERE bookno = #{bookno}
+  </update>
+  
+   <!-- 삭제, return: int -->
+  <delete id="delete" parameterType="int">
+    DELETE FROM book
+    WHERE bookno = #{bookno}
+  </delete> 
+  
+  
+ </mapper> 

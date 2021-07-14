@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ 
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+<mapper namespace="dev.mvc.bookgrp.BookgrpDAOInter"> 
+  <insert id="create" parameterType="dev.mvc.bookgrp.BookgrpVO">
+    INSERT INTO bookgrp(bookgrpno, name, seqno, rdate)
+    VALUES(bookgrp_seq.nextval, #{name}, #{seqno}, sysdate)
+  </insert>
+  
+   <!-- 
+  레코드 갯수 만큼 BookgrpVO 객체를 만들어 ArrayList에 저장하여 리턴,
+  List<BookgrpVO> list = new ArrayList<bookgrpVO>(); 
+  -->
+ <select id="list_bookgrpno_asc" resultType="dev.mvc.bookgrp.BookgrpVO">
+    SELECT  bookgrpno, name, seqno, rdate
+    FROM bookgrp
+    ORDER BY bookgrpno ASC
+  </select>
+  
+  <!-- 조회, id: read, 입력: bookgrpno, 리턴: BookgrpVO -->
+  <select id="read" resultType="dev.mvc.bookgrp.BookgrpVO" parameterType="int">
+    SELECT  bookgrpno, name, seqno, rdate
+    FROM bookgrp
+    WHERE bookgrpno=#{bookgrpno}
+  </select>
+  
+  <!-- 수정, id: update, 입력: BookgrpVO, 리턴: int -->
+  <update id="update" parameterType="dev.mvc.bookgrp.BookgrpVO">
+    UPDATE bookgrp
+    SET name=#{name}, seqno=#{seqno}
+    WHERE bookgrpno = #{bookgrpno}
+  </update>
+  
+  <!-- 삭제 처리, id=delete, 입력: PK, 리턴: 삭제된 갯수 int -->
+  <delete id="delete" parameterType="int">
+    DELETE FROM bookgrp
+    WHERE bookgrpno=#{bookgrpno}
+  </delete>
+  
+  <!-- 우선순위 상향 up 10 ▷ 1 -->
+  <update id="update_seqno_up" parameterType="int">
+    UPDATE bookgrp
+    SET seqno = seqno - 1
+    WHERE bookgrpno=#{bookgrpno}
+  </update>
+
+  <!-- 우선순위 하향 down 1 ▷ 10 --> 
+  <update id="update_seqno_down" parameterType="int">
+    UPDATE bookgrp
+    SET seqno = seqno + 1
+    WHERE bookgrpno=#{bookgrpno}
+  </update>
+  
+  <!-- 
+  레코드 갯수 만큼 CategrpVO 객체를 만들어 ArrayList에 저장하여 리턴,
+  List<BookgrpVO> list = new ArrayList<BookgrpVO>(); 
+  -->
+ <select id="list_seqno_asc" resultType="dev.mvc.bookgrp.BookgrpVO">
+    SELECT  bookgrpno, name, seqno, rdate
+    FROM bookgrp
+    ORDER BY seqno ASC
+  </select>
+   
+</mapper> 
