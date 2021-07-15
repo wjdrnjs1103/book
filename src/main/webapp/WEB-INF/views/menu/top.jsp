@@ -28,7 +28,7 @@
           <li class="nav-item dropdown" style="margin-right: 10px;">
             <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">도서거래</a>
             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <li><a class="dropdown-item" href="#!" >도서분류</a></li>
+              <li><a class="dropdown-item" href="/bookgrp/list.do" >전공도서분류</a></li>
               <li><hr class="dropdown-divider" /></li>
               <li><a class="dropdown-item" href="#!">음악...</a></li>
               <li><a class="dropdown-item" href="#!">IT....</a></li>

@@ -44,4 +44,18 @@ public interface BookProcInter {
    */
   public int delete(int bookno);
   
+  /**
+   * 특정 그룹에 속한 레코드 갯수 산출
+   * @param bookgrpno
+   * @return
+   */
+  public int count_by_bookgrpno(int bookgrpno);
+  
+  /**
+   * bookgrpno가 같은 모든 레코드 삭제
+   * @param bookgrpno
+   * @return
+   */
+  public int delete_by_bookgrpno(int bookgrpno);
+  
 }

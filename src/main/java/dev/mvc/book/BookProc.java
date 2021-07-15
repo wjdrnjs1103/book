@@ -49,5 +49,17 @@ public class BookProc implements BookProcInter {
     int cnt = this.bookDAO.delete(bookno);
     return cnt;
   }
+  
+  @Override
+  public int count_by_bookgrpno(int bookgrpno) {
+    int cnt = this.bookDAO.count_by_bookgrpno(bookgrpno);
+    return cnt;
+  }
+
+  @Override
+  public int delete_by_bookgrpno(int bookgrpno) {
+    int cnt = this.bookDAO.delete_by_bookgrpno(bookgrpno);
+    return cnt;
+  }
 
 }

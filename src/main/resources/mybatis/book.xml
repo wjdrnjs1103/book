@@ -60,5 +60,20 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     WHERE bookno = #{bookno}
   </delete> 
   
+    <!-- 특정 그룹에 속한 레코드 갯수 산출 -->
+  <select id="count_by_bookgrpno" resultType="int" parameterType="int">
+    SELECT COUNT(*) as cnt 
+    FROM book 
+    WHERE bookgrpno=#{bookgrpno}
+  </select>  
+  
+  <!-- categrpno가 같은 모든 레코드 삭제 -->
+  <delete id="delete_by_bookgrpno" parameterType="int">
+    DELETE FROM book
+    WHERE bookgrpno=#{bookgrpno}
+  </delete>
+  
+
+  
   
  </mapper> 

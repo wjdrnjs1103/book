@@ -10,14 +10,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     VALUES(bookgrp_seq.nextval, #{name}, #{seqno}, sysdate)
   </insert>
   
-   <!-- 
-  레코드 갯수 만큼 BookgrpVO 객체를 만들어 ArrayList에 저장하여 리턴,
-  List<BookgrpVO> list = new ArrayList<bookgrpVO>(); 
+  <!-- 
+  레코드 갯수 만큼 bookgrpVO 객체를 만들어 ArrayList에 저장하여 리턴,
+  List<BookgrpVO> list = new ArrayList<BookgrpVO>(); 
   -->
- <select id="list_bookgrpno_asc" resultType="dev.mvc.bookgrp.BookgrpVO">
+ <select id="list_seqno_asc" resultType="dev.mvc.bookgrp.BookgrpVO">
     SELECT  bookgrpno, name, seqno, rdate
     FROM bookgrp
-    ORDER BY bookgrpno ASC
+    ORDER BY seqno ASC
   </select>
   
   <!-- 조회, id: read, 입력: bookgrpno, 리턴: BookgrpVO -->
@@ -54,14 +54,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     WHERE bookgrpno=#{bookgrpno}
   </update>
   
-  <!-- 
-  레코드 갯수 만큼 CategrpVO 객체를 만들어 ArrayList에 저장하여 리턴,
-  List<BookgrpVO> list = new ArrayList<BookgrpVO>(); 
+     <!-- 
+  레코드 갯수 만큼 BookgrpVO 객체를 만들어 ArrayList에 저장하여 리턴,
+  List<BookgrpVO> list = new ArrayList<bookgrpVO>(); 
   -->
- <select id="list_seqno_asc" resultType="dev.mvc.bookgrp.BookgrpVO">
+ <select id="list_bookgrpno_asc" resultType="dev.mvc.bookgrp.BookgrpVO">
     SELECT  bookgrpno, name, seqno, rdate
     FROM bookgrp
-    ORDER BY seqno ASC
+    ORDER BY bookgrpno ASC
   </select>
+  
+
    
 </mapper> 

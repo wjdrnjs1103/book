@@ -210,4 +210,22 @@ public class BookCont {
     return mav;
   }
   
+  /**
+   * bookgrpno가 같은 모든 레코드 삭제
+   * 
+   * @param bookVO
+   * @return
+   */
+  @RequestMapping(value = "/book/delete_by_bookgrpno.do", method = RequestMethod.POST)
+  public ModelAndView delete_by_bookgrpno(int bookgrpno) {
+    ModelAndView mav = new ModelAndView();
+    int cnt = this.bookProc.delete_by_bookgrpno(bookgrpno);
+    
+    mav.addObject("bookgrpno", bookgrpno);
+
+    mav.setViewName("redirect:/book/list_by_bookgrpno.do"); // 새로고침 문제 해결, request 초기화
+    
+    return mav;
+  }
+  
 }

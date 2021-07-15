@@ -31,7 +31,7 @@ public interface BookDAOInter {
   
   /**
    * 수정 처리
-   * @param cateVO
+   * @param bookVO
    * @return
    */
   public int update(BookVO bookVO);
@@ -42,4 +42,18 @@ public interface BookDAOInter {
    * @return
    */
   public int delete(int bookno);
+  
+  /**
+   * 특정 그룹에 속한 레코드 갯수 산출
+   * @param bookgrpno
+   * @return
+   */
+  public int count_by_bookgrpno(int bookgrpno);
+  
+  /**
+   * bookgrpno가 같은 모든 레코드 삭제
+   * @param bookgrpno
+   * @return
+   */
+  public int delete_by_bookgrpno(int bookgrpno);
 }
