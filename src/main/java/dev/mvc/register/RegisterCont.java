@@ -358,7 +358,28 @@ public class RegisterCont {
     return json.toString(); 
   }
   
-  
+  /**
+   * Ajax 기반 회원 조회
+   * http://localhost:9091/register/read_ajax.do
+   * @param session
+   * @return
+   */
+  @RequestMapping(value="/register/read_ajax.do", method=RequestMethod.GET)
+  @ResponseBody
+  public String read_ajax(HttpSession session) {
+    int memberno = (int)session.getAttribute("memberno");
+    
+    RegisterVO registerVO = this.registerProc.read(memberno);
+    
+    JSONObject json = new JSONObject();
+    json.put("realname", registerVO.getMname());
+    json.put("phone", registerVO.getTel());
+    json.put("postcode", registerVO.getZipcode());
+    json.put("address", registerVO.getAddress1());
+    json.put("detaddress", registerVO.getAddress2());
+    
+    return json.toString();
+  }
   
 
 }

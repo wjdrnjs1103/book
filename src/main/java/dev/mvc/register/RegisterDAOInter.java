@@ -26,6 +26,13 @@ public interface RegisterDAOInter {
    */
   public RegisterVO readById(String id);
   
+  /** 추가
+   * memberno로 회원정보 조회
+   * @param memberno
+   * @return
+   */
+  public RegisterVO read(int memberno);
+  
   /**
    * 현재 패스워드 검사
    * @param map

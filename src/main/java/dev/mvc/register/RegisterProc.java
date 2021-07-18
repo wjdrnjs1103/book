@@ -38,6 +38,12 @@ public class RegisterProc implements RegisterProcInter {
   }
   
   @Override
+  public RegisterVO read(int memberno) {
+    RegisterVO registerVO = this.registerDAO.read(memberno);
+    return registerVO;
+  }  
+  
+  @Override
   public int passwd_check(HashMap<Object, Object> map) {
     int cnt = this.registerDAO.passwd_check(map);
     return cnt;
