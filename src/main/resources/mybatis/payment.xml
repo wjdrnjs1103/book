@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ 
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+<mapper namespace="dev.mvc.payment.PaymentDAOInter">
+
+  <!-- 결제 등록 -->
+  <!-- <insert id="create" parameterType="dev.mvc.payment.PaymentVO">
+    <selectKey keyProperty="paymentno" resultType="int" order="BEFORE">
+      SELECT payment_seq.nextval FROM dual
+    </selectKey>
+    INSERT INTO payment(paymentno, memberno, realname, phone, postcode, address, detaddress,
+                                paytype, paymoney, rdate)
+    VALUES(#{paymentno}, #{memberno}, #{realname}, #{phone}, #{postcode}, #{address}, #{detaddress}
+                #{paytype}, #{paymoney}, sysdate)
+  </insert> -->
+  
+  <!-- 주문 결재 등록 전 paymentno를 PaymentVO에 저장 -->
+  <insert id="create" parameterType="dev.mvc.payment.PaymentVO">
+    <selectKey keyProperty="paymentno" resultType="int" order="BEFORE">
+      SELECT payment_seq.nextval FROM dual
+    </selectKey>
+    INSERT INTO payment(paymentno, memberno, realname, phone, postcode, address, detaddress,
+                                paytype, paymoney, rdate)
+    VALUES(#{paymentno}, #{memberno}, #{realname}, #{phone}, #{postcode}, #{address}, #{detaddress}
+                #{paytype}, #{paymoney}, sysdate)
+  </insert>
+
+</mapper>

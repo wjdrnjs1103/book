@@ -1,0 +1,28 @@
+package dev.mvc.orders;
+
+import java.util.HashMap;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
+@Component("dev.mvc.orders.OrdersProc")
+public class OrdersProc implements OrdersProcInter {
+  
+  @Autowired
+  private OrdersDAOInter ordersDAO;
+
+  @Override
+  public int create(OrdersVO ordersVO) {
+    int cnt = this.ordersDAO.create(ordersVO);
+    return cnt;
+  }
+
+  @Override
+  public List<OrdersVO> list_by_memberno(HashMap<String, Object> map) {
+    List<OrdersVO> list = null;
+    list=this.ordersDAO.list_by_memberno(map);
+    return list;
+  }
+
+}

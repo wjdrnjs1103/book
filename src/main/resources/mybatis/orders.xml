@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ 
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="dev.mvc.orders.OrdersDAOInter">
+  <insert id="create" parameterType="dev.mvc.orders.OrdersVO">
+    INSERT INTO orders(ordersno, paymentno, memberno, productno, cnt, tot, states, rdate)
+    VALUES(orders_seq.nextval, #{paymentno}, #{memberno}, #{productno}, #{cnt}, #{tot}, #{states}, sysdate)
+  </insert>
+  
+  <select id="list_by_memberno" resultType="dev.mvc.orders.OrdersVO" parameterType="HashMap">
+    SELECT o.ordersno, o.paymentno, o.memberno, p.productno, p.title, p.price, p.thumb1,
+                o.cnt, o.tot, o.states, o.rdate
+    FROM orders o, product p
+    WHERE (o.productno = p.productno) AND ordersno=#{ordersno} AND o.memberno=#{memberno}
+    ORDER BY ordersno DESC
+  </select>
+
+</mapper>

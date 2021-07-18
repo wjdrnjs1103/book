@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ 
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+<mapper namespace = "dev.mvc.interested.InterestedDAOInter">
+  <!-- 관심 상품 등록 -->
+  <insert id="create" parameterType="dev.mvc.interested.InterestedVO">
+    INSERT INTO interested(interestedno, memberno, productno, sdate)
+    VALUES(interested_seq.nextval, 1, 2, sysdate)
+  </insert>
+  
+  <!-- 회원별 관심 상품 목록 출력 -->
+  <select id="list" resultType="dev.mvc.interested.InterestedVO" parameterType="int">
+    SELECT i.interestedno, p.productno, p.title, p.thumb1, p.price, i.memberno, i.sdate
+    FROM interested i, product p
+    WHERE (i.productno = p.productno) AND i.memberno=#{memberno}
+    ORDER BY interestedno ASC
+  </select>
+  
+  <!-- 삭제, 입력: PK, 리턴: 삭제된 갯수 int -->
+  <delete id="delete" parameterType="int">
+    DELETE FROM interested 
+    WHERE interestedno=#{interestedno}
+  </delete>
+
+</mapper>

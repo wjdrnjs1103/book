@@ -1,5 +1,7 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page import="dev.mvc.interested.InterestedVO" %>
+<%@ page import="dev.mvc.interested.InterestedProc" %>
 
 <DIV class='container_main'> 
   <%-- 화면 상단 메뉴 --%>
@@ -84,7 +86,7 @@
         
         
         <%-- 장바구니: 주경님 담당 개발~ --%>
-        <form class="d-flex">
+        <form class="d-flex" name="frm_interested" id="frm_interested" action="/interested/list.do">
           <c:choose>
             <c:when test="${sessionScope.id == null}"> <%-- 로그인 안 한 경 우 --%>
               <button class="btn btn-outline-dark" style="border: solid 1px;" type="submit">
@@ -99,7 +101,12 @@
                 <i class="bi-cart-fill me-1"></i>
                   Cart
                 <%-- 나중에 장바구니에 도서갯수 카운트해서 숫자뜨게 해주세요~ --%>
-                <span class="badge bg-dark text-white ms-1 rounded-pill">{}</span>
+                <% 
+                InterestedVO interestedVO = new InterestedVO();
+                int memberno = (int)session.getAttribute("memberno");
+                int cnt = interestedVO.getCnt();
+                %>
+                <span class="badge bg-dark text-white ms-1 rounded-pill"><%= interestedVO.getCnt() %></span>
               </button>
             </c:otherwise>
           </c:choose>
