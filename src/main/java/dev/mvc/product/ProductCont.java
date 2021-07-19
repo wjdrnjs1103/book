@@ -576,11 +576,7 @@ public class ProductCont {
       * @return
       */
      @RequestMapping(value = "/product/delete.do", method = RequestMethod.POST)
-     public ModelAndView delete(HttpServletRequest request,
-                                                int productno,
-                                                int now_page,
-                                                int bookno,
-                                                String word) {
+     public ModelAndView delete(HttpServletRequest request, int productno) {
        ModelAndView mav = new ModelAndView();
 
        // -------------------------------------------------------------------
@@ -607,31 +603,11 @@ public class ProductCont {
        // -------------------------------------------------------------------
        
        int cnt = this.productProc.delete(productno); // DBMS 삭제
-
-       if (cnt == 1) {
-         // -------------------------------------------------------------------------------------
-         // 마지막 페이지의 레코드 삭제시의 페이지 번호 -1 처리
-         HashMap<String, Object> map = new HashMap<String, Object>();
-         map.put("bookno", bookno);
-         map.put("word", word);
-         // 10번째 레코드를 삭제후
-         // 하나의 페이지가 3개의 레코드로 구성되는 경우 현재 9개의 레코드가 남아 있으면
-         // 페이지수를 4 -> 3으로 감소 시켜야함.
-         if (productProc.search_count(map) % Product.RECORD_PER_PAGE == 0) {
-           now_page = now_page - 1;
-           if (now_page < 1) {
-             now_page = 1; // 시작 페이지
-           }
-         }
-         // -------------------------------------------------------------------------------------
-       }
-       // System.out.println("-> delete now_page: " + now_page);
-       mav.addObject("now_page", now_page);
-       mav.addObject("bookno", bookno);
        
        mav.setViewName("redirect:/product/list_by_bookno_search_paging.do"); 
 
        return mav; // forward
      }   
+     
 
 }
