@@ -95,5 +95,12 @@ public class RegisterProc implements RegisterProcInter {
     
     return sw;
   }  
+  
+  // 아이디 조회
+  @Override
+  public RegisterVO read(int memberno) {
+    RegisterVO registerVO = this.registerDAO.read(memberno);
+    return registerVO;
+  }  
 
 }

@@ -59,5 +59,12 @@ public interface RegisterProcInter {
    * @return true: 관리자
    */
   public boolean isAdmin(HttpSession session);   
+  
+  /** 추가
+   * memberno로 회원정보 조회
+   * @param memberno
+   * @return
+   */
+  public RegisterVO read(int memberno);
 
 }
