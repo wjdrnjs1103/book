@@ -223,6 +223,11 @@
 <body>
 <jsp:include page="../menu/top.jsp" />
  
+ 
+ <div class="py-5">
+
+    <DIV class='container2'>
+    
 <DIV class='title_line'>전공도서 그룹</DIV>
 
 <DIV class='content_body'>
@@ -333,6 +338,8 @@
     </tbody>
    
   </TABLE>
+</DIV>
+</DIV>
 </DIV>
 
  

@@ -86,7 +86,8 @@
       <TR>
         <TD class="td_bs">${bookVO.bookno }</TD>
         <TD class="td_bs">${bookVO.bookgrpno }</TD>
-        <TD class="td_bs_left">${bookVO.name }</TD>
+        <TD class="td_bs_left">
+        <A href="../product/list_by_bookno_search_paging.do?bookno=${bookno }&now_page=1">${bookVO.name }</A>
         <TD class="td_bs">${bookVO.rdate.substring(0, 10) }</TD>
         <TD class="td_bs">${bookVO.cnt }</TD>
         <TD class="td_bs">
