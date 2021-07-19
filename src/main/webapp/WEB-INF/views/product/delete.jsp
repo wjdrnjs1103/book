@@ -3,7 +3,6 @@
  
 <c:set var="productno" value="${productVO.productno }" />
 <c:set var="title" value="${productVO.title }" />
-<c:set var="price" value="${productVO.price }" />
  
 <!DOCTYPE html> 
 <html lang="ko"> 
@@ -54,20 +53,17 @@
     <span class='menu_divide' >│</span>
     <A href="javascript:location.reload();">새로고침</A>
     <span class='menu_divide' >│</span>
-    <A href="./list_by_bookno_search_paging.do?bookno=${bookVO.bookno }&now_page=${param.now_page}&word=${param.word }">기본 목록형</A>    
+    <A href="./list_by_bookno_search_paging.do?bookno=${bookVO.bookno }">기본 목록형</A>    
     <span class='menu_divide' >│</span>
     <A href="./list_by_bookno_grid.do?bookno=${bookVO.bookno }">갤러리형</A>
     <span class='menu_divide' >│</span>
-    <A href="./update_text.do?productno=${productno}&now_page=${param.now_page}">수정</A>
+    <A href="./update_text.do?productno=${productno}">수정</A>
     <span class='menu_divide' >│</span>
-    <A href="./update_file.do?productno=${productno}&now_page=${param.now_page}">파일 수정</A>  
-    <span class='menu_divide' >│</span>
-    <A href="./delete.do?productno=${productno}&now_page=${param.now_page}">삭제</A>  
+    <A href="./update_text.do?productno=${productno}">파일 수정</A>  
   </ASIDE> 
   
     <DIV style="text-align: right; clear: both;">  
     <form name='frm' id='frm' method='get' action='./list_by_bookno_search.do'>
-      <input type="hidden" name="${ _csrf.parameterName }" value="${ _csrf.token }">
       <input type='hidden' name='bookno' value='${bookVO.bookno }'>
       <c:choose>
         <c:when test="${param.word != '' }"> <%-- 검색하는 경우 --%>
@@ -86,41 +82,45 @@
   </DIV>
   
   <DIV class='menu_line'></DIV>
-  
 
   <fieldset class="fieldset_basic">
     <ul>
       <li class="li_none">
-        <c:set var="file1saved" value="${productVO.file1saved.toLowerCase() }" />
-        <c:if test="${file1saved.endsWith('jpg') || file1saved.endsWith('png') || file1saved.endsWith('gif')}">
-          <DIV style="width: 50%; float: left; margin-right: 10px;">
-            <IMG src="/product/storage/${productVO.file1saved }" style="width: 100%;">
-          </DIV>
-          <DIV style="width: 47%; height: 260px; float: left; margin-right: 10px;">
-            <span style="font-size: 1.5em; font-weight: bold;">${title }</span><br>
-            <%-- <del><fmt:formatNumber value="${price}" pattern="##,###" /> 원</del><br>                                                --%>
-            <span style="font-size: 2.5em;">가격: ${productVO.price}원</span>
-            <form>
-            <button type='button' onclick="" class="btn btn-warning">메세지</button>
-            <button type='button' onclick="" class="btn btn-danger">관심상품</button>
+        <DIV style='text-align: center; width: 50%; float: left;'>
+          <c:set var="file1saved" value="${productVO.file1saved.toLowerCase() }" />
+          <c:set var="thumb1" value="${productVO.thumb1 }" />
+          <c:choose>
+            <c:when test="${thumb1.endsWith('jpg') || thumb1.endsWith('png') || thumb1.endsWith('gif')}">
+              <IMG src="/product/storage/${file1saved }" style='width: 70%;'> 
+            </c:when>
+            <c:otherwise> <!-- 이미지가 아닌 일반 파일 -->
+              첨부 파일: ${file1}
+            </c:otherwise>
+          </c:choose>
+        </DIV>
 
-            <span id="span_animation"></span>
-            </form>
-          </DIV> 
-        </c:if> 
-        <DIV>${productVO.content }</DIV>
-      </li>
-      <li class="li_none">
-        <DIV style='text-decoration: none;'>
-          검색어(키워드): ${productVO.word }
+        <DIV style='text-align: left; width: 47%; float: left;'>
+          <span style='font-size: 1.5em;'>${title}</span>
+          <br>
+          <FORM name='frm' method='POST' action='./delete.do'>
+              <input type='hidden' name='productno' value='${param.productno}'>
+              
+              <DIV id='panel1' style="width: 40%; text-align: center; margin: 10px auto;"></DIV>
+                    
+              <div class="form-group">   
+                <div class="col-md-12" style='text-align: center; margin: 10px auto;'>
+                  삭제 되는글: ${productVO.title }<br><br>
+                  삭제하시겠습니까? 삭제하시면 복구 할 수 없습니다.<br><br>
+                 
+                  <button type = "submit" class="btn btn-info">삭제 진행</button>
+                  <button type = "button" onclick = "history.back()" class="btn btn-info">취소</button>
+                </div>
+              </div>   
+          </FORM>
         </DIV>
       </li>
       <li class="li_none">
-        <DIV>
-          <c:if test="${productVO.file1.trim().length() > 0 }">
-            첨부 파일: <A href='/download?dir=/product/storage&filename=${productVO.file1saved}&downname=${productVO.file1}'>${productVO.file1}</A> (${productVO.size1_label})  
-          </c:if>
-        </DIV>
+
       </li>   
     </ul>
   </fieldset>
@@ -133,4 +133,3 @@
 </body>
  
 </html>
-

@@ -109,6 +109,8 @@
     </tbody>
   </table>
 </DIV>
+</DIV>
+</DIV>
 
  
 <jsp:include page="../menu/bottom.jsp" />

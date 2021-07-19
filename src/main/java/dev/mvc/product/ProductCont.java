@@ -354,7 +354,7 @@ public class ProductCont {
        return mav; // forward
      }
      
-  // http://localhost:9091/contents/read.do
+  // http://localhost:9091/product/read.do
      /**
       * 조회
       * @return
@@ -408,5 +408,230 @@ public class ProductCont {
         */       
        return mav;
      }
+     
+     /**
+      * 수정 폼
+      * http://localhost:9091/product/update_text.do?productno=1
+      * 
+      * @return
+      */
+     @RequestMapping(value = "/product/update_text.do", method = RequestMethod.GET)
+     public ModelAndView update_text(int productno) {
+       ModelAndView mav = new ModelAndView();
+       
+       ProductVO productVO = this.productProc.read_update_text(productno);
+       BookVO bookVO = this.bookProc.read(productVO.getBookno());
+       BookgrpVO bookgrpVO = this.bookgrpProc.read(bookVO.getBookgrpno());
+       
+       mav.addObject("productVO", productVO);
+       mav.addObject("bookVO", bookVO);
+       mav.addObject("bookgrpVO", bookgrpVO);
+       
+       mav.setViewName("/product/update_text"); // /WEB-INF/views/product/update_text.jsp
+       // String content = "장소:\n인원:\n준비물:\n비용:\n기타:\n";
+       // mav.addObject("content", content);
+
+       return mav; // forward
+     }
+
+     /**
+      * 수정 처리
+      * http://localhost:9091/product/update_text.do?productno=1
+      * 
+      * @return
+      */
+     @RequestMapping(value = "/product/update_text.do", method = RequestMethod.POST)
+     public ModelAndView update_text(ProductVO productVO) {
+       ModelAndView mav = new ModelAndView();
+       
+       int cnt = this.productProc.update_text(productVO); // 수정 처리
+       
+       mav.addObject("productno", productVO.getProductno());
+       
+       mav.setViewName("redirect:/product/read.do"); 
+
+       return mav; // forward
+     }
+     
+     /**
+      * 파일 수정 폼
+      * http://localhost:9091/product/update_file.do?productno=1
+      * 
+      * @return
+      */
+     @RequestMapping(value = "/product/update_file.do", method = RequestMethod.GET)
+     public ModelAndView update_file(int productno) {
+       ModelAndView mav = new ModelAndView();
+       
+       ProductVO productVO = this.productProc.read(productno);
+       BookVO bookVO = this.bookProc.read(productVO.getBookno());
+       BookgrpVO bookgrpVO = this.bookgrpProc.read(bookVO.getBookgrpno());
+       
+       mav.addObject("productVO", productVO);
+       mav.addObject("bookVO", bookVO);
+       mav.addObject("bookgrpVO", bookgrpVO);
+       
+       mav.setViewName("/product/update_file"); // /WEB-INF/views/product/update_file.jsp
+
+       return mav; // forward
+     }
+
+     /**
+      * 파일 수정 처리 http://localhost:9091/product/update_file.do
+      * 
+      * @return
+      */
+     @RequestMapping(value = "/product/update_file.do", method = RequestMethod.POST)
+     public ModelAndView update_file(HttpServletRequest request, ProductVO productVO) {
+       ModelAndView mav = new ModelAndView();
+
+       // -------------------------------------------------------------------
+       // 파일 삭제 코드 시작
+       // -------------------------------------------------------------------
+       // 삭제할 파일 정보를 읽어옴.
+       ProductVO vo = productProc.read(productVO.getProductno());
+//       System.out.println("productno: " + vo.getproductno());
+//       System.out.println("file1: " + vo.getFile1());
+       
+       String file1saved = vo.getFile1saved();
+       String thumb1 = vo.getThumb1();
+       long size1 = 0;
+       boolean sw = false;
+       
+       // 완성된 경로 F:/ai8/ws_frame/resort_v1sbm3a/src/main/resources/static/product/storage/
+       String upDir =  System.getProperty("user.dir") + "/src/main/resources/static/product/storage/"; // 절대 경로
+
+       sw = Tool.deleteFile(upDir, file1saved);  // Folder에서 1건의 파일 삭제
+       sw = Tool.deleteFile(upDir, thumb1);     // Folder에서 1건의 파일 삭제
+       // System.out.println("sw: " + sw);
+       // -------------------------------------------------------------------
+       // 파일 삭제 종료 시작
+       // -------------------------------------------------------------------
+       
+       // -------------------------------------------------------------------
+       // 파일 전송 코드 시작
+       // -------------------------------------------------------------------
+       String file1 = "";          // 원본 파일명 image
+
+       // 완성된 경로 F:/ai8/ws_frame/resort_v1sbm3a/src/main/resources/static/product/storage/
+       // String upDir =  System.getProperty("user.dir") + "/src/main/resources/static/product/storage/"; // 절대 경로
+       
+       // 전송 파일이 없어도 fnamesMF 객체가 생성됨.
+       // <input type='file' class="form-control" name='file1MF' id='file1MF' 
+       //           value='' placeholder="파일 선택">
+       MultipartFile mf = productVO.getFile1MF();
+       
+       file1 = mf.getOriginalFilename(); // 원본 파일명
+       size1 = mf.getSize();  // 파일 크기
+       
+       if (size1 > 0) { // 파일 크기 체크
+         // 파일 저장 후 업로드된 파일명이 리턴됨, spring.jsp, spring_1.jpg...
+         file1saved = Upload.saveFileSpring(mf, upDir); 
+         
+         if (Tool.isImage(file1saved)) { // 이미지인지 검사
+           // thumb 이미지 생성후 파일명 리턴됨, width: 250, height: 200
+           thumb1 = Tool.preview(upDir, file1saved, 250, 200); 
+         }
+         
+       }    
+       
+       productVO.setFile1(file1);
+       productVO.setFile1saved(file1saved);
+       productVO.setThumb1(thumb1);
+       productVO.setSize1(size1);
+       // -------------------------------------------------------------------
+       // 파일 전송 코드 종료
+       // -------------------------------------------------------------------
+       
+       // Call By Reference: 메모리 공유, Hashcode 전달
+       int cnt = this.productProc.update_file(productVO);
+       
+       mav.addObject("productno", productVO.getProductno());
+       
+       mav.setViewName("redirect:/product/read.do"); 
+
+       return mav; // forward
+     }
+     
+     /**
+      * 삭제 폼
+      * @param productno
+      * @return
+      */
+     @RequestMapping(value="/product/delete.do", method=RequestMethod.GET )
+     public ModelAndView delete(int productno) { 
+       ModelAndView mav = new  ModelAndView();
+       
+       // 삭제할 정보를 조회하여 확인
+       ProductVO productVO = this.productProc.read(productno);
+       mav.addObject("productVO", productVO);     
+       mav.setViewName("/product/delete");  // product/delete.jsp
+       
+       return mav; 
+     }
+     
+     /**
+      * 삭제 처리 http://localhost:9091/product/delete.do
+      * 
+      * @return
+      */
+     @RequestMapping(value = "/product/delete.do", method = RequestMethod.POST)
+     public ModelAndView delete(HttpServletRequest request,
+                                                int productno,
+                                                int now_page,
+                                                int bookno,
+                                                String word) {
+       ModelAndView mav = new ModelAndView();
+
+       // -------------------------------------------------------------------
+       // 파일 삭제 코드 시작
+       // -------------------------------------------------------------------
+       // 삭제할 파일 정보를 읽어옴.
+       ProductVO vo = productProc.read(productno);
+//       System.out.println("productno: " + vo.getproductno());
+//       System.out.println("file1: " + vo.getFile1());
+       
+       String file1saved = vo.getFile1saved();
+       String thumb1 = vo.getThumb1();
+       long size1 = 0;
+       boolean sw = false;
+       
+       // 완성된 경로 F:/ai8/ws_frame/resort_v1sbm3a/src/main/resources/static/product/storage/
+       String upDir =  System.getProperty("user.dir") + "/src/main/resources/static/product/storage/"; // 절대 경로
+
+       sw = Tool.deleteFile(upDir, file1saved);  // Folder에서 1건의 파일 삭제
+       sw = Tool.deleteFile(upDir, thumb1);     // Folder에서 1건의 파일 삭제
+       // System.out.println("sw: " + sw);
+       // -------------------------------------------------------------------
+       // 파일 삭제 종료 시작
+       // -------------------------------------------------------------------
+       
+       int cnt = this.productProc.delete(productno); // DBMS 삭제
+
+       if (cnt == 1) {
+         // -------------------------------------------------------------------------------------
+         // 마지막 페이지의 레코드 삭제시의 페이지 번호 -1 처리
+         HashMap<String, Object> map = new HashMap<String, Object>();
+         map.put("bookno", bookno);
+         map.put("word", word);
+         // 10번째 레코드를 삭제후
+         // 하나의 페이지가 3개의 레코드로 구성되는 경우 현재 9개의 레코드가 남아 있으면
+         // 페이지수를 4 -> 3으로 감소 시켜야함.
+         if (productProc.search_count(map) % Product.RECORD_PER_PAGE == 0) {
+           now_page = now_page - 1;
+           if (now_page < 1) {
+             now_page = 1; // 시작 페이지
+           }
+         }
+         // -------------------------------------------------------------------------------------
+       }
+       // System.out.println("-> delete now_page: " + now_page);
+       mav.addObject("now_page", now_page);
+       mav.addObject("bookno", bookno);
+       
+       mav.setViewName("redirect:/product/list_by_bookno_search_paging.do"); 
+
+       return mav; // forward
+     }   
 
 }

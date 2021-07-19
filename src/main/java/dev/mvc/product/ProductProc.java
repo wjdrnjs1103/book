@@ -213,5 +213,27 @@ import dev.mvc.tool.Tool;
       return cnt;
     }
     
-     
+    @Override
+    public ProductVO read_update_text(int productno) {
+      ProductVO productVO = this.productDAO.read(productno);
+      return productVO;
+    }
+    @Override
+    public int update_text(ProductVO productVO) {
+      int cnt = this.productDAO.update_text(productVO);
+      return cnt;
+    }
+    
+    @Override
+    public int update_file(ProductVO productVO) {
+      int cnt = this.productDAO.update_file(productVO);
+      return cnt;
+    }
+    
+    @Override
+    public int delete(int productno) {
+      int cnt = this.productDAO.delete(productno);
+      return cnt;
+    }
+    
 }

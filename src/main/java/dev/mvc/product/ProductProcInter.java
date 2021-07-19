@@ -63,5 +63,33 @@ public interface ProductProcInter {
    */
   public int product_update(ProductVO productVO);
  
+  /**
+   * 텍스트 수정용 조회
+   * @param contentsno
+   * @return
+   */
+  public ProductVO read_update_text(int contentsno);
 
+  /**
+   * 텍스트 정보 수정
+   * @param contentsVO
+   * @return
+   */
+  public int update_text(ProductVO productVO);
+  
+  /**
+   * 파일 정보 수정
+   * @param productVO
+   * @return
+   */
+  public int update_file(ProductVO productVO);
+  
+  /**
+   * 삭제
+   * @param productno
+   * @return
+   */
+  public int delete(int productno);
+  
+  
 }

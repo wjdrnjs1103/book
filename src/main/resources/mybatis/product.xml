@@ -111,6 +111,25 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     SET price=#{price}
     WHERE productno = #{productno}
   </update> 
+  
+  <!-- 텍스트 수정 -->
+  <update id="update_text" parameterType="dev.mvc.product.ProductVO">
+    UPDATE product
+    SET title=#{title}, content=#{content},  word=#{word}, price=#{price}
+    WHERE productno = #{productno}
+  </update>
+  
+  <!-- 파일 수정 -->
+  <update id="update_file" parameterType="dev.mvc.product.ProductVO">
+    UPDATE product
+    SET file1=#{file1}, file1saved=#{file1saved}, thumb1=#{thumb1}, size1=#{size1}
+    WHERE productno = #{productno}
+  </update>
+  
+  <delete id="delete" parameterType="int">
+    DELETE FROM product
+    WHERE productno=#{productno}
+  </delete>
 
          
 </mapper> 

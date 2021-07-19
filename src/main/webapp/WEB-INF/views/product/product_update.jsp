@@ -72,6 +72,8 @@
   
   </FORM>
 </DIV>
+</DIV>
+</DIV>
  
 <jsp:include page="../menu/bottom.jsp" flush='false' />
 </body>
