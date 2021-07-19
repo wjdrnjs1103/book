@@ -59,7 +59,7 @@
               <li><a class="dropdown-item" href="#!">구입 목록</a></li>
               <li><a class="dropdown-item" href="#!">매입 목록</a></li>
               <li><a class="dropdown-item" href="#!">리뷰</a></li>
-              <li><a class="dropdown-item" href="#!">쪽지</a></li>
+              <li><a class="dropdown-item" href="/message/list.do">쪽지</a></li>
             </ul>
           </li>
      
@@ -95,7 +95,10 @@
               </button>
             </c:when>
             <c:otherwise> <%-- 로그인 한 경 우 --%>
-              <button class="btn btn-outline-dark" style="border: solid 1px; margin-right:5px;" type="submit">${sessionScope.id }</button> 
+              <button class="btn btn-outline-dark" style="border: solid 1px; margin-right:5px;" type="submit">
+                ${sessionScope.id }
+                <span class="badge bg-dark text-white ms-1 rounded-pill">0</span>
+              </button> 
               <button class="btn btn-outline-dark" style="border: solid 1px;" type="submit">
                 <i class="bi-cart-fill me-1"></i>
                   Cart
