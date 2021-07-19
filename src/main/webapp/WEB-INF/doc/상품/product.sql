@@ -1,7 +1,7 @@
 /**********************************/
 /* Table Name: 상품 */
 /**********************************/
-DROP TABLE product;
+DROP TABLE product CASCADE CONSTRAINTS;
 CREATE TABLE product(
 		productno                     		NUMBER(10)		 NOT NULL		 PRIMARY KEY,
 		bookno                        		NUMBER(10)		 NULL ,
@@ -44,10 +44,12 @@ CREATE SEQUENCE product_seq
   NOCYCLE;                   -- 다시 1부터 생성되는 것을 방지
   
 INSERT INTO product(productno, bookno, memberno, title, content, cnt, word, rdate, file1, file1saved, thumb1, size1, price)
-VALUES(product_seq.nextval, 1, 1, '스프링부트', '출판사:RubyPaper/상태좋음', 0, '스프링', sysdate, 'spring.jpg', 'spring_1.jpg', 'spring_t.jpg', 1000, 25000); 
+VALUES(product_seq.nextval, 1, 1, '스프링부트', '출판사:RubyPaper/상태좋음', 1, '스프링', sysdate, 'spring.jpg', 'spring_1.jpg', 'spring_t.jpg', 1000, 25000); 
 
 INSERT INTO product(productno, bookno, memberno, title, content, cnt, word, rdate, file1, file1saved, thumb1, size1, price)
-VALUES(product_seq.nextval, 1, 1, '자바프로그래밍', '출판사:한빛/상태보통', 0, '자바', sysdate, 'java.jpg', 'java_1.jpg', 'java_t.jpg', 1000, 19000);
+VALUES(product_seq.nextval, 1, 1, '자바프로그래밍', '출판사:한빛/상태보통', 1, '자바', sysdate, 'java.jpg', 'java_1.jpg', 'java_t.jpg', 1000, 19000);
+
+commit;
 
 -- 목록
 SELECT productno, bookno, memberno, title, content, cnt, word, rdate, file1, file1saved, thumb1, size1, price
