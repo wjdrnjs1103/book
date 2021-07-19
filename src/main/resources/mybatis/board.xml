@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ 
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="dev.mvc.board.BoardDAOInter"> 
+
+  <insert id="create" parameterType="dev.mvc.board.BoardVO">
+    <selectKey keyProperty="boardno" resultType="int" order="BEFORE">
+      SELECT board_seq.nextval FROM dual
+    </selectKey>
+      INSERT INTO board(boardno, memberno, commgrpno, title, bcon, brdate, budate, word, file1, thumb, bsize, bcnt, writer)
+      VALUES(board_seq.nextval, #{memberno}, #{commgrpno}, #{title}, #{bcon}, sysdate, sysdate, #{word}, #{file1}, #{thumb}, #{bsize}, #{bcnt}, #{writer})
+  </insert>
+  
+  <select id="list_by_commgrpno" parameterType="int" resultType="dev.mvc.board.BoardVO">
+    SELECT boardno, memberno, commgrpno, title, bcon, brdate, budate, word, file1, thumb, bsize, bcnt, writer
+    FROM board
+    WHERE commgrpno=#{commgrpno}
+    ORDER BY boardno DESC
+  </select> 
+  
+  <!-- 커뮤니티 그룹별 검색 목록 -->
+  <select id="list_by_commgrpno_search" resultType="dev.mvc.board.BoardVO" 
+             parameterType="HashMap">
+    SELECT boardno, commgrpno, title, bcon, brdate, budate, word, file1, thumb, bsize, bcnt, writer
+    FROM board
+    <choose>
+      <when test="word == null or word == ''"> <!-- 검색하지 않는 경우 -->
+        WHERE commgrpno=#{commgrpno}
+      </when>
+      <otherwise> <!-- 검색하는 경우 -->
+        WHERE commgrpno=#{commgrpno} AND ( title LIKE '%' || #{word} || '%' 
+                                                       OR bcon LIKE '%' || #{word} || '%' 
+                                                       OR word LIKE '%' || #{word} || '%' 
+                                                      )
+      </otherwise>
+    </choose>
+    ORDER BY boardno DESC   
+  </select>
+   
+  <!-- 커뮤니티 그룹별 검색 레코드 갯수 -->
+  <select id="search_count" resultType="int" parameterType="HashMap">
+    SELECT COUNT(*) as cnt
+    FROM board
+    <choose>
+      <when test="word == null or word == ''"> <!-- 검색하지 않는 경우의 레코드 갯수 -->
+        WHERE commgrpno=#{commgrpno}
+      </when>
+      <otherwise> <!-- 검색하는 경우의 레코드 갯수 -->
+        WHERE commgrpno=#{commgrpno} AND (title LIKE '%' || #{word} || '%' 
+                                                       OR bcon LIKE '%' || #{word} || '%'   
+                                                       OR word LIKE '%' || #{word} || '%'  )
+      </otherwise>
+    </choose>
+  </select>
+  
+  <!-- 커뮤니티 그룹별 검색 목록 + 페이징 + 메인 이미지 -->   
+  <select id="list_by_commgrpno_search_paging" 
+             resultType="dev.mvc.board.BoardVO" parameterType="HashMap">
+   SELECT boardno, commgrpno, title, bcon, brdate, budate, word, file1, thumb, bsize, bcnt, writer r
+   FROM (
+              SELECT boardno, commgrpno, title, bcon, brdate, budate, word, file1, thumb, bsize, bcnt, writer, rownum as r
+              FROM (
+                        SELECT boardno, commgrpno, title, bcon, brdate, budate, word, file1, thumb, bsize, bcnt, writer
+                        FROM board
+                        <choose>
+                          <when test="word == null or word == ''"> <!-- 검색하지 않는 경우 -->
+                             WHERE commgrpno=#{commgrpno}
+                          </when>
+                          <otherwise> <!-- 검색하는 경우의 레코드 갯수 -->
+                            WHERE commgrpno=#{commgrpno} AND (title LIKE '%' || #{word} || '%' 
+                                                                           OR bcon LIKE '%' || #{word} || '%'   
+                                                                           OR word LIKE '%' || #{word} || '%'  )
+                          </otherwise>
+                        </choose>
+                        ORDER BY boardno DESC
+               )
+    )
+    WHERE <![CDATA[ r >= #{start_num} AND r <= #{end_num} ]]>
+    <!--  1 page: WHERE r >= 1 AND r <= 10; 
+          2 page: WHERE r >= 11 AND r <= 20;
+          3 page: WHERE r >= 21 AND r <= 30; -->
+  </select>
+  
+   <!-- 공지사항 그룹별 검색 목록 + 페이징 + 메인 이미지 -->   
+  <select id="list_by_commgrpno_notice_search_paging" 
+             resultType="dev.mvc.board.BoardVO" parameterType="HashMap">
+   SELECT boardno, commgrpno, title, bcon, brdate, budate, word, file1, thumb, bsize, bcnt, writer r
+   FROM (
+              SELECT boardno, commgrpno, title, bcon, brdate, budate, word, file1, thumb, bsize, bcnt, writer, rownum as r
+              FROM (
+                        SELECT boardno, commgrpno, title, bcon, brdate, budate, word, file1, thumb, bsize, bcnt, writer
+                        FROM board
+                        <choose>
+                          <when test="word == null or word == ''"> <!-- 검색하지 않는 경우 -->
+                             WHERE commgrpno=#{commgrpno}
+                          </when>
+                          <otherwise> <!-- 검색하는 경우의 레코드 갯수 -->
+                            WHERE commgrpno=#{commgrpno} AND (title LIKE '%' || #{word} || '%' 
+                                                                           OR bcon LIKE '%' || #{word} || '%'   
+                                                                           OR word LIKE '%' || #{word} || '%'  )
+                          </otherwise>
+                        </choose>
+                        ORDER BY boardno DESC
+               )
+    )
+    WHERE <![CDATA[ r >= #{start_num} AND r <= #{end_num} ]]>
+    <!--  1 page: WHERE r >= 1 AND r <= 10; 
+         2 page: WHERE r >= 11 AND r <= 20;
+         3 page: WHERE r >= 21 AND r <= 30; -->
+     
+  </select>
+  
+  <!-- QnA 그룹별 검색 목록 + 페이징 + 메인 이미지 -->   
+  <select id="list_by_commgrpno_qna_search_paging" 
+             resultType="dev.mvc.board.BoardVO" parameterType="HashMap">
+   SELECT boardno, commgrpno, title, bcon, brdate, budate, word, file1, thumb, bsize, bcnt, writer r
+   FROM (
+              SELECT boardno, commgrpno, title, bcon, brdate, budate, word, file1, thumb, bsize, bcnt, writer, rownum as r
+              FROM (
+                        SELECT boardno, commgrpno, title, bcon, brdate, budate, word, file1, thumb, bsize, bcnt, writer
+                        FROM board
+                        <choose>
+                          <when test="word == null or word == ''"> <!-- 검색하지 않는 경우 -->
+                             WHERE commgrpno=#{commgrpno}
+                          </when>
+                          <otherwise> <!-- 검색하는 경우의 레코드 갯수 -->
+                            WHERE commgrpno=#{commgrpno} AND (title LIKE '%' || #{word} || '%' 
+                                                                           OR bcon LIKE '%' || #{word} || '%'   
+                                                                           OR word LIKE '%' || #{word} || '%'  )
+                          </otherwise>
+                        </choose>
+                        ORDER BY boardno DESC
+               )
+    )
+    WHERE <![CDATA[ r >= #{start_num} AND r <= #{end_num} ]]>
+    <!--  1 page: WHERE r >= 1 AND r <= 10; 
+         2 page: WHERE r >= 11 AND r <= 20;
+         3 page: WHERE r >= 21 AND r <= 30; -->
+     
+  </select>
+  
+  <!-- Commgrp + Board join, 연결 목록 -->
+  <select id="list_all_join" resultType="dev.mvc.board.Commgrp_BoardVO">
+    SELECT r.commgrpno as r_commgrpno, r.name as r_name,
+           c.boardno, c.commgrpno, c.title, c.bcon, c.brdate, c.budate, c.word, c.file1, c.thumb, c.bsize, c.bcnt, c.writer
+    FROM commgrp r, board c
+    WHERE r.commgrpno = c.commgrpno
+    ORDER BY boardno DESC
+  </select>
+   
+  <!-- Commgrp + Board join 연결, commgrp 선택 목록, Commgrp_BoardVO -->
+  <select id="list_by_commgrpno_join" resultType="dev.mvc.board.Commgrp_BoardVO">
+    SELECT r.commgrpno as r_commgrpno, r.name as r_name,
+           c.boardno, c.commgrpno, c.title, c.bcon, c.brdate, c.budate, c.word, c.file1, c.thumb, c.bsize, c.bcnt, c.writer
+    FROM commgrp r, board c
+    WHERE r.commgrpno = r.commgrpno AND r.commgrpno = c.commgrpno
+    ORDER BY c.boardno DESC
+  </select>
+  
+  <select id="list_by_commgrpno_grid" parameterType="int" resultType="dev.mvc.board.BoardVO">
+    SELECT boardno, commgrpno, title, bcon, brdate, budate, word, file1, thumb, bsize, bcnt, writer
+    FROM board
+    WHERE commgrpno=#{commgrpno}
+    ORDER BY boardno DESC
+  </select> 
+  
+  
+  <select id="list_by_commgrpno_grid_paging" 
+             resultType="dev.mvc.board.BoardVO" parameterType="HashMap">
+    SELECT boardno, commgrpno, title, bcon, brdate, budate, word, file1, thumb, bsize, bcnt, writer r
+   FROM (
+              SELECT boardno, commgrpno, title, bcon, brdate, budate, word, file1, thumb, bsize, bcnt, writer, rownum as r
+              FROM (
+                        SELECT boardno, commgrpno, title, bcon, brdate, budate, word, file1, thumb, bsize, bcnt, writer
+                        FROM board
+                        WHERE commgrpno=#{commgrpno}
+                        ORDER BY boardno DESC
+                   )
+    )
+    WHERE <![CDATA[ r >= #{start_num} AND r <= #{end_num} ]]>
+  </select>
+  
+  <!-- 일반적인 조회 -->
+  <select id="read" resultType="dev.mvc.board.BoardVO" parameterType="int">
+    SELECT boardno, commgrpno, title, bcon, brdate, budate, word, file1, thumb, bsize, bcnt, writer
+    FROM board
+    WHERE boardno = #{boardno}
+  </select>
+  
+  <!-- 게시글 수정 및 파일 수정 -->
+  <update id="update" parameterType="dev.mvc.board.BoardVO">
+    UPDATE board
+    SET title=#{title}, bcon=#{bcon}, word=#{word}, budate=sysdate, file1=#{file1}, thumb=#{thumb}, bsize=#{bsize}
+    WHERE boardno = #{boardno}
+  </update>
+  
+  <!-- 삭제 -->
+  <delete id="delete" parameterType="int">
+    DELETE FROM board
+    WHERE boardno=#{boardno}
+  </delete>
+  
+</mapper>
