@@ -101,7 +101,7 @@
             <%-- <del><fmt:formatNumber value="${price}" pattern="##,###" /> 원</del><br>                                                --%>
             <span style="font-size: 2.5em;">가격: ${productVO.price}원</span>
             <form>
-            <button type='button' onclick="" class="btn btn-warning">메세지</button>
+            <button type='button' onclick="location.href='/message/create.do?productno=${productno }'" class="btn btn-warning">메세지</button>
             <button type='button' onclick="" class="btn btn-danger">관심상품</button>
 
             <span id="span_animation"></span>

@@ -2,6 +2,7 @@ package dev.mvc.register;
 
 import java.io.Console;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.Cookie;
@@ -21,6 +22,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import dev.mvc.tool.BCrypt;
 import dev.mvc.tool.SHA256;
+import nation.web.tool.AES256Util;
 
 @Controller
 public class RegisterCont {
@@ -88,13 +90,13 @@ public class RegisterCont {
    * @return
    */
   @RequestMapping(value = "/register/create.do", method = RequestMethod.POST)
-  public ModelAndView create(RegisterVO registerVO) {
+  public ModelAndView create(RegisterVO registerVO) throws Exception {
     ModelAndView mav = new ModelAndView();
     
     // 1. SHA256 을 활용한 비밀번호 해쉬암호화(단방향)
     // 같은 비밀번호를 암호화 하였을때 동일한 해쉬코드 생성
-    SHA256 sha = new SHA256();
-    String passwd = sha.getInstance(registerVO.getPasswd());
+    // SHA256 sha = new SHA256();
+    // String passwd = sha.getInstance(registerVO.getPasswd());
     
     // 2. BCrypt 를 활용한 비밀번호 해쉬암호화(단방향) 
     // ★ 같은 비밀번호를 암호화해도 매번 다른 해쉬코드가 생성되어서 더 안전하지만
@@ -102,7 +104,13 @@ public class RegisterCont {
     // String passwd = registerVO.getPasswd();
     //String bcPass = BCrypt.hashpw(passwd, BCrypt.gensalt());
     
-    registerVO.setPasswd(passwd);  // 암호화된 비밀번호 할당
+    // 3. AES256 를 활용한 비밀번호 해쉬암호화(양방향)
+    AES256Util aes256 = new AES256Util();
+    
+    String passwd = (String)(registerVO.getPasswd());
+    String encPasswd = aes256.aesEncode(passwd);
+    
+    registerVO.setPasswd(encPasswd);  // 암호화된 비밀번호 할당
     registerVO.setGrade(11); // 기본 회원 가입 등록 11 지정
     
     int cnt = this.registerProc.create(registerVO);
@@ -200,19 +208,22 @@ public class RegisterCont {
                              String id, String passwd,
                              @RequestParam(value="id_save", defaultValue="") String id_save,
                              @RequestParam(value="passwd_save", defaultValue="") String passwd_save,
-                             @RequestParam(value="return_url", defaultValue="") String return_url) {
+                             @RequestParam(value="return_url", defaultValue="") String return_url) throws Exception {
     ModelAndView mav = new ModelAndView();
-    SHA256 sha = new SHA256();
-    String pw = sha.getInstance(passwd);
+    
+    RegisterVO registerVO = new RegisterVO();
+    AES256Util aes256 = new AES256Util();
+    
+    String encPasswd = aes256.aesEncode(passwd);
     
     Map<String, Object> map = new HashMap<String, Object>();
     map.put("id", id);
-    map.put("passwd", pw);  // passwd라는 id에 암호화된 pw 저장해서 비교 (복호화과정이 필요없다)
+    map.put("passwd", encPasswd);  // passwd라는 id에 암호화된 pw 저장해서 비교 (복호화과정이 필요없다)
     
     int count = registerProc.login(map);
     if (count == 1) { // 로그인 성공
       // System.out.println(id + " 로그인 성공");
-      RegisterVO registerVO = registerProc.readById(id);
+      registerVO = registerProc.readById(id);
       session.setAttribute("memberno", registerVO.getMemberno()); // 서버의 메모리에 기록
       session.setAttribute("id", id);
       session.setAttribute("mname", registerVO.getMname());
@@ -357,29 +368,6 @@ public class RegisterCont {
    
     return json.toString(); 
   }
-  
-  /**
-   * Ajax 기반 회원 조회
-   * http://localhost:9091/register/read_ajax.do
-   * @param session
-   * @return
-   */
-  @RequestMapping(value="/register/read_ajax.do", method=RequestMethod.GET)
-  @ResponseBody
-  public String read_ajax(HttpSession session) {
-    int memberno = (int)session.getAttribute("memberno");
-    
-    RegisterVO registerVO = this.registerProc.read(memberno);
-    
-    JSONObject json = new JSONObject();
-    json.put("realname", registerVO.getMname());
-    json.put("phone", registerVO.getTel());
-    json.put("postcode", registerVO.getZipcode());
-    json.put("address", registerVO.getAddress1());
-    json.put("detaddress", registerVO.getAddress2());
-    
-    return json.toString();
-  }
-  
+   
 
 }

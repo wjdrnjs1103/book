@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ 
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="dev.mvc.message.MessageDAOInter"> 
+  <!-- 메세지 조회 -->
+  <select id="list" resultType="dev.mvc.message.MessageVO" parameterType="int">
+    SELECT messageno, title, contents, recv_member, send_member, s_date
+    FROM message
+    WHERE recv_member=#{recv_member}
+    ORDER BY messageno DESC
+  </select>
+  
+  <!-- 메세지 보내기 -->
+  <insert id="create" parameterType="dev.mvc.message.MessageVO">
+    INSERT INTO message(messageno, title, contents, recv_member, send_member, s_date)
+    VALUES(MESSAGE_SEQ.nextval, #{title}, #{contents}, #{recv_member} , #{send_member}, sysdate)
+  </insert>
+  
+  <!-- 게시글 작성자의 회원번호 추출 (게시글 개발완료후 ProductVO에서 조회(parameterType))-->
+  <select id="get_memberno" parameterType="int" resultType="int">
+    SELECT memberno
+    FROM product
+    WHERE productno = #{productno}
+  </select>
+  
+  <!-- 메세지 갯수출력(읽음처리 추후개발) -->
+  <select id="count_by_memberno" parameterType="int" resultType="int">
+    SELECT count(*) as cnt
+    FROM message
+    WHERE recv_member = #{recv_member };
+  </select>
+
+  
+</mapper>

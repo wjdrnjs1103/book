@@ -56,7 +56,6 @@
   
     <DIV style="text-align: right; clear: both;">  
     <form name='frm' id='frm' method='get' action='./list_by_bookno_search.do'>
-      <input type="hidden" name="${ _csrf.parameterName }" value="${ _csrf.token }">
       <input type='hidden' name='bookno' value='${bookVO.bookno }'>
       <c:choose>
         <c:when test="${param.word != '' }"> <%-- 검색하는 경우 --%>
@@ -80,7 +79,7 @@
               enctype="multipart/form-data">
     <input type="hidden" name="bookgrpno" value="${bookVO.bookgrpno }"> 
     <input type="hidden" name="bookno" value="${param.bookno }">
-    <input type="hidden" name="memberno" value="1"> <%-- 관리자 개발후 변경 필요 --%>
+    <input type="hidden" name="memberno" value='${sessionScope.memberno  }'> <%-- 관리자 개발후 변경 필요 --%>
     
     <div class="form-group">
        <label class="control-label col-md-2">도서명</label>
