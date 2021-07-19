@@ -24,8 +24,17 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </selectKey>
     INSERT INTO payment(paymentno, memberno, realname, phone, postcode, address, detaddress,
                                 paytype, paymoney, rdate)
-    VALUES(#{paymentno}, #{memberno}, #{realname}, #{phone}, #{postcode}, #{address}, #{detaddress}
+    VALUES(#{paymentno}, #{memberno}, #{realname}, #{phone}, #{postcode}, #{address}, #{detaddress},
                 #{paytype}, #{paymoney}, sysdate)
   </insert>
+  
+  <!-- 회원별 주문 결제 목록 -->
+  <select id="list_by_memberno" resultType="dev.mvc.payment.PaymentVO" parameterType="int">
+    SELECT paymentno, memberno, realname, phone, postcode, address, detaddress, 
+              paytype, paymoney, rdate
+    FROM payment
+    WHERE memberno=#{memberno}
+    ORDER BY paymentno DESC
+  </select>
 
 </mapper>

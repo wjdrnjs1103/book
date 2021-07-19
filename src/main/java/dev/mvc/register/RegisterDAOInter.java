@@ -25,7 +25,7 @@ public interface RegisterDAOInter {
    * @return
    */
   public RegisterVO readById(String id);
-  
+    
   /**
    * 현재 패스워드 검사
    * @param map

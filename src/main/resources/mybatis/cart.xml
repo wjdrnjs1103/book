@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ 
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+<mapper namespace = "dev.mvc.cart.CartDAOInter">
+  <!-- 관심 상품 등록 -->
+  <insert id="create" parameterType="dev.mvc.cart.CartVO">
+    INSERT INTO cart(cartno, memberno, productno, sdate)
+    VALUES(cart_seq.nextval, 1, 2, sysdate)
+  </insert>
+  
+  <!-- 회원별 관심 상품 목록 출력 -->
+  <select id="list" resultType="dev.mvc.cart.CartVO" parameterType="int">
+    SELECT i.cartno, p.productno, p.title, p.thumb1, p.price, i.cnt, i.memberno, i.sdate
+    FROM cart i, product p
+    WHERE (i.productno = p.productno) AND i.memberno=#{memberno}
+    ORDER BY cartno ASC
+  </select>
+  
+  <!-- 회원별 상품 개수 출력 -->
+  <select id="count_goods" resultType="int" parameterType="int">
+    SELECT COUNT(cartno)
+    FROM cart
+    WHERE memberno=#{memberno}
+  </select>
+  
+  <!-- 수량 수정 -->
+  <update id="update_cnt" parameterType="dev.mvc.cart.CartVO">
+    UPDATE cart
+    SET cnt = #{cnt}
+    WHERE cartno=#{cartno}  
+  </update>
+  
+  <!-- 삭제, 입력: PK, 리턴: 삭제된 갯수 int -->
+  <delete id="delete" parameterType="int">
+    DELETE FROM cart 
+    WHERE cartno=#{cartno}
+  </delete>
+  
+</mapper>

@@ -48,8 +48,8 @@
     
 <script type="text/javascript">
   function delete_func(interestedno) {  // GET -> POST 전송, 상품 삭제
-    var frm = $('#frm_delete');
-    $('#interestedno', frm).val(interestedno);
+    var frm = $('#frm_post');
+    $('#cartno', frm).val(cartno);
     
     //alert('interestedno:' +$('#interestedno', frm).val());
     //frm.attr('action', './delete.do');
@@ -57,6 +57,22 @@
     
     frm.submit();
   }   
+
+  function update_cnt(cartno) {  // 수량 변경
+    var frm = $('#frm_post');
+    frm.attr('action', './update_cnt.do');
+    $('#cartno',  frm).val(cartno);
+    
+    var new_cnt = $('#' + cartno + '_cnt').val();  // $('#1_cnt').val()로 변환됨.
+    $('#cnt',  frm).val(new_cnt);
+
+    // alert('cnt: ' + $('#cnt',  frm).val());
+    //alert('cartno: ' + $('#cartno',  frm).val());
+    // return;
+    
+    frm.submit();
+    
+  }
 
 </script>
 
@@ -70,8 +86,9 @@
 <body>
 <jsp:include page="../menu/top.jsp" />
 <%-- GET -> POST: 상품 삭제용 폼 --%>
-<form name='frm_delete' id='frm_delete' action='./delete.do' method='get'>
-  <input type='hidden' name='interestedno' id='interestedno'>
+<form name='frm_post' id='frm_post' action='' method='post'>
+  <input type='hidden' name='cartno' id='cartno'>
+  <input type='hidden' name ='cnt' id = 'cnt'>
 </form>
  
 <DIV class='title_line'>
@@ -80,7 +97,7 @@
 
 <DIV class='content_body'>
   <ASIDE class="aside_right">
-    <c:if test="${interestedno != null}">
+    <c:if test="${cartno != null}">
       <A href="/product/list_by_cateno_search_paging?productno=${productno}">쇼핑 계속하기</A>
       <span class='menu_divide' >│</span>    
     </c:if>
@@ -94,7 +111,8 @@
       <col style="width: 20%;"></col>
       <col style="width: 40%;"></col>
       <col style="width: 20%;"></col>
-      <col style="width: 20%;"></col>
+      <col style="width: 10%;"></col>
+      <col style="width: 10%;"></col>
     </colgroup>
     <%-- table 컬럼 --%>
 <!--     <thead>
@@ -111,14 +129,15 @@
     <tbody>
       <c:choose>
         <c:when test="${list.size() > 0 }">
-          <c:forEach var="interestedVO" items="${list }">
-            <c:set var="interestedno" value="${interestedVO.interestedno }" />
-            <c:set var="productno" value="${interestedVO.productno }" />
-            <c:set var="title" value="${interestedVO.title }" />
-            <c:set var="thumb1" value="${interestedVO.thumb1 }" />
-            <c:set var="price" value="${interestedVO.price }" />
-            <c:set var="memberno" value="${interestedVO.memberno }" />
-            <c:set var="sdate" value="${interestedVO.sdate }" />
+          <c:forEach var="cartVO" items="${list }">
+            <c:set var="cartno" value="${cartVO.cartno }" />
+            <c:set var="productno" value="${cartVO.productno }" />
+            <c:set var="title" value="${cartVO.title }" />
+            <c:set var="thumb1" value="${cartVO.thumb1 }" />
+            <c:set var="price" value="${cartVO.price }" />
+            <c:set var="memberno" value="${cartVO.memberno }" />
+            <c:set var="cnt" value="${cartVO.cnt }" />
+            <c:set var="sdate" value="${cartVO.sdate }" />
             
             <tr> 
               <td style='vertical-align: middle; text-align: center;'>
@@ -140,9 +159,13 @@
               <td style='vertical-align: middle; text-align: center;'>
                 <fmt:formatNumber value="${price }" pattern="#,###" /><br>
               </td>
-              
               <td style='vertical-align: middle; text-align: center;'>
-                <A href="javascript: delete_func(${interestedno })"><span class="glyphicon glyphicon-remove"></span></A>
+                <input type='number' id='${cartno }_cnt' min='1' max='100' step='1' value="${cnt }" 
+                  style='width: 52px;'><br>
+                <button type='button' onclick="update_cnt(${cartno})" class='btn' style='margin-top: 5px;'>변경</button>
+              </td>
+              <td style='vertical-align: middle; text-align: center;'>
+                <A href="javascript: delete_func(${cartno })"><span class="glyphicon glyphicon-remove"></span></A>
               </td>
             </tr>
           </c:forEach>

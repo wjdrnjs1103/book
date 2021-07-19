@@ -1,9 +1,9 @@
 package dev.mvc.orders;
 /*
-    ordersno                           NUMBER(10)     NOT NULL    PRIMARY KEY,
+ *     ordersno                           NUMBER(10)     NOT NULL    PRIMARY KEY,
     paymentno                         NUMBER(10)     NULL ,
     memberno                          NUMBER(10)     NULL ,
-    boardno                           NUMBER(10)     NULL ,
+    productno                           NUMBER(10)     NULL ,
     cnt                               NUMBER(5)    DEFAULT 1     NOT NULL,
     tot                               NUMBER(10)     DEFAULT 0     NOT NULL,
     states                             NUMBER(1)    DEFAULT 0     NOT NULL,
@@ -20,13 +20,13 @@ public class OrdersVO {
   private int productno;
   /** 수량 */
   private int cnt;
-  /** 합계 */
+  /** 금액 */
   private int tot;
-  /** 
-      배송 상태:  1: 결재 완료, 2: 상품 준비중, 3: 배송 시작, 4: 배달중, 5: 오늘 도착, 6: 배달 완료  
-    */
+  /** 배송 상태 
+   * 배송 상태(states):  1: 결재 완료, 2: 상품 준비중, 3: 배송 시작, 4: 배달중, 5: 오늘 도착, 6: 배달 완료  
+   * */
   private int states;
-  /** 주문날짜 */
+  /** 주문일 */
   private String rdate;
   
   public int getOrdersno() {
@@ -77,5 +77,6 @@ public class OrdersVO {
   public void setRdate(String rdate) {
     this.rdate = rdate;
   }
+  
   
 }

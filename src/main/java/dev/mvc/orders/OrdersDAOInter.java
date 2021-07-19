@@ -6,7 +6,7 @@ import java.util.List;
 public interface OrdersDAOInter {
 
   /**
-   * 등록
+   *  주문 등록
    * @param ordersVO
    * @return
    */

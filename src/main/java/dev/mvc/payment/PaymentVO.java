@@ -1,7 +1,6 @@
 package dev.mvc.payment;
-
 /*
- * paymentno                         NUMBER(10)     NOT NULL    PRIMARY KEY,
+ *     paymentno                         NUMBER(10)     NOT NULL    PRIMARY KEY,
     memberno                          NUMBER(10)     NULL ,
     realname                          VARCHAR(30)    NOT NULL,
     phone                               VARCHAR(20)    NOT NULL,
@@ -10,15 +9,15 @@ package dev.mvc.payment;
     detaddress                        VARCHAR(50)    NOT NULL,
     paytype                           NUMBER(1)    DEFAULT 1     NOT NULL,
     paymoney                          NUMBER(30)     NOT NULL,
-    rdate                             DATETIME     NOT NULL,
+    rdate                             DATE     NOT NULL,
  */
-
 public class PaymentVO {
-  /** 결제번호 */
+
+  /** 결제 번호 */
   private int paymentno;
-  /** 회원번호 */
+  /** 회원 번호 */
   private int memberno;
-  /** 성명 */
+  /** 이름 */
   private String realname;
   /** 전화번호 */
   private String phone;
@@ -26,13 +25,13 @@ public class PaymentVO {
   private String postcode;
   /** 주소 */
   private String address;
-  /** 상세주소 */
+  /** 상세 주소 */
   private String detaddress;
-  /** 결제종류 */
+  /** 결제 방식 */
   private int paytype;
-  /** 결제금액 */
+  /** 결제 금액 */
   private int paymoney;
-  /** 결제날짜 */
+  /** 결제일시 */
   private String rdate;
   
   public int getPaymentno() {
@@ -95,7 +94,6 @@ public class PaymentVO {
   public void setRdate(String rdate) {
     this.rdate = rdate;
   }
-  
   
   
 }

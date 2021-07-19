@@ -24,7 +24,7 @@ import com.zaxxer.hikari.HikariDataSource;
                            "dev.mvc.book",
                            "dev.mvc.commgrp",
                            "dev.mvc.board",
-                           "dev.mvc.interested",
+                           "dev.mvc.cart",
                            "dev.mvc.payment",
                            "dev.mvc.orders",
                            "dev.mvc.product",

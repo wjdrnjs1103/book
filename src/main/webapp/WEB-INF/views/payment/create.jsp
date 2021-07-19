@@ -163,14 +163,15 @@
    
     <%-- table 내용 --%>
     <tbody>
-        <c:forEach var="interestedVO" items="${list }">
-          <c:set var="interestedno" value="${interestedVO.interestedno }" />
-          <c:set var="productno" value="${interestedVO.productno }" />
-          <c:set var="title" value="${interestedVO.title }" />
-          <c:set var="thumb1" value="${interestedVO.thumb1 }" />
-          <c:set var="price" value="${interestedVO.price }" />
-          <c:set var="memberno" value="${interestedVO.memberno }" />
-          <c:set var="sdate" value="${interestedVO.sdate }" />
+        <c:forEach var="cartVO" items="${list }">
+          <c:set var="cartno" value="${cartVO.cartno }" />
+          <c:set var="productno" value="${cartVO.productno }" />
+          <c:set var="title" value="${cartVO.title }" />
+          <c:set var="thumb1" value="${cartVO.thumb1 }" />
+          <c:set var="price" value="${cartVO.price }" />
+          <c:set var="cnt" value="${cartVO.cnt }" />
+          <c:set var="memberno" value="${cartVO.memberno }" />
+          <c:set var="sdate" value="${cartVO.sdate }" />
         
         <tr> 
           <td style='vertical-align: middle; text-align: center;'>
@@ -190,9 +191,11 @@
           <td style='vertical-align: middle; text-align: center;'>
             <fmt:formatNumber value="${price }" pattern="#,###" /><br>
           </td>
-              
+          <td style='vertical-align:middle; text-align: center;'>
+            수량: ${cnt }
+          </td>
           <td style='vertical-align: middle; text-align: center;'>
-            <A href="../interested/list.do"><span class="glyphicon glyphicon-remove" title="쇼핑카트로 이동합니다."></A>
+            <A href="../cart/list.do"><span class="glyphicon glyphicon-remove" title="쇼핑카트로 이동합니다."></A>
           </td>
         </tr>
       </c:forEach>

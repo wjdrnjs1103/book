@@ -1,13 +1,13 @@
-package dev.mvc.interested;
+package dev.mvc.cart;
 /*
     interestedno                        NUMBER(10)     NOT NULL    PRIMARY KEY,
     memberno                          NUMBER(10)     NULL ,
     boardno                           NUMBER(10)     NULL ,
     sdate                             DATE     NOT NULL,
  */
-public class InterestedVO {
+public class CartVO {
   /** 관심 번호 */
-  private int interestedno;
+  private int cartno;
   /** 회원 번호 */
   private int memberno;
   /** 상품 번호 */
@@ -20,20 +20,13 @@ public class InterestedVO {
   private String thumb1;
   /** 가격 */
   private int price;
-  /** 상품 총 갯수 */
+  /** 상품 개수 */
   private int cnt;
-  
-  public int getCnt() {
-    return cnt;
+  public int getCartno() {
+    return cartno;
   }
-  public void setCnt(int cnt) {
-    this.cnt = cnt;
-  }
-  public int getInterestedno() {
-    return interestedno;
-  }
-  public void setInterestedno(int interestedno) {
-    this.interestedno = interestedno;
+  public void setCartno(int cartno) {
+    this.cartno = cartno;
   }
   public int getMemberno() {
     return memberno;
@@ -71,8 +64,14 @@ public class InterestedVO {
   public void setPrice(int price) {
     this.price = price;
   }
+  public int getCnt() {
+    return cnt;
+  }
+  public void setCnt(int cnt) {
+    this.cnt = cnt;
+  }
   
- 
-  
+
+
   
 }
