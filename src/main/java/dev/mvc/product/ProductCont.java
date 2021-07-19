@@ -1,11 +1,14 @@
 package dev.mvc.product;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
@@ -20,7 +23,6 @@ import dev.mvc.book.BookProcInter;
 import dev.mvc.book.BookVO;
 import dev.mvc.bookgrp.BookgrpProcInter;
 import dev.mvc.bookgrp.BookgrpVO;
-import dev.mvc.product.ProductVO;
 //import dev.mvc.member.MemberProcInter;
 import dev.mvc.tool.Tool;
 import dev.mvc.tool.Upload;
@@ -433,7 +435,7 @@ public class ProductCont {
 
        return mav; // forward
      }
-
+     
      /**
       * 수정 처리
       * http://localhost:9091/product/update_text.do?productno=1
@@ -441,37 +443,16 @@ public class ProductCont {
       * @return
       */
      @RequestMapping(value = "/product/update_text.do", method = RequestMethod.POST)
-     public ModelAndView update_text(ProductVO productVO) {
+     public ModelAndView update_text(ProductVO productVO,
+                                                        @RequestParam(value = "now_page", defaultValue = "1") int now_page) {
        ModelAndView mav = new ModelAndView();
        
        int cnt = this.productProc.update_text(productVO); // 수정 처리
        
        mav.addObject("productno", productVO.getProductno());
+       mav.addObject("now_page", now_page);
        
-       mav.setViewName("redirect:/product/read.do"); 
-
-       return mav; // forward
-     }
-     
-     /**
-      * 파일 수정 폼
-      * http://localhost:9091/product/update_file.do?productno=1
-      * 
-      * @return
-      */
-     @RequestMapping(value = "/product/update_file.do", method = RequestMethod.GET)
-     public ModelAndView update_file(int productno) {
-       ModelAndView mav = new ModelAndView();
-       
-       ProductVO productVO = this.productProc.read(productno);
-       BookVO bookVO = this.bookProc.read(productVO.getBookno());
-       BookgrpVO bookgrpVO = this.bookgrpProc.read(bookVO.getBookgrpno());
-       
-       mav.addObject("productVO", productVO);
-       mav.addObject("bookVO", bookVO);
-       mav.addObject("bookgrpVO", bookgrpVO);
-       
-       mav.setViewName("/product/update_file"); // /WEB-INF/views/product/update_file.jsp
+       mav.setViewName("redirect:/product/read.do"); // 전송된 form 데이터는 모두 삭제됨.
 
        return mav; // forward
      }

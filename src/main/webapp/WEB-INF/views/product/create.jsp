@@ -56,6 +56,7 @@
   
     <DIV style="text-align: right; clear: both;">  
     <form name='frm' id='frm' method='get' action='./list_by_bookno_search.do'>
+      <input type="hidden" name="${ _csrf.parameterName }" value="${ _csrf.token }">
       <input type='hidden' name='bookno' value='${bookVO.bookno }'>
       <c:choose>
         <c:when test="${param.word != '' }"> <%-- 검색하는 경우 --%>
@@ -79,7 +80,7 @@
               enctype="multipart/form-data">
     <input type="hidden" name="bookgrpno" value="${bookVO.bookgrpno }"> 
     <input type="hidden" name="bookno" value="${param.bookno }">
-    <input type="hidden" name="memberno" value='${sessionScope.memberno  }'> <%-- 관리자 개발후 변경 필요 --%>
+    <input type="hidden" name="memberno" value="1"> <%-- 관리자 개발후 변경 필요 --%>
     
     <div class="form-group">
        <label class="control-label col-md-2">도서명</label>
@@ -100,6 +101,15 @@
        <div class="col-md-10">
          <input type='text' name='word' value='컴퓨터,1학년,소프트웨어,전공' required="required" 
                     class="form-control" style='color: #888888; width: 100%;'>
+       </div>
+    </div>   
+    
+     <div class="form-group">
+       <label class="control-label col-md-2">판매가</label>
+       <div class="col-md-10">
+         <input type='number' name='price' 'required="required"
+                    min="0" max="10000000" step="1000" 
+                    class="form-control" style='width: 100%;'>
        </div>
     </div>   
     

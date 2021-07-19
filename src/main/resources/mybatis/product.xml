@@ -115,7 +115,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   <!-- 텍스트 수정 -->
   <update id="update_text" parameterType="dev.mvc.product.ProductVO">
     UPDATE product
-    SET title=#{title}, content=#{content},  word=#{word}, price=#{price}
+    SET title=#{title}, content=#{content}, word=#{word}, price=#{price}
     WHERE productno = #{productno}
   </update>
   

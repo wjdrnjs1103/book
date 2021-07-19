@@ -68,7 +68,7 @@ public interface ProductProcInter {
    * @param contentsno
    * @return
    */
-  public ProductVO read_update_text(int contentsno);
+  public ProductVO read_update_text(int productno);
 
   /**
    * 텍스트 정보 수정

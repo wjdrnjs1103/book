@@ -1,5 +1,11 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
+<c:set var="title" value="${productVO.title }" />
+<c:set var="content" value="${productVO.content }" />
+<c:set var="word" value="${productVO.word }" />
+<c:set var="price" value="${productVO.price }" />
+<c:set var="productno" value="${productVO.productno }" />
  
 <!DOCTYPE html> 
 <html lang="ko"> 
@@ -50,7 +56,7 @@
     <span class='menu_divide' >│</span>
     <A href="javascript:location.reload();">새로고침</A>
     <span class='menu_divide' >│</span>
-    <A href="./list_by_bookno_search_paging.do?bookno=${bookVO.bookno }">기본 목록형</A>    
+    <A href="./list_by_bookno_search_paging.do?bookno=${bookVO.bookno }&now_page=${param.now_page}">기본 목록형</A>    
     <span class='menu_divide' >│</span>
     <A href="./list_by_bookno_grid.do?bookno=${bookVO.bookno }">갤러리형</A>
   </ASIDE> 
@@ -58,8 +64,7 @@
     <DIV style="text-align: right; clear: both;">  
     <form name='frm' id='frm' method='get' action='./list_by_bookno_search.do'>
       <input type='hidden' name='bookno' value='${bookVO.bookno }'>
- 
-      
+      <input type='hidden' name='now_page' value='${param.now_page }'>
       
       <c:choose>
         <c:when test="${param.word != '' }"> <%-- 검색하는 경우 --%>
@@ -80,9 +85,10 @@
   <DIV class='menu_line'></DIV>
   
   <FORM name='frm' method='POST' action='./update_text.do' class="form-horizontal">
+    <input type='hidden' name='now_page' value='${param.now_page }'>
     <input type='hidden' name='productno' value='${productno }'>
     <input type="hidden" name="bookno" value="${bookVO.bookno }">
-    <input type="hidden" name="memberno" value="1"> <%-- 관리자 개발후 변경 필요 --%>
+    <input type="hidden" name="memberno" value="1"> <%-- 맴버 개발후 변경 필요 --%>
     
     <div class="form-group">
        <label class="control-label col-md-2">상품명</label>
@@ -94,7 +100,7 @@
     <div class="form-group">
        <label class="control-label col-md-2">상품 설명</label>
        <div class="col-md-10">
-         <textarea name='content' required="required" class="form-control" rows="20" style='width: 100%;'>${content }</textarea>
+         <textarea name='content' id='content' required="required" class="form-control" rows="20" style='width: 100%;'>${content }</textarea>
        </div>
     </div>
     <div class="form-group">
@@ -104,15 +110,16 @@
                    autofocus="autofocus" class="form-control" style='width: 100%;'>
        </div>
     </div>  
+
     <div class="form-group">
        <label class="control-label col-md-2">판매가</label>
        <div class="col-md-10">
-         <input type='number' name='price' value='${price }' required="required" autofocus="autofocus"
-                    min="0" max="10000000" step="100" 
+         <input type='number' name='price' value='${price }' required="required"
+                    min="0" max="10000000" step="1000" 
                     class="form-control" style='width: 100%;'>
        </div>
-    </div>   
-    
+    </div>         
+
     <div class="content_body_bottom">
       <button type="submit" class="btn btn-primary">저장</button>
       <button type="button" onclick="history.back();" class="btn btn-primary">취소</button>
@@ -120,10 +127,9 @@
   
   </FORM>
 </DIV>
-</DIV>
-</DIV>
  
 <jsp:include page="../menu/bottom.jsp" flush='false' />
 </body>
  
 </html>
+
