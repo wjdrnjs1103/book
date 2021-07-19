@@ -44,11 +44,8 @@ CREATE SEQUENCE member_seq
 -- **관리자 계정은 꼭 DB에서 직접 인서트해주셔야 합니다.**
 INSERT INTO member(memberno, ID, PASSWD, MNAME, EMAIL,
                         TEL, ZIPCODE, ADDRESS1, ADDRESS2, GRADE, OAUTH, MDATE)
-VALUES(member_seq.nextval, 'admin', '03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4', '관리자', 'whitebello14@gmail.com',
+VALUES(member_seq.nextval, 'admin', 'fS/kjO+fuEKk06Zl7VYMhg==', '관리자', 'whitebello14@gmail.com',
             01053050315,000,'종로','솔데스크',1, null ,sysdate);
-INSERT INTO member(memberno, ID, PASSWD, MNAME, EMAIL,
-                        TEL, ZIPCODE, ADDRESS1, ADDRESS2, GRADE, OAUTH, MDATE)
-VALUES(member_seq.nextval, 'admin1', '03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4', '관리자', 'whitebello14@gmail.com',
-            01053050315,000,'종로','솔데스크',1, null ,sysdate);            
+      
 commit;
 SELECT * FROM member;
