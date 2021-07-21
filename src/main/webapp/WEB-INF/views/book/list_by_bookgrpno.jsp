@@ -36,12 +36,12 @@
  
 <body>
 <jsp:include page="../menu/top.jsp" />
-<DIV class="py-5">
+<section class="py-5">
   
-      <DIV class='container2'> 
-<DIV class='title_line'><A href="../bookgrp/list.do" class='title_link'>전공도서 그룹</A> > ${bookgrpVO.name }</DIV>
-
-<DIV class='content_body'>
+      <DIV class='container c_bottom_10'> 
+<DIV class='title_line'>
+<A href="../bookgrp/list.do" class='link-primary'>전공도서 그룹</A> > ${bookgrpVO.name }
+</DIV>
 
   <DIV id='panel_create' style='padding: 10px 0px 10px 0px; background-color: #F9F9F9; width: 100%; text-align: center;'>
     <FORM name='frm_create' id='frm_create' method='POST' action='./create.do'>
@@ -53,12 +53,13 @@
       <input type='text' name='name' value='' required="required" style='width: 25%;'
                  autofocus="autofocus">
   
-      <button type="submit" id='submit'>등록</button>
-      <button type="button" onclick="cancel();">취소</button>
+       <button type="submit" id='submit' class="btn btn-dark">등록</button>
+       <button type="button" onclick="cancel();"  class="btn btn-dark">취소</button>
+      
     </FORM>
   </DIV>
 
-  <TABLE class='table table-striped'>
+  <TABLE class='table mt-5'>
     <colgroup>
       <col style='width: 10%;'/>
       <col style='width: 10%;'/>
@@ -69,7 +70,7 @@
     </colgroup>
    
     <thead>  
-    <TR>
+    <TR class="table_title">
       <TH class="th_bs">전공서적<br> 번호</TH>
       <TH class="th_bs">전공서적<br> 그룹 번호</TH>
       <TH class="th_bs">전공서적 이름</TH>
@@ -100,9 +101,9 @@
    
   </TABLE>
   
+
 </DIV>
-</DIV>
-</DIV>
+</section>
 
 
  

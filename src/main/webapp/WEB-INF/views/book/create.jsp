@@ -36,7 +36,7 @@
 
 <div class="py-5">
 
-    <DIV class='container2'>
+    <DIV class='container c_bottom_10'>
  
 <DIV class='title_line'>전공도서 등록</DIV>
 
@@ -57,8 +57,8 @@
        </div>
     </div>
     <div class="content_body_bottom" style="padding-right: 20%;">
-      <button type="submit" class="btn btn-primary">등록</button>
-      <button type="button" onclick="location.href='./list_by_bookgrp.do'" class="btn btn-primary">목록</button>
+      <button type="submit" class="btn btn-dark">등록</button>
+      <button type="button" onclick="location.href='../book/list_by_bookgrpno.do?bookgrpno=${bookgrpno }">${bookgrpVO.name }'" class="btn btn-dark">목록</button>
     </div>
   
   </FORM>

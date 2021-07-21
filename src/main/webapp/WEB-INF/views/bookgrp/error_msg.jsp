@@ -1,16 +1,18 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-  
+ 
 <!DOCTYPE html> 
 <html lang="ko"> 
 <head> 
 <meta charset="UTF-8"> 
 <meta name="viewport" content="shrink-to-fit=no initial-scale=1, width=device-width" /> 
 <meta name="description" content="" />
+<meta name="author" content="" /> 
 
 <title>Team2</title>
-
-<!-- /static 기준, Core theme CSS (includes Bootstrap)-->
+ 
+<!-- /static 기준 -->
+<!-- Core theme CSS (includes Bootstrap)-->
 <link href="../css/style.css" rel="stylesheet" type="text/css">
  
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
@@ -22,10 +24,24 @@
 <!-- Bootstrap icons-->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
 
+<!-- Favicon-->
+<link rel="icon" type="/image/x-icon" href="assets/favicon.ico" />
+    
+<script type="text/javascript">
+  $(function(){
+ 
+  });
+</script>
+ 
 </head> 
+ 
 <body>
 <jsp:include page="../menu/top.jsp" flush='false' />
+ 
 
+<div class="py-5">
+
+    <DIV class='container2'>
 <DIV class='title_line'>전공도서 알림</DIV>
 
 <DIV class='message'>
@@ -58,12 +74,14 @@
       </c:choose>
       <LI class='li_none'>
         <br>
-        <button type='button' onclick="history.back()" class="btn">다시 시도</button>
-        <button type='button' onclick="location.href='./list.do'" class="btn">목록</button>
+        <button type='button' onclick="history.back()" class="btn btn-dark">다시 시도</button>
+        <button type='button' onclick="location.href='./list.do'" class="btn btn-dark">목록</button>
       </LI>
     </UL>
   </fieldset>
 
+</DIV>
+</DIV>
 </DIV>
 
 <jsp:include page="../menu/bottom.jsp" flush='false' />

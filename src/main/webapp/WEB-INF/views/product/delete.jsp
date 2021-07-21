@@ -39,11 +39,11 @@
 
 <div class="py-5">
 
-    <DIV class='container2'>
+    <DIV class='container c_bottom_10'>
  
 <DIV class='title_line'>
-  <A href="../bookgrp/list.do" class='title_link'>전공도서 그룹</A> > 
-  <A href="../book/list_by_bookgrpno.do?bookgrpno=${bookgrpVO.bookgrpno }" class='title_link'>${bookgrpVO.name }</A> >
+  <A href="../bookgrp/list.do" class='title_link'>전공도서 그룹</A> > 삭제 
+  <A href="../book/list_by_bookgrpno.do?bookgrpno=${bookgrpVO.bookgrpno }" class='title_link'>${bookgrpVO.name }</A> 
   <A href="./list_by_bookno_search_paging.do?bookno=${bookVO.bookno }" class='title_link'>${bookVO.name }</A>
 </DIV>
 
@@ -112,8 +112,8 @@
                   삭제 되는글: ${productVO.title }<br><br>
                   삭제하시겠습니까? 삭제하시면 복구 할 수 없습니다.<br><br>
                  
-                  <button type = "submit" class="btn btn-info">삭제 진행</button>
-                  <button type = "button" onclick = "history.back()" class="btn btn-info">취소</button>
+                  <button type = "submit" class="btn btn-dark">삭제 진행</button>
+                  <button type = "button" onclick = "history.back()" class="btn btn-dark">취소</button>
                 </div>
               </div>   
           </FORM>

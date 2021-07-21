@@ -36,7 +36,7 @@
 
 <div class="py-5">
 
-    <DIV class='container2'>
+    <DIV class='container c_bottom_10'>
 <DIV class='title_line'>
   <A href="../bookgrp/list.do" class='title_link'>전공도서 그룹</A> > 
   ${bookgrpVO.name } > ${bookVO.name } >
@@ -66,8 +66,8 @@
     </div>   
         
     <div class="content_body_bottom">
-      <button type="submit" class="btn btn-primary">저장</button>
-      <button type="button" onclick="location.href='./read.do?bookno=${param.bookno}&product=${param.productno }'" class="btn btn-primary">취소</button>
+      <button type="submit" class="btn btn-dark">저장</button>
+      <button type="button" onclick="location.href='./read.do?productno=${param.productno}&now_page=${param.now_page }'" class="btn btn-dark">취소</button>
     </div>
   
   </FORM>

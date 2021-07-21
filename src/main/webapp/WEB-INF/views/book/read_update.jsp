@@ -38,7 +38,7 @@
 <jsp:include page="../menu/top.jsp" />
 <DIV class="py-5">
   
-      <DIV class='container2'> 
+      <DIV class='container c_bottom_10'> 
 <DIV class='title_line'>
   <A href="../bookgrp/list.do" class='title_link'>카테고리 그룹</A> > 
   <A href="./list_by_bookgrpno.do?bookgrpno=${param.bookgrpno }" class='title_link'>${bookgrpVO.name }</A> > 
@@ -60,12 +60,12 @@
       <input type='number' name='cnt' value='${bookVO.cnt }' 
                  required="required" min="0" max="10000000" step="1">    
   
-      <button type="submit" id='submit'>저장</button>
-      <button type="button" onclick="location.href='./list_by_bookgrpno.do?bookgrpno=${bookVO.bookgrpno}'">취소</button>
+      <button type="submit" id='submit' class="btn btn-dark">수정</button>
+      <button type="button" onclick="location.href='./list_by_bookgrpno.do?bookgrpno=${bookVO.bookgrpno}'" class="btn btn-dark">취소</button>
     </FORM>
   </DIV>
 
-  <TABLE class='table table-striped'>
+   <TABLE class='table mt-5'>
     <colgroup>
       <col style='width: 10%;'/>
       <col style='width: 10%;'/>
@@ -76,7 +76,7 @@
     </colgroup>
    
     <thead>  
-    <TR>
+    <TR class="table_title">
       <TH class="th_bs">전공서적<br> 번호</TH>
       <TH class="th_bs">전공서적<br> 그룹 번호</TH>
       <TH class="th_bs">전공서적 이름</TH>

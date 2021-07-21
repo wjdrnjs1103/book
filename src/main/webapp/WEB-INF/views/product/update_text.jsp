@@ -51,7 +51,7 @@
 
 <div class="py-5">
 
-    <DIV class='container2'>
+    <DIV class='container c_bottom_10'>
  
 <DIV class='title_line'>
   <A href="../bookgrp/list.do" class='title_link'>전공도서 그룹</A> > 
@@ -83,7 +83,7 @@
           <input type='text' name='word' id='word' value='' style='width: 20%;'>
         </c:otherwise>
       </c:choose>
-      <button type='submit'>검색</button>
+      <button type='submit' class="btn btn-dark">검색</button>
       <c:if test="${param.word.length() > 0 }">
         <button type='button' 
                      onclick="location.href='./list_by_bookno_search.do?bookno=${bookVO.bookno}&word='">검색 취소</button>  
@@ -130,11 +130,13 @@
     </div>         
 
     <div class="content_body_bottom">
-      <button type="submit" class="btn btn-primary">저장</button>
-      <button type="button" onclick="history.back();" class="btn btn-primary">취소</button>
+      <button type="submit" class="btn btn-dark">저장</button>
+      <button type="button" onclick="history.back();" class="btn btn-dark">취소</button>
     </div>
   
   </FORM>
+</DIV>
+</DIV>
 </DIV>
  
 <jsp:include page="../menu/bottom.jsp" flush='false' />

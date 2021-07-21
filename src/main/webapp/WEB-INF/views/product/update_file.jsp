@@ -39,7 +39,7 @@
 
 <div class="py-5">
 
-    <DIV class='container2'>
+    <DIV class='container c_bottom_10'>
 <DIV class='title_line'>
   <A href="../bookgrp/list.do" class='title_link'>전공도서 그룹</A> > 
   <A href="../book/list_by_bookgrpno.do?bookgrpno=${bookgrpVO.bookgrpno }" class='title_link'>${bookgrpVO.name }</A> >
@@ -74,7 +74,7 @@
           <input type='text' name='word' id='word' value='' style='width: 20%;'>
         </c:otherwise>
       </c:choose>
-      <button type='submit'>검색</button>
+      <button type='submit' class="btn btn-dark">검색</button>
       <c:if test="${param.word.length() > 0 }">
         <button type='button' 
                      onclick="location.href='./list_by_bookno_search.do?bookno=${bookVO.bookno}&word='">검색 취소</button>  
@@ -109,10 +109,10 @@
             <input type='hidden' name='now_page' value='${param.now_page }'>
             <br><br> 
             변경 이미지 선택<br>  
-            <input type='file' name='file1MF' id='file1MF' value='' placeholder="파일 선택"><br>
+            <input type='file' name='file1MF' id='file1MF' value='' placeholder="파일 선택" ><br>
             <div style='margin-top: 20px; clear: both;'>  
-              <button type="submit" class="btn btn-primary">파일 변경 처리</button>
-              <button type="button" onclick="history.back();" class="btn btn-primary">취소</button>
+              <button type="submit" class="btn btn-dark">파일 변경 처리</button>
+              <button type="button" onclick="history.back();" class="btn btn-dark">취소</button>
             </div>  
           </FORM>
         </DIV>
@@ -123,6 +123,8 @@
     </ul>
   </fieldset>
 
+</DIV>
+</DIV>
 </DIV>
  
 <jsp:include page="../menu/bottom.jsp" flush='false' />

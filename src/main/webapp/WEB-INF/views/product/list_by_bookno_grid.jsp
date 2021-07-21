@@ -36,7 +36,7 @@
 
 <div class="py-5">
 
-    <DIV class='container2'>
+    <DIV class='container c_bottom_10'>
 <DIV class='title_line'>
   <A href="../bookgrp/list.do" class='title_link'>전공도서 그룹</A> > 
   <A href="../book/list_by_bookgrpno.do?bookgrpno=${bookgrpVO.bookgrpno }" class='title_link'>${bookgrpVO.name }</A> >
@@ -49,7 +49,7 @@
     <span class='menu_divide' >│</span>
     <A href="javascript:location.reload();">새로고침</A>
     <span class='menu_divide' >│</span>
-    <A href="./list_by_bookno_grid.do?bookno=${bookVO.bookno }">갤러리형</A>
+    <A href="./list_by_bookno_search_paging.do?bookno=${bookVO.bookno }">기본목록형</A>
   </ASIDE> 
 
   <DIV class='menu_line'></DIV>

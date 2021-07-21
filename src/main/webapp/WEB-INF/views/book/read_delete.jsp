@@ -38,11 +38,11 @@
 <jsp:include page="../menu/top.jsp" />
 <DIV class="py-5">
   
-      <DIV class='container2'> 
+      <DIV class='container c_bottom_10'> 
 <DIV class='title_line'>
   <A href="../bookgrp/list.do" class='title_link'>전공서적 그룹</A> > 
   <A href="./list_by_bookgrpno.do?bookgrpno=${param.bookgrpno }" class='title_link'>${bookgrpVO.name }</A> > 
-  ${bookVO.name } 수정 
+  ${bookVO.name } 삭제 
 </DIV>
 
 <DIV class='content_body'>
@@ -56,12 +56,12 @@
       <label>그룹 번호</label>: ${bookVO.bookgrpno }  
       <label>전공서적</label>: ${bookVO.name}  
        
-      <button type="submit" id='submit'>삭제</button>
-      <button type="button" onclick="location.href='./list_by_bookgrpno.do?bookgrpno=${param.bookgrpno}'">취소</button>
+      <button type="submit" id='submit' class="btn btn-dark">삭제</button>
+      <button type="button" onclick="location.href='./list_by_bookgrpno.do?bookgrpno=${param.bookgrpno}'" class="btn btn-dark">취소</button>
     </FORM>
   </DIV>
 
-  <TABLE class='table table-striped'>
+  <TABLE class='table mt-5'>
     <colgroup>
       <col style='width: 10%;'/>
       <col style='width: 10%;'/>
@@ -72,7 +72,7 @@
     </colgroup>
    
     <thead>  
-    <TR>
+    <TR class="table_title">
       <TH class="th_bs">전공서적<br> 번호</TH>
       <TH class="th_bs">전공서적<br> 그룹 번호</TH>
       <TH class="th_bs">전공서적 이름</TH>

@@ -36,7 +36,7 @@
 
 <div class="py-5">
 
-    <DIV class='container2'>
+    <DIV class='container c_bottom_10'>
 <DIV class='title_line'>알림</DIV>
 
 <DIV class='message'>
@@ -66,13 +66,13 @@
                          class="btn btn-primary">관련 상품 정보 재등록</button>
           </c:when>
           <c:otherwise>
-            <button type='button' onclick="history.back();" class="btn btn-primary">다시 시도</button>
+            <button type='button' onclick="history.back();" class="btn btn-dark">다시 시도</button>
           </c:otherwise>
         </c:choose>
         
         <%-- <button type='button' onclick="location.href='./list_by_bookno.do?bookno=${param.bookno}'" class="btn btn-primary">목록</button> --%>
         <%-- <button type='button' onclick="location.href='./list_by_bookno_search.do?bookno=${param.bookno}'" class="btn btn-primary">목록</button> --%>
-        <button type='button' onclick="location.href='./list_by_bookno_search_paging.do?bookno=${param.bookno}'" class="btn btn-primary">목록</button>
+        <button type='button' onclick="location.href='./list_by_bookno_search_paging.do?bookno=${param.bookno}'" class="btn btn-dark">목록</button>
       </LI>
     </UL>
   </fieldset>

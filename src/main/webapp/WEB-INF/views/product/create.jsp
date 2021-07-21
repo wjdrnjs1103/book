@@ -45,7 +45,7 @@
 
 <div class="py-5">
 
-    <DIV class='container2'>
+    <DIV class='container c_bottom_10'>
 <DIV class='title_line'>
   <A href="../bookgrp/list.do" class='title_link'>전공도서 그룹</A> > 
   ${bookgrpVO.name } > ${bookVO.name } >
@@ -75,7 +75,7 @@
           <input type='text' name='word' id='word' value='' style='width: 20%;'>
         </c:otherwise>
       </c:choose>
-      <button type='submit' class="btn btn-primary" style="font-size: 0.9em;">검색</button>
+      <button type='submit' class="btn btn-dark" style="font-size: 0.9em;">검색</button>
       <c:if test="${param.word.length() > 0 }">
         <button type='button' 
                      onclick="location.href='./list_by_bookno_search.do?bookno=${bookVO.bookno}&word='">검색 취소</button>  
@@ -117,7 +117,7 @@
        <label class="control-label col-md-2">판매가</label>
        <div class="col-md-10">
          <input type='number' name='price' 'required="required"
-                    min="0" max="10000000" step="1000" 
+                    min="0" max="10000000" step="500" 
                     class="form-control" style='width: 100%;'>
        </div>
     </div>   
@@ -131,8 +131,8 @@
     </div>   
  
     <div class="content_body_bottom">
-      <button type="submit" class="btn btn-primary">등록</button>
-      <button type="button" onclick="location.href='./list_by_bookno.do?bookno=${param.bookno}'" class="btn btn-primary">목록</button>
+      <button type="submit" class="btn btn-dark">등록</button>
+      <button type="button" onclick="location.href='./list_by_bookno_search_paging.do?bookno=${bookno }&now_page=1'" class="btn btn-dark">목록</button>
     </div>
   
   </FORM>

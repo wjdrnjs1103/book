@@ -38,7 +38,7 @@
 <jsp:include page="../menu/top.jsp" />
 <DIV class="py-5">
   
-      <DIV class='container2'> 
+      <DIV class='container c_bottom_10'> 
 <DIV class='title_line'>알림</DIV>
 
 <DIV class='message'>
@@ -61,8 +61,8 @@
       </c:choose>
       <LI class='li_none'>
         <br>
-        <button type='button' onclick="location.href='./read_update.do?bookno=${param.bookno}&bookgrpno=${param.bookgrpno}'" class="btn btn-primary">카테고리 재수정</button>
-        <button type='button' onclick="location.href='./list_by_bookgrpno.do?bookgrpno=${param.bookgrpno}'" class="btn btn-primary">목록</button>
+        <button type='button' onclick="location.href='./read_update.do?bookno=${param.bookno}&bookgrpno=${param.bookgrpno}'" class="btn btn-dark">카테고리 재수정</button>
+        <button type='button' onclick="location.href='./list_by_bookgrpno.do?bookgrpno=${param.bookgrpno}'" class="btn btn-dark">목록</button>
       </LI>
     </UL>
   </fieldset>
