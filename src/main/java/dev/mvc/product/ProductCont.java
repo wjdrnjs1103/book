@@ -456,6 +456,29 @@ public class ProductCont {
 
        return mav; // forward
      }
+     
+     /**
+      * 파일 수정 폼
+      * http://localhost:9091/product/update_file.do?productno=1
+      * 
+      * @return
+      */
+     @RequestMapping(value = "/product/update_file.do", method = RequestMethod.GET)
+     public ModelAndView update_file(int productno) {
+       ModelAndView mav = new ModelAndView();
+       
+       ProductVO productVO = this.productProc.read(productno);
+       BookVO bookVO = this.bookProc.read(productVO.getBookno());
+       BookgrpVO bookgrpVO = this.bookgrpProc.read(bookVO.getBookgrpno());
+       
+       mav.addObject("productVO", productVO);
+       mav.addObject("bookVO", bookVO);
+       mav.addObject("bookgrpVO", bookgrpVO);
+       
+       mav.setViewName("/product/update_file"); // /WEB-INF/views/product/update_file.jsp
+
+       return mav; // forward
+     }
 
      /**
       * 파일 수정 처리 http://localhost:9091/product/update_file.do
@@ -533,6 +556,7 @@ public class ProductCont {
 
        return mav; // forward
      }
+
      
      /**
       * 삭제 폼

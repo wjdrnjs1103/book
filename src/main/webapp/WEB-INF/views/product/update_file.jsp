@@ -1,6 +1,9 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
  
+<c:set var="productno" value="${productVO.productno }" />
+<c:set var="title" value="${productVO.title }" />
+ 
 <!DOCTYPE html> 
 <html lang="ko"> 
 <head> 
@@ -37,7 +40,6 @@
 <div class="py-5">
 
     <DIV class='container2'>
- 
 <DIV class='title_line'>
   <A href="../bookgrp/list.do" class='title_link'>전공도서 그룹</A> > 
   <A href="../book/list_by_bookgrpno.do?bookgrpno=${bookgrpVO.bookgrpno }" class='title_link'>${bookgrpVO.name }</A> >
@@ -50,7 +52,7 @@
     <span class='menu_divide' >│</span>
     <A href="javascript:location.reload();">새로고침</A>
     <span class='menu_divide' >│</span>
-    <A href="./list_by_bookno_search_paging.do?bookno=${bookVO.bookno }">기본 목록형</A>    
+    <A href="./list_by_bookno_search_paging.do?bookno=${bookVO.bookno }&now_page=${param.now_page}">기본 목록형</A>    
     <span class='menu_divide' >│</span>
     <A href="./list_by_bookno_grid.do?bookno=${bookVO.bookno }">갤러리형</A>
     <span class='menu_divide' >│</span>
@@ -62,6 +64,8 @@
     <DIV style="text-align: right; clear: both;">  
     <form name='frm' id='frm' method='get' action='./list_by_bookno_search.do'>
       <input type='hidden' name='bookno' value='${bookVO.bookno }'>
+      <input type='hidden' name='now_page' value='${param.now_page }'>
+      
       <c:choose>
         <c:when test="${param.word != '' }"> <%-- 검색하는 경우 --%>
           <input type='text' name='word' id='word' value='${param.word }' style='width: 20%;'>
@@ -102,6 +106,7 @@
           <FORM name='frm' method='POST' action='./update_file.do' 
               enctype="multipart/form-data">
             <input type="hidden" name="productno" value="${productno }">
+            <input type='hidden' name='now_page' value='${param.now_page }'>
             <br><br> 
             변경 이미지 선택<br>  
             <input type='file' name='file1MF' id='file1MF' value='' placeholder="파일 선택"><br>
@@ -119,10 +124,9 @@
   </fieldset>
 
 </DIV>
-</DIV>
-</DIV>
  
 <jsp:include page="../menu/bottom.jsp" flush='false' />
 </body>
  
 </html>
+

@@ -178,8 +178,8 @@ import dev.mvc.tool.Tool;
         productVO.setTitle(title);
         
         // CKEditor 에서는 주석 처리 해야함----------------------.
-        content = Tool.convertChar(content);
-        productVO.setContent(content);
+        //content = Tool.convertChar(content);
+        //productVO.setContent(content);
       }
       
       return list;
@@ -198,8 +198,8 @@ import dev.mvc.tool.Tool;
       title = Tool.convertChar(title);  // 특수 문자 처리
       content = Tool.convertChar(content); 
       
-      productVO.setTitle(title);
-      productVO.setContent(content);  
+      //productVO.setTitle(title);
+      //productVO.setContent(content);  
       
       long size1 = productVO.getSize1();
       productVO.setSize1_label(Tool.unit(size1));

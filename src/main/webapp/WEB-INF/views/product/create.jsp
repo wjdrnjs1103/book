@@ -22,7 +22,16 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
 
+<script type="text/javascript" src="/ckeditor/ckeditor.js"></script>
 <script type="text/javascript">
+  // window.onload=function(){
+  //  CKEDITOR.replace('content');  // <TEXTAREA>태그 id 값
+  // };
+  
+  $(function() {
+    CKEDITOR.replace('content');  // <TEXTAREA>태그 id 값
+  });
+
   $(function(){
  
   });

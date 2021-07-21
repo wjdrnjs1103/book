@@ -66,7 +66,7 @@
                          class="btn btn-primary">관련 상품 등록</button>
             <button type='button' 
                          onclick="location.href='./create.do?bookno=${param.bookno}&bookgrpno=${param.bookgrpno }'"
-                         class="btn btn-primary">새로운 컨텐츠 등록</button>
+                         class="btn btn-primary">새로운 전공도서 등록</button>
           </c:when>
           <c:otherwise>
             <button type='button' onclick="history.back();" class="btn btn-primary">다시 시도</button>
