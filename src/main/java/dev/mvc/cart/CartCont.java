@@ -26,7 +26,7 @@ public class CartCont {
   }
   
   /**
-   * 관심상품 등록
+   * Ajax 관심상품 등록
    * @param session
    * @param boardno
    * @return
@@ -34,6 +34,7 @@ public class CartCont {
   @RequestMapping(value="/cart/create.do", method=RequestMethod.POST)
   @ResponseBody
   public String create(HttpSession session, int productno) {
+    
     CartVO cartVO = new CartVO();
     cartVO.setProductno(productno);
     
@@ -42,13 +43,13 @@ public class CartCont {
     
     cartVO.setCnt(1);
     
-    int cnt = this.cartProc.create(cartVO);
+    int cnt = this.cartProc.create(cartVO); // 등록 처리
     
     JSONObject json = new JSONObject();
     json.put("cnt", cnt);
     
-    System.out.println("-> cartCont created:"+json.toString());   
-    
+    System.out.println("-> cartCont create: " + json.toString());
+
     return json.toString();
   }
   
@@ -123,7 +124,6 @@ public class CartCont {
     ModelAndView mav= new ModelAndView();
     
     this.cartProc.delete(cartno);
-    // System.out.println("interestedno"+ interestedno);
     mav.setViewName("redirect:/cart/list.do");
     
     return mav;

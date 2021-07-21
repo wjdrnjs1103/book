@@ -9,10 +9,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   </insert>
   
   <select id="list_by_memberno" resultType="dev.mvc.orders.OrdersVO" parameterType="HashMap">
-    SELECT o.ordersno, o.paymentno, o.memberno, p.productno, p.title, p.price, p.thumb1,
+    SELECT o.ordersno, o.paymentno, o.memberno, p.productno, p.title, p.price, m.mname,
                 o.cnt, o.tot, o.states, o.rdate
-    FROM orders o, product p
-    WHERE (o.productno = p.productno) AND ordersno=#{ordersno} AND o.memberno=#{memberno}
+    FROM orders o, product p, member m 
+    WHERE (o.productno = p.productno) AND (m.memberno = o.memberno) AND 
+                paymentno=#{paymentno} AND o.memberno=#{memberno}
     ORDER BY ordersno DESC
   </select>
 

@@ -8,7 +8,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   <!-- 관심 상품 등록 -->
   <insert id="create" parameterType="dev.mvc.cart.CartVO">
     INSERT INTO cart(cartno, memberno, productno, sdate)
-    VALUES(cart_seq.nextval, 1, 2, sysdate)
+    VALUES(cart_seq.nextval, #{memberno}, #{productno}, sysdate)
   </insert>
   
   <!-- 회원별 관심 상품 목록 출력 -->

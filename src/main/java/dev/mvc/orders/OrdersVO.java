@@ -28,6 +28,31 @@ public class OrdersVO {
   private int states;
   /** 주문일 */
   private String rdate;
+  /** 상품 이름 */
+  private String title;
+  /** 회원 이름 */
+  private String mname;
+  
+  public String getMname() {
+    return mname;
+  }
+  public void setMname(String mname) {
+    this.mname = mname;
+  }
+  public String getTitle() {
+    return title;
+  }
+  public void setTitle(String title) {
+    this.title = title;
+  }
+  public int getPrice() {
+    return price;
+  }
+  public void setPrice(int price) {
+    this.price = price;
+  }
+  /** 가격 */
+  private int price;
   
   public int getOrdersno() {
     return ordersno;

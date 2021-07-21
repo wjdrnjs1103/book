@@ -50,6 +50,7 @@ ModelAndView mav = new ModelAndView();
     int tot =0; // 개별 금액
     int tot_sum=0; // 총합 금액
     int delivery=3000; // 배송 금액
+    int tot_order=0;
 
     int memberno = (int)session.getAttribute("memberno");
     
@@ -58,9 +59,12 @@ ModelAndView mav = new ModelAndView();
     
     for (CartVO cartVO: list) {
       tot = cartVO.getPrice() * cartVO.getCnt(); // 개별 금액        
-      tot_sum = tot_sum + tot;
+      cartVO.setTot(tot);
+      
+      tot_sum = tot_sum + cartVO.getTot();
     }
-    int tot_order = tot_sum + delivery;
+    
+    tot_order = tot_sum + delivery;
     
     mav.addObject("list", list); // request.setAttribute("list", list);
     mav.addObject("tot_sum", tot_sum);
@@ -72,21 +76,22 @@ ModelAndView mav = new ModelAndView();
     return mav;
   }
   
-  /**
+  /** http://localhost:9091/payment/create.do
    * 주문 결제 등록 처리
    * @param session
    * @param paymentVO
    * @return
    */
   @RequestMapping(value="/payment/create.do", method=RequestMethod.POST)
-  public ModelAndView create(HttpSession session, PaymentVO paymentVO) {
+  public ModelAndView create(HttpSession session, 
+                                        PaymentVO paymentVO) {
     ModelAndView mav = new ModelAndView();
     
     int memberno = (int)session.getAttribute("memberno");
     paymentVO.setMemberno(memberno); // 회원 번호 저장
     
     int cnt = this.paymentProc.create(paymentVO);
-    
+    //System.out.println("cnt: "+cnt);
     /*
        <!-- 주문 결재 등록 전 paymentno를 PaymentVO에 저장 -->
   <insert id="create" parameterType="dev.mvc.payment.PaymentVO">
@@ -101,6 +106,7 @@ ModelAndView mav = new ModelAndView();
      */
     
     int paymentno = paymentVO.getPaymentno();
+    //System.out.println("paymentno: "+ paymentno);
     
     OrdersVO ordersVO = new OrdersVO();
     if (cnt == 1) { // 정상적으로 주문 결재 정보가 등록된 경우
@@ -123,18 +129,22 @@ ModelAndView mav = new ModelAndView();
         ordersVO.setTot(tot);
         // 배송 상태(states):  1: 결재 완료, 2: 상품 준비중, 3: 배송 시작, 4: 배달중, 5: 오늘 도착, 6: 배달 완료  
         ordersVO.setStates(1);
-        
         this.ordersProc.create(ordersVO);
+        
+        //paymentVO.setPaymoney(paymoney);
         
         // 3. 주문된 상품 cart에서 delete
         int delete_cnt = this.cartProc.delete(cartno);
         System.out.println("-> delete_cnt:" + delete_cnt+" 건 주문 후 cart에서 삭제");
+        
+        System.out.println("paymoney:" + paymentVO.getPaymoney());
       }
            
     } else {
       mav.addObject("code", "create"); // request에 저장, request.setAttribute("cnt", cnt)
       mav.setViewName("/categrp/error_msg"); // /WEB-INF/views/categrp/error_msg.jsp
     }
+    
     
     mav.addObject("memberno", memberno);
     mav.setViewName("redirect:/payment/list_by_memberno.do");
