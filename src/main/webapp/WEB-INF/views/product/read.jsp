@@ -176,7 +176,7 @@
           <input type='text' name='word' id='word' value='' style='width: 20%;'>
         </c:otherwise>
       </c:choose>
-      <button type='submit'>검색</button>
+      <button type='submit' class="btn btn-dark">검색</button>
       <c:if test="${param.word.length() > 0 }">
         <button type='button' 
                      onclick="location.href='./list_by_bookno_search.do?bookno=${bookVO.bookno}&word='">검색 취소</button>  
@@ -219,10 +219,10 @@
  
     <div class="form-group">
       <div class="col-md-offset-4 col-md-8">
-        <button type="button" id='btn_login' class="btn btn-primary btn-md">로그인</button>
-        <button type='button' onclick="location.href='./create.do'" class="btn btn-primary btn-md">회원가입</button>
-        <button type='button' id='btn_loadDefault' class="btn btn-primary btn-md">테스트 계정</button>
-        <button type='button' id='btn_cancel' class="btn btn-primary btn-md"
+        <button type="button" id='btn_login' class="btn btn-dark btn-md">로그인</button>
+        <button type='button' onclick="location.href='./create.do'" class="btn btn-dark btn-md">회원가입</button>
+        <button type='button' id='btn_loadDefault' class="btn btn-dark btn-md">테스트 계정</button>
+        <button type='button' id='btn_cancel' class="btn btn-dark btn-md"
                     onclick="$('#div_login').hide();">취소</button>
       </div>
     </div>   
