@@ -308,11 +308,18 @@ public class RegisterCont {
                              HttpSession session,
                              String id, String passwd,
                              @RequestParam(value="id_save", defaultValue="") String id_save,
-                             @RequestParam(value="passwd_save", defaultValue="") String passwd_save) {
+                             @RequestParam(value="passwd_save", defaultValue="") String passwd_save) throws Exception {
 
     Map<String, Object> map = new HashMap<String, Object>();
+    
+    AES256Util aes256 = new AES256Util();
+    
+    String encPasswd = aes256.aesEncode(passwd);
+    
     map.put("id", id);
-    map.put("passwd", passwd);
+    map.put("passwd", encPasswd);
+    
+
     
     int count = registerProc.login(map);
     if (count == 1) { // 로그인 성공

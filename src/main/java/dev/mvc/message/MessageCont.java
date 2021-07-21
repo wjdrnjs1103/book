@@ -78,15 +78,11 @@ public class MessageCont {
     int recv_member = this.messageProc.get_memberno(productno); // get_memberno 함수로 게시글 작성자의 회원번호 추출
     messageVO.setRecv_member(recv_member); 
     
-    System.out.println(recv_member);
-    
     int cnt = this.messageProc.create(messageVO);
-
-
     
     mav.addObject("cnt", cnt); // redirect parameter 적용
     
-    mav.setViewName("/message/list"); // webapp/message/create.jsp
+    mav.setViewName("/product/list_by_bookno_search_paging"); // webapp/message/create.jsp
    
     return mav; // forward
   }
