@@ -1,7 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-
 <DIV class='container_main'> 
   <%-- 화면 상단 메뉴 --%>
 
@@ -31,8 +30,16 @@
             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
               <li><a class="dropdown-item" href="/bookgrp/list.do" >전공도서분류</a></li>
               <li><hr class="dropdown-divider" /></li>
-              <li><a class="dropdown-item" href="#!">음악...</a></li>
-              <li><a class="dropdown-item" href="#!">IT....</a></li>
+              <li><a class="dropdown-item" href="../book/list_by_bookgrpno.do?bookgrpno=1">공과대학전공</a></li>
+              <li><a class="dropdown-item" href="../book/list_by_bookgrpno.do?bookgrpno=2">자연대학전공</a></li>
+              <li><a class="dropdown-item" href="../book/list_by_bookgrpno.do?bookgrpno=3">경영대학전공</a></li>
+              <li><a class="dropdown-item" href="../book/list_by_bookgrpno.do?bookgrpno=4">사범대학전공</a></li>
+              <li><a class="dropdown-item" href="../book/list_by_bookgrpno.do?bookgrpno=5">문과대학전공</a></li>
+              <li><a class="dropdown-item" href="../book/list_by_bookgrpno.do?bookgrpno=6">사회과학대학전공</a></li>
+              <li><a class="dropdown-item" href="../book/list_by_bookgrpno.do?bookgrpno=7">의과대학전공</a></li>
+              <li><a class="dropdown-item" href="../book/list_by_bookgrpno.do?bookgrpno=8">예술체육대학전공</a></li>
+              <li><a class="dropdown-item" href="../book/list_by_bookgrpno.do?bookgrpno=9">외국어전공</a></li>
+              <li><a class="dropdown-item" href="../book/list_by_bookgrpno.do?bookgrpno=10">기타전공도서</a></li>
             </ul>
           </li>
           
@@ -41,10 +48,10 @@
             <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">커뮤니티</a>
             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
               <li><a class="dropdown-item" href="/commgrp/list.do" >커뮤니티 그룹</a></li>
-              <li><a class="dropdown-item" href="/board/list_by_commgrpno_join.do" >커뮤니티</a></li>
+              <li><a class="dropdown-item" href="#!" >커뮤니티</a></li>
               <li><hr class="dropdown-divider" /></li>
-              <li><a class="dropdown-item" href="/board/list_by_commgrpno_notice_search_paging.do?commgrpno=2&word=&now_page=1">공지사항</a></li>
-              <li><a class="dropdown-item" href="/board/list_by_commgrpno_qna_search_paging.do?commgrpno=3&word=&now_page=1">QnA</a></li>
+              <li><a class="dropdown-item" href="#!">공지사항</a></li>
+              <li><a class="dropdown-item" href="#!">QnA</a></li>
             </ul>
           </li>
           
@@ -59,7 +66,7 @@
               <li><a class="dropdown-item" href="#!">구입 목록</a></li>
               <li><a class="dropdown-item" href="#!">매입 목록</a></li>
               <li><a class="dropdown-item" href="#!">리뷰</a></li>
-              <li><a class="dropdown-item" href="/message/list.do">쪽지</a></li>
+              <li><a class="dropdown-item" href="#!">쪽지</a></li>
             </ul>
           </li>
      
@@ -85,7 +92,7 @@
         
         
         <%-- 장바구니: 주경님 담당 개발~ --%>
-        <form class="d-flex" name="frm_interested" id="frm_interested" action="/interested/list.do">
+        <form class="d-flex">
           <c:choose>
             <c:when test="${sessionScope.id == null}"> <%-- 로그인 안 한 경 우 --%>
               <button class="btn btn-outline-dark" style="border: solid 1px;" type="submit">
@@ -95,16 +102,12 @@
               </button>
             </c:when>
             <c:otherwise> <%-- 로그인 한 경 우 --%>
-              <button class="btn btn-outline-dark" style="border: solid 1px; margin-right:5px;" type="submit">
-                ${sessionScope.id }
-                <span class="badge bg-dark text-white ms-1 rounded-pill">0</span>
-              </button> 
+              <button class="btn btn-outline-dark" style="border: solid 1px; margin-right:5px;" type="submit">${sessionScope.id }</button> 
               <button class="btn btn-outline-dark" style="border: solid 1px;" type="submit">
                 <i class="bi-cart-fill me-1"></i>
                   Cart
                 <%-- 나중에 장바구니에 도서갯수 카운트해서 숫자뜨게 해주세요~ --%>
-
-                <span class="badge bg-dark text-white ms-1 rounded-pill">0</span>
+                <span class="badge bg-dark text-white ms-1 rounded-pill">{}</span>
               </button>
             </c:otherwise>
           </c:choose>
