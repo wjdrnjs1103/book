@@ -28,7 +28,9 @@
  
 <body>
 <jsp:include page="../menu/top.jsp" flush='false' />
- 
+ <section class="py-5">
+  
+      <DIV class='container c_bottom_10'> 
   <DIV class='title_line'>
     ${sessionScope.id }님 주문결재 내역
   </DIV>
@@ -94,7 +96,7 @@
       <TD class='td_basic'><fmt:formatNumber value="${paymoney }" pattern="#,###" /></TD>
       <TD class='td_basic'>${rdate.substring(1,16) }</TD>
       <TD class='td_basic'>
-        <A href="/orders/list_by_memberno.do?payment=${paymnet}">
+        <A href="/orders/list_by_memberno.do?paymentno=${paymentno}">
           <!-- <img src="/payment/images/bu6.png" title="주문 내역 상세 조회"> -->
           <span class="glyphicon glyphicon-share" title="주문 내역 상세 조회"></span>
         </A>
@@ -109,6 +111,7 @@
     <button type='button' onclick="location.reload();" class="btn btn-primary">새로 고침</button>
   </DIV> -->
 </DIV>
+</section>
  
 <jsp:include page="../menu/bottom.jsp" flush='false' />
 </body>

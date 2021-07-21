@@ -98,7 +98,7 @@
               <button class="btn btn-outline-dark" style="border: solid 1px;" type="submit">
                 <i class="bi-cart-fill me-1"></i>
                   Cart
-                <span class="badge bg-dark text-white ms-1 rounded-pill">0</span>
+                <%--<span class="badge bg-dark text-white ms-1 rounded-pill">0</span>--%>
               </button>
             </c:when>
             <c:otherwise> <%-- 로그인 한 경 우 --%>
@@ -106,8 +106,8 @@
               <button class="btn btn-outline-dark" style="border: solid 1px;" type="submit">
                 <i class="bi-cart-fill me-1"></i>
                   Cart
-                <%-- 나중에 장바구니에 도서갯수 카운트해서 숫자뜨게 해주세요~ --%>
-                <span class="badge bg-dark text-white ms-1 rounded-pill">{}</span>
+                <%-- 나중에 장바구니에 도서갯수 카운트해서 숫자뜨게 해주세요~ 
+                <span class="badge bg-dark text-white ms-1 rounded-pill">{}</span>--%>
               </button>
             </c:otherwise>
           </c:choose>
