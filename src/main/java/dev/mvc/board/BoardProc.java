@@ -495,5 +495,16 @@ public class  BoardProc implements BoardProcInter {
     return cnt;
   }
  
+  @Override
+  public int increaseBreplycnt(int boardno) {
+    int count = boardDAO.increaseBreplycnt(boardno);
+    return count;
+  }
+
+  @Override
+  public int decreaseBreplycnt(int boardno) {
+    int count = boardDAO.decreaseBreplycnt(boardno);
+    return count;
+  }
   
 }

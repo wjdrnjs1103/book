@@ -129,4 +129,18 @@ public interface BoardProcInter {
    * @return
    */
   public int delete(int boardno);
+  
+  /**
+   * 댓글 수 증가
+   * @param boardno
+   * @return
+   */ 
+  public int increaseBreplycnt(int boardno);
+ 
+  /**
+   * 댓글 수 감소
+   * @param boardno
+   * @return
+   */   
+  public int decreaseBreplycnt(int boardno);
 }

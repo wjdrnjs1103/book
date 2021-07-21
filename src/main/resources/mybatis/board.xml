@@ -203,4 +203,17 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     WHERE boardno=#{boardno}
   </delete>
   
+  <!-- 댓글 수 증가 -->
+  <update id="increaseBreplycnt" parameterType="int">
+    UPDATE board
+    SET breplycnt = breplycnt + 1
+    WHERE boardno = #{boardno}
+  </update>
+
+  <!-- 댓글 수 감소 -->
+  <update id="decreaseBreplycnt" parameterType="int">
+    UPDATE board
+    SET breplycnt = breplycnt - 1
+    WHERE boardno = #{boardno}
+  </update>
 </mapper>
