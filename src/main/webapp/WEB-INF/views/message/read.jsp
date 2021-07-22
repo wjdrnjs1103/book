@@ -28,6 +28,10 @@
 <link rel="icon" type="/image/x-icon" href="assets/favicon.ico" />
 
 <script type="text/javascript">
+function update_stateno(productno){
+  
+}
+
 function read_delete_ajax(messageno) {
   var params = "";
   // params = $('#frm').serialize(); // 직렬화, 폼의 데이터를 키와 값의 구조로 조합
@@ -75,13 +79,13 @@ function read_delete_ajax(messageno) {
 <jsp:include page="../menu/top.jsp" />
   <div class="container">
     <div class="col-md-6 col-md-offset-3" style="text-align: center;">                        
-      <h3>${param.sender } 님의 쪽지 </h3>
+      <h3>${param.sender } 님의 쪽지  </h3>
     </div>
     <%-- 책에 대한 정보 표기 --%>
     <div class="page-header"></div>
 
     <div class="col-sm-6 col-md-offset-3" >
-      <form name='frm' id='frm' style='margin-top: 50px;' action="./delete.do" method='post'>
+      <form name='frm' id='frm' style='margin-top: 50px;' action="/productno/update_stateno.do" method='post'>
         <input type='hidden' name='messageno' id='messageno' value=''>  
         <div class="form-group">
             <label for="inputName">제목</label>
@@ -94,14 +98,15 @@ function read_delete_ajax(messageno) {
         </div>
   
         <div class="form-group text-center">
-            <button type="submit" onclick="read_delete_ajax(${messageVO.messageno})" class="btn btn-danger">
-               삭제<i class="fa fa-check spaceLeft"></i>
-            </button>
-            <button type="button" class="btn btn-primary">
+
+            <button type="button" onclick="location.href='./reply.do?send_member=${messageVO.send_member}&productno=${messageVO.productno }'" class="btn btn-primary">
                답장<i class="fa fa-times spaceLeft"></i>
             </button>
-            <button type="button" class="btn btn-warning">
+            <button type="submit" class="btn btn-warning">
                거래확인<i class="fa fa-times spaceLeft"></i>
+            </button>
+            <button type="button" onclick="update_stateno(${messageVO.productno})" class="btn btn-primary">
+               뒤로가기<i class="fa fa-times spaceLeft"></i>
             </button>
         </div>
       </form>

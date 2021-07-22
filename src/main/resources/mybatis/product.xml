@@ -19,13 +19,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </selectKey>
     
     INSERT INTO product(productno, bookno, memberno, title, content, cnt, 
-                                 word, rdate, file1, file1saved, thumb1, size1, price)
+                                 word, rdate, file1, file1saved, thumb1, size1, price, stateno)
     VALUES(#{productno}, #{bookno}, #{memberno}, #{title}, #{content}, #{cnt}, 
-               #{word}, sysdate, #{file1}, #{file1saved}, #{thumb1}, #{size1}, #{price})
+               #{word}, sysdate, #{file1}, #{file1saved}, #{thumb1}, #{size1}, #{price}, #{stateno})
   </insert>
   
   <select id="list_by_bookno" resultType="dev.mvc.product.ProductVO" parameterType="int">
-    SELECT productno, bookno, memberno, title, content, cnt, word, rdate, file1, file1saved, thumb1, size1, price
+    SELECT productno, bookno, memberno, title, content, cnt, word, rdate, file1, file1saved, thumb1, size1, price, stateno
     FROM product 
     WHERE bookno=#{bookno}
     ORDER BY productno DESC
@@ -34,7 +34,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   <!-- 도서별 검색 목록 -->
   <select id="list_by_bookno_search" resultType="dev.mvc.product.ProductVO" 
              parameterType="HashMap">
-    SELECT productno, bookno, memberno, title, content, cnt, word, rdate, file1, file1saved, thumb1, size1, price
+    SELECT productno, bookno, memberno, title, content, cnt, word, rdate, file1, file1saved, thumb1, size1, price, stateno
     FROM product 
     <choose>
       <when test="word == null or word == ''"> <!-- 검색하지 않는 경우 -->
@@ -71,11 +71,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   <!-- 카테고리별 검색 목록 + 페이징 + 메인 이미지 -->   
   <select id="list_by_bookno_search_paging" 
              resultType="dev.mvc.product.ProductVO" parameterType="HashMap">
-   SELECT productno, bookno, memberno, title, content, cnt, word, rdate, file1, file1saved, thumb1, size1, price, r
+   SELECT productno, bookno, memberno, title, content, cnt, word, rdate, file1, file1saved, thumb1, size1, price, stateno,  r
    FROM (
-              SELECT productno, bookno, memberno, title, content, cnt, word, rdate, file1, file1saved, thumb1, size1, price, rownum as r
+              SELECT productno, bookno, memberno, title, content, cnt, word, rdate, file1, file1saved, thumb1, size1, price, stateno, rownum as r
               FROM (
-                        SELECT productno, bookno, memberno, title, content, cnt, word, rdate, file1, file1saved, thumb1, size1, price
+                        SELECT productno, bookno, memberno, title, content, cnt, word, rdate, file1, file1saved, thumb1, size1, price, stateno
                         FROM product
                         <choose>
                           <when test="word == null or word == ''"> <!-- 검색하지 않는 경우 -->
@@ -100,7 +100,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   
    <!-- 일반적인 조회 -->
   <select id="read" resultType="dev.mvc.product.ProductVO" parameterType="int">
-    SELECT productno, bookno, memberno, title, content, cnt, word, rdate, file1, file1saved, thumb1, size1, price
+    SELECT productno, bookno, memberno, title, content, cnt, word, rdate, file1, file1saved, thumb1, size1, price, stateno
     FROM product
     WHERE productno = #{productno}
   </select>

@@ -16,6 +16,7 @@ CREATE TABLE product(
 		thumb1                         		VARCHAR2(100)		 NULL ,
 		size1                          		NUMBER(10)		 DEFAULT 0		 NULL ,
 		price                         		NUMBER(10)		 DEFAULT 0		 NOT NULL,
+        stateno                          NUMBER(1)         DEFAULT 1        NOT NULL,
   FOREIGN KEY (bookno) REFERENCES book (bookno),
   FOREIGN KEY (memberno) REFERENCES member (memberno)
 );
@@ -34,6 +35,7 @@ COMMENT ON COLUMN product.file1saved is '실제 저장된 메인 이미지';
 COMMENT ON COLUMN product.thumb1 is '메인 이미지 Preview';
 COMMENT ON COLUMN product.size1 is '메인 이미지 크기';
 COMMENT ON COLUMN product.price is '가격';
+COMMENT ON COLUMN product.stateno is '판매여부';
 
 DROP SEQUENCE product_seq;
 CREATE SEQUENCE product_seq
@@ -42,12 +44,14 @@ CREATE SEQUENCE product_seq
   MAXVALUE 9999999999 -- 최대값: 9999999999
   CACHE 2                     -- 2번은 메모리에서만 계산
   NOCYCLE;                   -- 다시 1부터 생성되는 것을 방지
-  
-INSERT INTO product(productno, bookno, memberno, title, content, cnt, word, rdate, file1, file1saved, thumb1, size1, price)
-VALUES(product_seq.nextval, 1, 1, '스프링부트', '출판사:RubyPaper/상태좋음', 1, '스프링', sysdate, 'spring.jpg', 'spring_1.jpg', 'spring_t.jpg', 1000, 25000); 
 
-INSERT INTO product(productno, bookno, memberno, title, content, cnt, word, rdate, file1, file1saved, thumb1, size1, price)
-VALUES(product_seq.nextval, 1, 1, '자바프로그래밍', '출판사:한빛/상태보통', 1, '자바', sysdate, 'java.jpg', 'java_1.jpg', 'java_t.jpg', 1000, 19000);
+-- 판매여부 (stateno):  1: 판매중, 2: 판매완료
+  
+INSERT INTO product(productno, bookno, memberno, title, content, cnt, word, rdate, file1, file1saved, thumb1, size1, price, stateno)
+VALUES(product_seq.nextval, 1, 1, '스프링부트', '출판사:RubyPaper/상태좋음', 1, '스프링', sysdate, 'spring.jpg', 'spring_1.jpg', 'spring_t.jpg', 1000, 25000, 1); 
+
+INSERT INTO product(productno, bookno, memberno, title, content, cnt, word, rdate, file1, file1saved, thumb1, size1, price, stateno)
+VALUES(product_seq.nextval, 1, 1, '자바프로그래밍', '출판사:한빛/상태보통', 1, '자바', sysdate, 'java.jpg', 'java_1.jpg', 'java_t.jpg', 1000, 19000, 1);
 
 commit;
 

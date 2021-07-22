@@ -17,7 +17,7 @@ file1saved                        VARCHAR2(100)    NULL ,
 thumb1                            VARCHAR2(100)    NULL ,
 size1                             NUMBER(10)     DEFAULT 0     NULL ,
 price                             NUMBER(10)     DEFAULT 0     NOT NULL,
-
+stateno                          NUMBER(1)       DEFAULT 1    NOT NULL
 */
 public class ProductVO {
   /** 상품 번호 */
@@ -48,7 +48,18 @@ public class ProductVO {
 
   /** 정가 */
   private int price;
+  /** 판매여부 */
+  private int stateno = 1;
   
+  
+  public int getStateno() {
+    return stateno;
+  }
+
+  public void setStateno(int stateno) {
+    this.stateno = stateno;
+  }
+
   /** 
   이미지 MultipartFile 
   <input type='file' class="form-control" name='file1MF' id='file1MF' 

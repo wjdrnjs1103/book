@@ -45,14 +45,14 @@ public class MessageCont {
   
   /**
    * 쪽지 보내기 폼
-   * http://localhost:9091/message/message.do?
+   * http://localhost:9091/message/create.do?
    * @return
    */
   @RequestMapping(value="/message/create.do", method=RequestMethod.GET )
   public ModelAndView create(HttpServletRequest request, int productno) {
     ModelAndView mav = new ModelAndView();
     
-    System.out.println("productno:" + productno);
+    // System.out.println("productno:" + productno);
     
     ProductVO productVO = this.productProc.read(productno);
     mav.addObject("productVO", productVO); // request.setAttribute("productVO", productVO);
@@ -67,6 +67,22 @@ public class MessageCont {
    
     return mav; // forward
   }
+  
+  /**
+   * 쪽지 답장 폼
+   * http://localhost:9091/message/message.do?
+   * @return
+   */
+  @RequestMapping(value="/message/reply.do", method=RequestMethod.GET )
+  public ModelAndView reply(HttpServletRequest request, int send_member, int productno) {
+    ModelAndView mav = new ModelAndView();
+    
+    mav.setViewName("/message/reply"); // webapp/message/reply.jsp
+   
+    return mav; // forward
+  }
+  
+  
   
   /**
    * 쪽지 보내기 처리
@@ -89,6 +105,33 @@ public class MessageCont {
    
     return mav; // forward
   }
+  
+  /**
+   * 쪽지 답장 처리
+   * http://localhost:9091/message/message.do?
+   * @return
+   */
+  @RequestMapping(value="/message/reply.do", method=RequestMethod.POST )
+  public ModelAndView create(MessageVO messageVO, int productno, int send_member) {
+    ModelAndView mav = new ModelAndView();
+    
+    int recv_member = this.messageProc.get_memberno(productno); // get_memberno 함수로 게시글 작성자의 회원번호 추출
+    messageVO.setRecv_member(send_member);  // 내가 보내는사람 (주객전도)
+    messageVO.setProductno(productno);
+    messageVO.setSend_member(recv_member);
+    
+    int cnt = this.messageProc.create(messageVO);
+    
+    List<MessageVO> list = this.messageProc.list(recv_member);
+    mav.addObject("list", list); // request.setAttribute("list", list);
+    
+    mav.addObject("cnt", cnt); // redirect parameter 적용
+    
+    mav.setViewName("/message/list"); // webapp/message/list.jsp
+   
+    return mav; // forward
+  }
+  
   
   /**
    * Ajax 기반 목록

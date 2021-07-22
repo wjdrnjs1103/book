@@ -238,6 +238,7 @@
         <c:set var="file1" value="${productVO.file1 }" />
         <c:set var="thumb1" value="${productVO.thumb1 }" />
         <c:set var="price" value="${productVO.price }" />
+        <c:set var="stateno" value="${productVO.stateno }" />
         
         <tr> 
           <td style='vertical-align: middle; text-align: center;'>
@@ -266,6 +267,16 @@
             <br>
             <button type='button' id='btn_cart' class="btn btn-dark" style='margin-bottom: 2px;'
                         onclick="cart_ajax(${productno})">찜하기</button><br>
+             
+            <c:choose>
+              <c:when test="${stateno ==1 }">
+                <h4>판매중</h4>
+              </c:when>
+              <c:otherwise>
+                <h4>판매 완료</h4>
+              </c:otherwise>
+            </c:choose>
+            
           </td>
           <td style='vertical-align: middle; text-align: center;'>
             <A href="./update_text.do?productno=${productno}&now_page=${now_page }"><span class="glyphicon glyphicon-pencil"></span></A>
