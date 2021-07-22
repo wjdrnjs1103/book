@@ -33,5 +33,26 @@ public interface MessageProcInter {
    */
   public int count_by_memberno(int recv_member);
   
+  /**
+   * 보낸이 이름출력
+   * @param send_member
+   * @return 등록된 갯수
+   */
+  public MessageVO get_sender_name(int send_member);
+  
+  /**
+   * 쪽지 삭제 처리
+   * @param memberno
+   * @return
+   */
+  public int delete(int messageno);
+  
+  /**
+   * message로 쪽지 정보 조회
+   * @param memberno
+   * @return
+   */
+  public MessageVO read(int messageno);
+  
 
 }

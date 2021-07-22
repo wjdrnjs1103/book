@@ -22,6 +22,24 @@ public class MessageVO {
   private int recv_member;
   /** 등록 날짜 */
   private String s_date="";
+  /** 제품번호 */
+  private int productno;  
+  
+  public int getProductno() {
+    return productno;
+  }
+  public void setProductno(int productno) {
+    this.productno = productno;
+  }
+  /** 보낸이 이름 */
+  private String sender="";  
+  
+  public String getSender() {
+    return sender;
+  }
+  public void setSender(String sender) {
+    this.sender = sender;
+  }
   public int getMessageno() {
     return messageno;
   }

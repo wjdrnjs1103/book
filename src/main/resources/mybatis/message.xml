@@ -6,17 +6,25 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 <mapper namespace="dev.mvc.message.MessageDAOInter"> 
   <!-- 메세지 조회 -->
-  <select id="list" resultType="dev.mvc.message.MessageVO" parameterType="int">
-    SELECT messageno, title, contents, recv_member, send_member, s_date
+<!--   <select id="list" resultType="dev.mvc.message.MessageVO" parameterType="int">
+    SELECT messageno, title, contents, recv_member, send_member, s_date, productno
     FROM message
     WHERE recv_member=#{recv_member}
     ORDER BY messageno DESC
+  </select> -->
+  
+  <!-- 메세지 조회(보낸이 이름출력 join) -->
+  <select id="list" resultType="dev.mvc.message.MessageVO" parameterType="int">
+    SELECT a.messageno as messageno, a.title as title, a.contents as contents, a.recv_member as recv_member, 
+              a.send_member as send_member, a.s_date as s_date,a.productno as productno, b.mname as sender
+    FROM message a, member b
+    WHERE a.recv_member=#{recv_member} and a.send_member = b.memberno
   </select>
   
   <!-- 메세지 보내기 -->
   <insert id="create" parameterType="dev.mvc.message.MessageVO">
-    INSERT INTO message(messageno, title, contents, recv_member, send_member, s_date)
-    VALUES(MESSAGE_SEQ.nextval, #{title}, #{contents}, #{recv_member} , #{send_member}, sysdate)
+    INSERT INTO message(messageno, title, contents, recv_member, send_member, s_date, productno)
+    VALUES(MESSAGE_SEQ.nextval, #{title}, #{contents}, #{recv_member} , #{send_member}, sysdate, #{productno})
   </insert>
   
   <!-- 게시글 작성자의 회원번호 추출 (게시글 개발완료후 ProductVO에서 조회(parameterType))-->
@@ -32,6 +40,25 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     FROM message
     WHERE recv_member = #{recv_member };
   </select>
+  
+   <!-- 보낸이의 이름 출력 -->
+  <select id="get_sender_name" parameterType="int" resultType="dev.mvc.message.MessageVO">
+    SELECT a.messageno, a.title, a.contents, a.recv_member, a.send_member, a.s_date, b.mname as sender
+    FROM message a, member b
+    WHERE b.memberno = #{send_member }
+  </select>
+  
+  <!-- 쪽지 삭제 -->
+  <delete id="delete" parameterType="int">
+    DELETE FROM message
+    WHERE messageno=#{messageno}
+  </delete>
 
+  <!-- messageno로 쪽지 정보 조회 -->
+  <select id="read" resultType="dev.mvc.message.MessageVO" parameterType="int">
+    SELECT messageno, title, contents, recv_member, send_member, s_date, productno
+    FROM message
+    WHERE messageno = #{messageno}
+  </select>  
   
 </mapper>

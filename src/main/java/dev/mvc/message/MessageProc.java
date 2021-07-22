@@ -48,4 +48,23 @@ public class MessageProc implements MessageProcInter {
     return cnt;
   }
 
+  @Override
+  public MessageVO get_sender_name(int send_member) {
+    MessageVO messageVO = this.messageDAO.get_sender_name(send_member);
+    System.out.println(send_member);
+    return messageVO;
+  }
+
+  @Override
+  public int delete(int messageno) {
+    int cnt = this.messageDAO.delete(messageno);
+    return cnt;
+  }
+  
+  @Override
+  public MessageVO read(int messageno) {
+    MessageVO messageVO = this.messageDAO.read(messageno);
+    return messageVO;
+  }
+
 }
