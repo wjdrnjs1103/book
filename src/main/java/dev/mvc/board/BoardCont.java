@@ -692,11 +692,12 @@ public class BoardCont {
    * 조회
    * http://localhost:9091/board/read.do
    * @return
+   * @throws Exception 
    */
   @RequestMapping(value="/board/read.do", method=RequestMethod.GET )
   public ModelAndView read(HttpServletRequest request, int boardno,
                            @RequestParam(value = "now_page", defaultValue = "1") int now_page,
-                           @RequestParam(value = "word", defaultValue = "") String word) {
+                           @RequestParam(value = "word", defaultValue = "") String word) throws Exception {
     ModelAndView mav = new ModelAndView();
 
     BoardVO boardVO = this.boardProc.read(boardno);
@@ -735,6 +736,10 @@ public class BoardCont {
     }
     
     System.out.println("-> ck_id: " + ck_id);
+    
+    boardProc.bcnt_read(boardVO);
+    
+    mav.addObject("boardVO", boardVO);
     
     mav.addObject("ck_id", ck_id); 
     mav.addObject("ck_id_save", ck_id_save);

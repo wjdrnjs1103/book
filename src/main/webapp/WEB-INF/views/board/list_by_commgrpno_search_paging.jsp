@@ -136,23 +136,22 @@
             
             <div class="form-group">
               <label class="col-md-4 control-label" style='font-size: 0.8em;'>아이디</label>    
-              <div class="col-md-8">
+              <div class="col-md-7">
                 <input type='text' class="form-control" name='id' id='id' 
                            value='${ck_id }' required="required" 
-                           style='width: 30%;' placeholder="아이디" autofocus="autofocus">
+                           style='width: 40%;' placeholder="아이디" autofocus="autofocus">
                 <Label>   
                   <input type='checkbox' name='id_save' value='Y' 
                             ${ck_id_save == 'Y' ? "checked='checked'" : "" }> 저장
                 </Label>                   
               </div>
-         
             </div>   
          
             <div class="form-group">
               <label class="col-md-4 control-label" style='font-size: 0.8em;'>패스워드</label>    
-              <div class="col-md-8">
+              <div class="col-md-7">
                 <input type='password' class="form-control" name='passwd' id='passwd' 
-                          value='${ck_passwd }' required="required" style='width: 30%;' placeholder="패스워드">
+                          value='${ck_passwd }' required="required" style='width: 40%;' placeholder="패스워드">
                 <Label>
                   <input type='checkbox' name='passwd_save' value='Y' 
                             ${ck_passwd_save == 'Y' ? "checked='checked'" : "" }> 저장

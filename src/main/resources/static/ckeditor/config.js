@@ -7,6 +7,14 @@ CKEDITOR.editorConfig = function( config ) {
   // Define changes to default configuration here. For example:
   // config.language = 'fr';
   // config.uiColor = '#AADC6E';
+
+  // ****** 추가 ****** 
+  // Config Helper 플러그인, placeholder 입력 허가
+  // config.extraPlugins = 'confighelper';
+  // 가로 넓이 지정
+  config.width = '88.4%';
+  // ******************
+  
   config.height = 500;  // 편집 화면 높이
   //config.uiColor = '#9AB8F3';
   config.uiColor = '#D3D3D3';

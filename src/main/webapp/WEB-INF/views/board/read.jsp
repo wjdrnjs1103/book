@@ -5,6 +5,7 @@
 <c:set var="commgrpno" value="${boardVO.commgrpno }" />
 <c:set var="boardno" value="${param.boardno }" />
 <c:set var="memberno" value="${sessionScope.memberno}" />
+<c:set var="bcnt" value="${boardVO.bcnt}" />
 
 
 <!DOCTYPE html> 
@@ -625,8 +626,7 @@
                         <span style="color: black; font-size: 0.94em; font-weight: bold;">${boardVO.writer }</span><br>
                         <span style="font-size: 0.87em;">${boardVO.brdate.substring(0, 16) }</span>
                         <span class='menu_sep2'>　</span>
-                        <span style="font-size: 0.87em;">조회 ${boardVO.bcnt}</span>　
-                        <span style="font-size: 0.87em;">추천 ${boardVO.brecom}</span>
+                        <span style="font-size: 0.87em;">조회 ${boardVO.bcnt + 1}</span>　
                       </div>
                     </div>
                 </div>

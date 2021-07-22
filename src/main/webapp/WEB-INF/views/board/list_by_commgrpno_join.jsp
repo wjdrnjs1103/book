@@ -39,6 +39,13 @@
             <a href="./list.do" class='title_link'>커뮤니티</a>
           </DIV>
           
+          <div class="c_com_join">        
+              <div class="c_com_join_con_t" style="border-bottom: solid 1px;">
+                <a style="font-weight: bold; color:red;">조회수 </a>높은 게시글
+              </div>
+          </div>
+          
+          
           <div class="c_com_join">
               <div class="c_com_join_con_t" style="border-bottom: solid 1px;">
                 <a style="font-weight: bold;" href="./list_by_commgrpno_search_paging.do?commgrpno=1&word=&now_page=1">자유게시판</a>
@@ -108,12 +115,6 @@
                        </TD>
                      </TR>
                    </c:forEach>
-              </div>
-          </div>
-          
-          <div class="c_com_join">        
-              <div class="c_com_join_con_t">
-              공지사항
               </div>
           </div>
        

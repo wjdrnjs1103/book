@@ -48,10 +48,10 @@
             <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">커뮤니티</a>
             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
               <li><a class="dropdown-item" href="/commgrp/list.do" >커뮤니티 그룹</a></li>
-              <li><a class="dropdown-item" href="#!" >커뮤니티</a></li>
+              <li><a class="dropdown-item" href="/board/list_by_commgrpno_join.do" >커뮤니티</a></li>
               <li><hr class="dropdown-divider" /></li>
-              <li><a class="dropdown-item" href="#!">공지사항</a></li>
-              <li><a class="dropdown-item" href="#!">QnA</a></li>
+              <li><a class="dropdown-item" href="/board/list_by_commgrpno_notice_search_paging.do?commgrpno=2&word=&now_page=1">공지사항</a></li>
+              <li><a class="dropdown-item" href="/board/list_by_commgrpno_qna_search_paging.do?commgrpno=3&word=&now_page=1">QnA</a></li>
             </ul>
           </li>
           
@@ -81,7 +81,7 @@
                     <li><a class="dropdown-item" href="#!" >관리자</a></li>
                     <li><hr class="dropdown-divider" /></li>
                     <li><a class="dropdown-item" href="#!">회원 관리</a></li>
-                    <li><a class="dropdown-item" href="#!">커뮤니티 관리</a></li>
+                    <li><a class="dropdown-item" href="/commgrp/list.do">커뮤니티 관리</a></li>
                     <li><a class="dropdown-item" href="#!">도서분류 관리</a></li>
                     <li><a class="dropdown-item" href="#!">로그 관리</a></li>
                 </ul>

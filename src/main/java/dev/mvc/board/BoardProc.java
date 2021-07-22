@@ -507,4 +507,10 @@ public class  BoardProc implements BoardProcInter {
     return count;
   }
   
+  //조회수
+  @Override
+  public int bcnt_read(BoardVO boardVO) throws Exception{
+    return boardDAO.bcnt_read(boardVO);
+  }
+  
 }

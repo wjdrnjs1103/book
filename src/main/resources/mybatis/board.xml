@@ -216,4 +216,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     SET breplycnt = breplycnt - 1
     WHERE boardno = #{boardno}
   </update>
+  
+   <!-- 조회수 증가 -->
+  <update id="bcnt_read" parameterType="int">
+    UPDATE board
+    SET bcnt = bcnt + 1
+    WHERE boardno = #{boardno}
+  </update>
 </mapper>

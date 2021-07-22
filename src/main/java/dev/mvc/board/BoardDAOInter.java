@@ -127,5 +127,11 @@ public interface BoardDAOInter {
    */   
   public int decreaseBreplycnt(int boardno);
  
+  /**
+   * 조회수 증가
+   * @param boardno
+   * @return
+   */ 
+  public int bcnt_read(BoardVO boardVO) throws Exception;
  
 }
