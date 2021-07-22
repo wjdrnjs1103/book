@@ -35,7 +35,7 @@ COMMENT ON COLUMN member.grade is '등급';
 DROP TABLE message;
 CREATE TABLE message(
 		messageno                     		NUMBER(10)		 NOT NULL  PRIMARY KEY,
-		title                         		VARCHAR2(10)		 NOT NULL,
+		title                         		VARCHAR2(300)		 NOT NULL,
 		contents                      		CLOB		 NOT NULL,
 		recv_member                   		NUMBER(10)		 NOT NULL,
 		send_member                   		NUMBER(10)		 NOT NULL,
