@@ -92,7 +92,7 @@
         
         
         <%-- 장바구니: 주경님 담당 개발~ --%>
-        <form class="d-flex">
+        <form class="d-flex" action="/cart/list.do" method='get'>
           <c:choose>
             <c:when test="${sessionScope.id == null}"> <%-- 로그인 안 한 경 우 --%>
               <button class="btn btn-outline-dark" style="border: solid 1px;" type="submit">
