@@ -204,8 +204,7 @@
   </table>
   
   <form name='frm' id='frm' style='margin-top: 50px;' action="/payment/create.do" method='post'>
-    <input type="hidden" name="${ _csrf.parameterName }" value="${ _csrf.token }">  
-    <input type="hidden" name="amount" value=" ${tot_sum }">   <%-- 전체 주문 금액 --%>
+    <input type="hidden" name="paymoney" value=" ${tot_order }">   <%-- 전체 주문 금액 --%>
     
     
   <ASIDE class="aside_left">
