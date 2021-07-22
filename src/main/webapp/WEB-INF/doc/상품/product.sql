@@ -55,8 +55,14 @@ VALUES(product_seq.nextval, 1, 1, '자바프로그래밍', '출판사:한빛/상
 
 commit;
 
+-- 상품번호를 파라미터로 받아서 stateno 상태변수 변경
+UPDATE product
+SET stateno = 2
+WHERE productno = 1;
+
+
 -- 목록
-SELECT productno, bookno, memberno, title, content, cnt, word, rdate, file1, file1saved, thumb1, size1, price
+SELECT productno, bookno, memberno, title, content, cnt, word, rdate, file1, file1saved, thumb1, size1, price, stateno
 FROM product
 ORDER BY productno ASC;
 
