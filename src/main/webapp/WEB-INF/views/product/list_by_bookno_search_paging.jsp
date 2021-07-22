@@ -245,7 +245,7 @@
             <c:choose>
               <c:when test="${thumb1.endsWith('jpg') || thumb1.endsWith('png') || thumb1.endsWith('gif')}">
                 <%-- /static/product/storage/ --%>
-                <a href="./read.do?productno=${productno}&now_page=${param.now_page }&word=${param.word }"><IMG src="/product/storage/${thumb1 }" style="width: 130px; height: 170px;"></a> 
+                <a href="./read.do?productno=${productno}&now_page=${param.now_page }&word=${param.word }&stateno=${stateno}"><IMG src="/product/storage/${thumb1 }" style="width: 130px; height: 170px;"></a> 
               </c:when>
               <c:otherwise> <!-- 이미지가 아닌 일반 파일 -->
                 ${file1}
@@ -253,7 +253,7 @@
             </c:choose>
           </td>  
           <td style='vertical-align: middle;'>
-            <a href="./read.do?productno=${productno}&now_page=${param.now_page }"><strong>${title}</strong><br> ${content}</a> 
+            <a href="./read.do?productno=${productno}&now_page=${param.now_page }&stateno=${stateno}"><strong>${title}</strong><br> ${content}</a> 
           </td> 
           <td style='vertical-align: middle; text-align: center;'>
           
@@ -266,7 +266,7 @@
             
             <br>
             <button type='button' id='btn_cart' class="btn btn-dark" style='margin-bottom: 2px;'
-                        onclick="cart_ajax(${productno})">찜하기</button><br>
+                        onclick="cart_ajax(${productno})">찜하기 </button><br>
              
             <c:choose>
               <c:when test="${stateno ==1 }">

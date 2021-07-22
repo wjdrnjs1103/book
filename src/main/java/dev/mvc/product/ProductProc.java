@@ -236,4 +236,10 @@ import dev.mvc.tool.Tool;
       return cnt;
     }
     
+    @Override
+    public int update_stateno(int productno) {
+      int cnt = this.productDAO.update_stateno(productno);
+      return cnt;
+    }
+    
 }

@@ -85,8 +85,8 @@ function read_delete_ajax(messageno) {
     <div class="page-header"></div>
 
     <div class="col-sm-6 col-md-offset-3" >
-      <form name='frm' id='frm' style='margin-top: 50px;' action="/productno/update_stateno.do" method='post'>
-        <input type='hidden' name='messageno' id='messageno' value=''>  
+      <form name='frm' id='frm' style='margin-top: 50px;' action="/product/update_stateno.do" method='post'>
+        <input type='hidden' name='productno' id='productno' value=${messageVO.productno }> 
         <div class="form-group">
             <label for="inputName">제목</label>
             <input type="text" class="form-control" name="title" id="title" value='${messageVO.title }' disabled>
@@ -105,8 +105,8 @@ function read_delete_ajax(messageno) {
             <button type="submit" class="btn btn-warning">
                거래확인<i class="fa fa-times spaceLeft"></i>
             </button>
-            <button type="button" onclick="update_stateno(${messageVO.productno})" class="btn btn-primary">
-               뒤로가기<i class="fa fa-times spaceLeft"></i>
+            <button type="button" onclick="location.href='./list.do?'" class="btn btn-primary">
+               쪽지함<i class="fa fa-times spaceLeft"></i>
             </button>
         </div>
       </form>

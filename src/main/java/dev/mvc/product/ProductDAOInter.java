@@ -73,4 +73,11 @@ public interface ProductDAOInter {
    */
   public int delete(int productno);
   
+  /**
+   * 판매 여부 상태 수정
+   * @param productno
+   * @return
+   */
+  public int update_stateno(int productno);
+  
 }

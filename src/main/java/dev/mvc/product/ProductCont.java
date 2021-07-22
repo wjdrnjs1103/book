@@ -650,7 +650,26 @@ public class ProductCont {
        mav.setViewName("redirect:/product/list_by_bookno_search_paging.do"); 
 
        return mav; // forward
-     }   
+     }  
+     
+     /**
+      * 판매 여부 수정 처리
+      * http://localhost:9091/product/update_stateno.do?productno=1
+      * 
+      * @return
+      */
+     @RequestMapping(value = "/product/update_stateno.do", method = RequestMethod.POST)
+     public ModelAndView update_stateno(int productno) {
+       ModelAndView mav = new ModelAndView();
+       
+       int cnt = this.productProc.update_stateno(productno); // 수정 처리
+
+       
+       mav.setViewName("/message/list"); 
+
+       return mav; // forward
+     }
+        
      
 
 }
