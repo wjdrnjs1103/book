@@ -77,26 +77,26 @@ public class CommgrpCont {
 
   }
 
-//  /**
-//   * 목록  
-//   * http://localhost:9091/commgrp/list.do 
-//   * @return
-//   */
-//  @RequestMapping(value = "/commgrp/list.do", method = RequestMethod.GET)
-//  public ModelAndView list() {
-//    ModelAndView mav = new ModelAndView();
-//
-//    // 등록 순서별 출력
-//    // List<CategrpVO> list = this.categrpProc.list_categrpno_asc();
-//
-//    // 출력 순서별 출력
-//    List<CommgrpVO> list = this.commgrpProc.list_seqno_asc();
-//
-//   mav.addObject("list", list); // request.setAttribute("list", list);
-//
-//    mav.setViewName("/commgrp/list"); // /WEB-INF/views/commgrp/list.jsp
-//    return mav;
-//  }
+  /**
+   * 목록(회원 전용)  
+   * http://localhost:9091/commgrp/list.do 
+   * @return
+   */
+  @RequestMapping(value = "/commgrp/list.do", method = RequestMethod.GET)
+  public ModelAndView list() {
+    ModelAndView mav = new ModelAndView();
+
+    // 등록 순서별 출력
+    // List<CategrpVO> list = this.categrpProc.list_categrpno_asc();
+
+    // 출력 순서별 출력
+    List<CommgrpVO> list = this.commgrpProc.list_seqno_asc();
+
+    mav.addObject("list", list); // request.setAttribute("list", list);
+
+    mav.setViewName("/commgrp/list"); // /WEB-INF/views/commgrp/list.jsp
+    return mav;
+  }
   
   
   /**
@@ -104,7 +104,7 @@ public class CommgrpCont {
   *  http://localhost:9091/commgrp/list.do
   * @return
   */
-  @RequestMapping(value = "/commgrp/list.do", method = RequestMethod.GET)
+  @RequestMapping(value = "/commgrp/list_ajax.do", method = RequestMethod.GET)
   public ModelAndView list_ajax() { 
     ModelAndView mav = new ModelAndView();
     
