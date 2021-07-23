@@ -32,7 +32,7 @@
   
     .content_body {
     width: 90%;
-    margin: 10px auto; // margin 해결
+    margin: 10px auto; 
   }
   
     .aside_right {
@@ -47,16 +47,13 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     
 <script type="text/javascript">
-  function delete_func(cartno) {  // GET -> POST 전송, 상품 삭제
-    var frm = $('#frm_post');
-    $('#cartno', frm).val(cartno);
-    
-    //alert('interestedno:' +$('#interestedno', frm).val());
-    //frm.attr('action', './delete.do');
-    //$('#interestedno',  frm).val(interestedno);
-    
-    frm.submit();
-  }   
+function delete_func(cartno) {  // GET -> POST 전송, 상품 삭제
+  var frm = $('#frm_post');
+  frm.attr('action', './delete.do');
+  $('#cartno',  frm).val(cartno);
+  
+  frm.submit();
+}   
 
   function update_cnt(cartno) {  // 수량 변경
     var frm = $('#frm_post');
@@ -90,6 +87,9 @@
   <input type='hidden' name='cartno' id='cartno'>
   <input type='hidden' name ='cnt' id = 'cnt'>
 </form>
+  <section class="py-5">
+  
+      <DIV class='container c_bottom_10'> 
  
 <DIV class='title_line'>
   찜하기
@@ -97,7 +97,7 @@
 
 <DIV class='content_body'>
   <ASIDE class="aside_right">
-    <c:if test="${cartno != null}">
+    <c:if test="${bookno != null}">
       <A href="/product/list_by_cateno_search_paging?productno=${productno}">쇼핑 계속하기</A>
       <span class='menu_divide' >│</span>    
     </c:if>
@@ -145,7 +145,6 @@
                   <c:when test="${thumb1.endsWith('jpg') || thumb1.endsWith('png') || thumb1.endsWith('gif')}">
                     <%-- /static/contents/storage/ --%>
                     <a href="/product/read.do?productno=${productno}"><IMG src="/product/storage/${thumb1 }" style="width: 120px; height: 80px;"></a> 
-                   
                   </c:when>
                   <c:otherwise> <!-- 이미지가 아닌 일반 파일 -->
                     ${product.file1}
@@ -165,9 +164,18 @@
               </td>
               <td style='vertical-align: middle; text-align: center;'>
                 <A href="javascript: delete_func(${cartno })"><span class="glyphicon glyphicon-remove"></span></A>
+                <input type="hidden" id="count" name = "count" value="${count }">
+                ${count }
+                
+                <!-- <form name="frm_count" id = "frm_count" action="/cart/count_goods.do" method="get">
+                  <input type="hidden" id="cart_count" name = "cart_count" value="${cart_count }">
+                  ${cart_count }
+                </form> -->
               </td>
             </tr>
           </c:forEach>
+        
+        
         
         </c:when>
         <c:otherwise>
@@ -192,6 +200,7 @@
           
         </td>
         <td style='width: 50%;'>
+        
           
           <form name='frm' id='frm' style='margin-top: 50px;' action="/payment/create.do" method='get'>
             <button type='submit' id='btn_order' class='btn btn-outline-dark' style='font-size: 1.5em;'>주문하기</button>
@@ -201,7 +210,8 @@
     </tbody>
   </table>   
 </DIV>
-
+</DIV>
+</section>
  
 <jsp:include page="../menu/bottom.jsp" />
 </body>
