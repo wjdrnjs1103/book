@@ -8,7 +8,7 @@
 <head> 
 <meta charset="UTF-8"> 
 <meta name="viewport" content="user-scalable=yes, initial-scale=1.0, maximum-scale=3.0, width=device-width" /> 
-<title>Resort world</title>
+<title>team2</title>
 <style type="text/css">
   .title_line {
     text-align: left;
@@ -66,11 +66,12 @@
           <col style='width: 5%;'/>
           <col style='width: 10%;'/>
           <col style='width: 10%;'/>
-          <col style='width: 35%;'/>
+          <col style='width: 30%;'/>
           <col style='width: 5%;'/>
           <col style='width: 5%;'/>
           <col style='width: 15%;'/>
           <col style='width: 15%;'/>
+          <col style='width: 5%;'/>
          
         </colgroup>
         <TR>
@@ -82,6 +83,7 @@
           <TH class='th_bs'>수량</TH>
           <TH class='th_bs'>배송상태</TH>
           <TH class='th_bs'>주문일</TH>
+          <TH class='th_bs'>리뷰작성</TH>
         </TR>
        
         <c:forEach var="ordersVO" items="${list }">
@@ -117,7 +119,12 @@
           </TD>
           
           <TD class='td_basic'>${rdate.substring(0,16) }</TD>
-          
+          <TD class='td_basic'>
+            <A href="/review/create.do?productno=${productno}">
+              <span class="glyphicon glyphicon-share" title="리뷰"></span>
+            </A>
+          </TD>
+            
         </TR>
         </c:forEach>
         

@@ -74,3 +74,39 @@ ORDER BY paymentno;
 -- 삭제
 DELETE FROM payment
 WHERE paymentno=10;
+
+
+
+/**********************************/
+/* Table Name: 결제2 */
+/**********************************/
+DROP TABLE payment2 CASCADE CONSTRAINTS;
+
+CREATE TABLE payment2(
+    paymentno                         NUMBER(10)     NOT NULL    PRIMARY KEY,
+    memberno                          NUMBER(10)     NULL ,
+    productno                           NUMBER(10)     NULL ,
+    realname                          VARCHAR(30)    NOT NULL,
+    phone                               VARCHAR(20)    NOT NULL,
+    postcode                          VARCHAR(10)    NOT NULL,
+    address                           VARCHAR(50)    NOT NULL,
+    detaddress                        VARCHAR(50)    NOT NULL,
+    paytype                           NUMBER(1)    DEFAULT 1     NOT NULL,
+    paymoney                          NUMBER(30)     NOT NULL,
+    rdate                             DATE     NOT NULL,
+  FOREIGN KEY (memberno) REFERENCES member (memberno),
+  FOREIGN KEY (productno) REFERENCES orders (productno)
+);
+
+COMMENT ON TABLE payment2 is '결제';
+COMMENT ON COLUMN payment2.paymentno is '결제번호';
+COMMENT ON COLUMN payment2.memberno is '회원 번호';
+COMMENT ON COLUMN payment2.realname is '성명';
+COMMENT ON COLUMN payment2.phone is '전화번호';
+COMMENT ON COLUMN payment2.postcode is '우편번호';
+COMMENT ON COLUMN payment2.address is '주소';
+COMMENT ON COLUMN payment2.detaddress is '상세주소';
+COMMENT ON COLUMN payment2.paytype is '결제종류';
+COMMENT ON COLUMN payment2.paymoney is '결제금액';
+COMMENT ON COLUMN payment2.rdate is '결제날짜';
+
