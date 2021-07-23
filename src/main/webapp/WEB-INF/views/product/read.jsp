@@ -30,8 +30,15 @@
 
  $(function(){
    $('#btn_login').on('click', login_ajax);
+   $('#btn_loadDefault').on('click', loadDefault);
  });
 
+ <%-- 테스트용 로그인 --%>
+ function loadDefault() {
+   $('#id').val('admin');
+   $('#passwd').val('1234');
+ }
+ 
  function send_msg(stateno) {
    console.log(stateno);
    var msg ="";
@@ -85,19 +92,28 @@
  }
 
  <%-- 찜하기에 상품 추가 --%>
- function cart_ajax(productno) {
-   var f = $('#frm_login');
-   $('#productno', f).val(productno); // 쇼핑카트 등록시 사용할 상품 번호를 저장.
-
-   console.log('-> productno:' + $('#productno',f).val());
-
-   if('${sessionScope.id}'=='') {// 로그인이 안 되어 있는 경우
-    // location.href='/register/login.do';
-     $('#div_login').show();    // 로그인폼 출력 
-   } else {// 로그인이 되어 있는 경우
-     cart_ajax_post();
-   }
- }
+  function cart_ajax(productno, stateno) {
+    var f = $('#frm_login');
+    var msg = "";
+    $('#productno', f).val(productno); // 쇼핑카트 등록시 사용할 상품 번호를 저장.
+  
+    //stateno=2;
+    console.log('-> productno:' + $('#productno',f).val());
+    if (stateno == 2) {
+      msg="이미 판매가 완료된 상품입니다";
+      window.confirm(msg);
+      return;
+    } else {
+  
+      if('${sessionScope.id}'=='') {// 로그인이 안 되어 있는 경우
+        // location.href='/register/login.do';
+         $('#div_login').show();    // 로그인폼 출력 
+       } else {// 로그인이 되어 있는 경우
+         cart_ajax_post();
+       }// 로그인 if end
+  
+    }// stateno if end
+  }// cart_ajax end
   
   <%-- 찜하기에 상품 등록 --%>
   function cart_ajax_post() {
@@ -256,7 +272,7 @@
             <span style="font-size: 2.5em;">가격: ${productVO.price}원</span>
             <form>
             <button type='button' onclick="send_msg(${param.stateno})" class="btn btn-warning">메세지</button>
-            <button type='button' id = 'btn_cart' onclick="cart_ajax(${productno})" class="btn btn-danger">관심상품</button>
+            <button type='button' id = 'btn_cart' onclick="cart_ajax(${productno}, ${param.stateno })" class="btn btn-danger">관심상품</button>
             <button type='button' onclick="" class="btn btn-success">리뷰목록</button>
 
             <span id="span_animation"></span>
