@@ -82,7 +82,8 @@
                     <li><hr class="dropdown-divider" /></li>
                     <li><a class="dropdown-item" href="#!">회원 관리</a></li>
                     <li><a class="dropdown-item" href="/commgrp/list_ajax.do">커뮤니티 관리</a></li>
-                    <li><a class="dropdown-item" href="#!">도서분류 관리</a></li>
+                    <li><a class="dropdown-item" href="/bookgrp/list_ajax.do">도서분류 관리</a></li>
+                    <li><a class="dropdown-item" href="/book/list_by_bookgrpno.do">전공도서 관리</a></li>
                     <li><a class="dropdown-item" href="#!">로그 관리</a></li>
                 </ul>
               </li>

@@ -160,6 +160,7 @@
           </DIV>
           
   <!-- 신규 등록 -->
+
   <DIV id='panel_create' style='padding: 10px 0px 10px 0px; background-color: #F9F9F9; width: 100%; text-align: center;'>
     <FORM name='frm_create' id='frm_create' method='POST' action='./create.do'>
       <input type="hidden" name="${ _csrf.parameterName }" value="${ _csrf.token }">      
@@ -176,6 +177,7 @@
        <button type="button" onclick="cancel();"  class="btn btn-dark">취소</button>
     </FORM>
   </DIV>
+
    
   <!-- 수정 -->
   <DIV id='panel_update' 
@@ -231,9 +233,9 @@
          
           <thead>  
            <TR class="table_title">
-            <TH class="th_bs">출력 순서</TH>
+            <TH class="th_bs">게시판 번호</TH>
             <TH class="th_bs">이름</TH>
-            <TH class="th_bs">그룹 생성일</TH>
+            <TH class="th_bs">등록일</TH>
             <TH class="th_bs">기타</TH>
           </TR>
           </thead>

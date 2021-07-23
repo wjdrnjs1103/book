@@ -15,6 +15,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import dev.mvc.book.BookProcInter;
 
+
 @Controller
 public class BookgrpCont {
   @Autowired
@@ -70,33 +71,33 @@ public class BookgrpCont {
    return mav; // forward
  }
   
-//  // http://localhost:9091/bookgrp/list.do
-//  /**
-//   * 목록
-//   * @return
-//   */
-//  @RequestMapping(value="/bookgrp/list.do", method=RequestMethod.GET )
-//  public ModelAndView list() {
-//    ModelAndView mav = new ModelAndView();
-//
-//    // 등록 순서별 출력    
-//    // List<bookgrpVO> list = this.bookgrpProc.list_bookgrpno_asc();
-//
-//    // 출력 순서별 출력
-//    List<BookgrpVO> list = this.bookgrpProc.list_seqno_asc();
-//
-//    mav.addObject("list", list); // request.setAttribute("list", list);
-//
-//    mav.setViewName("/bookgrp/list"); // /webapp/WEB-INF/views/bookgrp/list.jsp
-//    return mav;
-//  }
+ /**
+  * 목록(회원 전용)  
+  * http://localhost:9091/bookgrp/list.do 
+  * @return
+  */
+ @RequestMapping(value = "/bookgrp/list.do", method = RequestMethod.GET)
+ public ModelAndView list() {
+   ModelAndView mav = new ModelAndView();
+
+   // 등록 순서별 출력
+   // List<CategrpVO> list = this.categrpProc.list_categrpno_asc();
+
+   // 출력 순서별 출력
+   List<BookgrpVO> list = this.bookgrpProc.list_seqno_asc();
+
+   mav.addObject("list", list); // request.setAttribute("list", list);
+
+   mav.setViewName("/bookgrp/list"); // /WEB-INF/views/bookgrp/list.jsp
+   return mav;
+ }
   
   /**
    * Ajax 기반 목록
    * http://localhost:9091/bookgrp/list.do
    * @return
    */
-  @RequestMapping(value="/bookgrp/list.do", method=RequestMethod.GET )
+  @RequestMapping(value="/bookgrp/list_ajax.do", method=RequestMethod.GET )
   public ModelAndView list_ajax() {
     ModelAndView mav = new ModelAndView();
     

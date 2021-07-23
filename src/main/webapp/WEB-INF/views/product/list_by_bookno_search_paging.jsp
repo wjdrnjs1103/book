@@ -100,8 +100,7 @@ function cart_ajax(productno, stateno) {
      } // if session end
   }// if stateno end
 }// cart_ajax end
-
-
+ 
  <%-- 찜하기에 상품 등록 --%>
  function cart_ajax_post() {
    var f = $('#frm_login');
@@ -275,10 +274,10 @@ function cart_ajax(productno, stateno) {
             <strong><fmt:formatNumber value="${productVO.saleprice}" pattern="#,###" /></strong><br>
             <span style="font-size: 0.8em;">포인트: <fmt:formatNumber value="${productVO.point}" pattern="#,###" /></span>
             <strong><fmt:formatDatevalue="${productVO.rdate}" type="date" /></strong>                                                                                     --%>
-            <span style="font-size: 0.9em;">가격: ${productVO.price}원</span>
-            
+            <span style="font-size: 1.1em;">가격: ${productVO.price}원</span>
+                        
             <br>
-            <button type='button' id='btn_cart' class="btn btn-dark" style='margin-bottom: 2px;'
+            <button type='button' id='btn_cart' class="btn btn-danger" style='margin-bottom: 2px;'
                         onclick="cart_ajax(${productno}, ${stateno })">찜하기 </button><br>
              
             <c:choose>
@@ -288,7 +287,8 @@ function cart_ajax(productno, stateno) {
               <c:otherwise>
                 <h4>판매 완료</h4>
               </c:otherwise>
-            </c:choose>
+            </c:choose><br>
+            <span style="font-size: 0.8em;">${productVO.rdate}</span>
             
           </td>
           <td style='vertical-align: middle; text-align: center;'>

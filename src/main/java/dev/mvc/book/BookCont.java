@@ -93,6 +93,26 @@ public class BookCont {
   }
   
   /**
+   * 카테고리 그룹별 전체 목록 회원용
+   * http://localhost:9091/book/list_by_bookgrpno.do?bookgrpno=1 
+   * @return
+   */
+  @RequestMapping(value="/book/list_member.do", method=RequestMethod.GET )
+  public ModelAndView list_member(int bookgrpno) {
+    ModelAndView mav = new ModelAndView();
+    
+    List<BookVO> list = this.bookProc.list_by_bookgrpno(bookgrpno);
+    mav.addObject("list", list); // request.setAttribute("list", list);
+
+    BookgrpVO  bookgrpVO = bookgrpProc.read(bookgrpno); // 카테고리 그룹 정보
+    mav.addObject("bookgrpVO", bookgrpVO); 
+    
+    mav.setViewName("/book/list_member"); // /book/list_by_bookgrpno.jsp
+    return mav;
+  }
+  
+  
+  /**
    * 카테고리 그룹별 전체 목록
    * http://localhost:9091/book/list_by_bookgrpno.do?bookgrpno=1 
    * @return
