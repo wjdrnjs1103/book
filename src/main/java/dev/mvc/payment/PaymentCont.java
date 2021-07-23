@@ -131,13 +131,12 @@ ModelAndView mav = new ModelAndView();
         ordersVO.setStates(1);
         this.ordersProc.create(ordersVO);
         
-        //paymentVO.setPaymoney(paymoney);
+        int update_stateno = this.productProc.update_stateno(productno);
         
         // 3. 주문된 상품 cart에서 delete
         int delete_cnt = this.cartProc.delete(cartno);
         System.out.println("-> delete_cnt:" + delete_cnt+" 건 주문 후 cart에서 삭제");
         
-        System.out.println("paymoney:" + paymentVO.getPaymoney());
       }
            
     } else {

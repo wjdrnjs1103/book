@@ -100,7 +100,8 @@ function cart_ajax(productno, stateno) {
      } // if session end
   }// if stateno end
 }// cart_ajax end
- 
+
+
  <%-- 찜하기에 상품 등록 --%>
  function cart_ajax_post() {
    var f = $('#frm_login');

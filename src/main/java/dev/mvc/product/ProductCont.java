@@ -662,9 +662,8 @@ public class ProductCont {
      public ModelAndView update_stateno(int productno) {
        ModelAndView mav = new ModelAndView();
        
-       int cnt = this.productProc.update_stateno(productno); // 수정 처리
-
-       
+       this.productProc.update_stateno(productno);// 수정 처리
+              
        mav.setViewName("/message/list"); 
 
        return mav; // forward

@@ -2,6 +2,7 @@
 /* Table Name: 상품 */
 /**********************************/
 DROP TABLE product CASCADE CONSTRAINTS;
+
 CREATE TABLE product(
 		productno                     		NUMBER(10)		 NOT NULL		 PRIMARY KEY,
 		bookno                        		NUMBER(10)		 NULL ,
