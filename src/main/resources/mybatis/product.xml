@@ -20,7 +20,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     
     INSERT INTO product(productno, bookno, memberno, title, content, cnt, 
                                  word, rdate, file1, file1saved, thumb1, size1, price, stateno)
-    VALUES(#{productno}, #{bookno}, #{memberno}, #{title}, #{content}, #{cnt}, 
+    VALUES(product_seq.nextval, #{bookno}, #{memberno}, #{title}, #{content}, #{cnt}, 
                #{word}, sysdate, #{file1}, #{file1saved}, #{thumb1}, #{size1}, #{price}, #{stateno})
   </insert>
   
@@ -126,7 +126,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     WHERE productno = #{productno}
   </update>
   
-  <!-- 상품 수정 -->
+  <!-- 상품 삭제 -->
   <delete id="delete" parameterType="int">
     DELETE FROM product
     WHERE productno=#{productno}
