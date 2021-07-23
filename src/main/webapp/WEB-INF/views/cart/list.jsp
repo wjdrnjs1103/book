@@ -47,7 +47,7 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     
 <script type="text/javascript">
-  function delete_func(interestedno) {  // GET -> POST 전송, 상품 삭제
+  function delete_func(cartno) {  // GET -> POST 전송, 상품 삭제
     var frm = $('#frm_post');
     $('#cartno', frm).val(cartno);
     
@@ -144,9 +144,8 @@
                 <c:choose>
                   <c:when test="${thumb1.endsWith('jpg') || thumb1.endsWith('png') || thumb1.endsWith('gif')}">
                     <%-- /static/contents/storage/ --%>
-                    <%-- 
                     <a href="/product/read.do?productno=${productno}"><IMG src="/product/storage/${thumb1 }" style="width: 120px; height: 80px;"></a> 
-                    --%>
+                   
                   </c:when>
                   <c:otherwise> <!-- 이미지가 아닌 일반 파일 -->
                     ${product.file1}
