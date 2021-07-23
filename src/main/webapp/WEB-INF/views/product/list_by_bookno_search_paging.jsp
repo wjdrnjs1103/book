@@ -1,5 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
  
 <!DOCTYPE html> 
 <html lang="ko"> 
@@ -273,9 +274,9 @@ function cart_ajax(productno, stateno) {
             <span style="color: #FF0000; font-size: 1.2em;">${productVO.dc} %</span>
             <strong><fmt:formatNumber value="${productVO.saleprice}" pattern="#,###" /></strong><br>
             <span style="font-size: 0.8em;">포인트: <fmt:formatNumber value="${productVO.point}" pattern="#,###" /></span>
-            <strong><fmt:formatDatevalue="${productVO.rdate}" type="date" /></strong>                                                                                     --%>
-            <span style="font-size: 1.1em;">가격: ${productVO.price}원</span>
-                        
+            <strong><fmt:formatDatevalue="${productVO.rdate}" type="date" /></strong>
+            --%>
+            <span style="font-size: 1.1em;">가격: <fmt:formatNumber value="${productVO.price}" pattern="##,###" /></span>                      
             <br>
             <button type='button' id='btn_cart' class="btn btn-danger" style='margin-bottom: 2px;'
                         onclick="cart_ajax(${productno}, ${stateno })">찜하기 </button><br>
