@@ -94,7 +94,7 @@
         </c:choose>
       </TD>
       <TD class='td_basic'><fmt:formatNumber value="${paymoney }" pattern="#,###" /></TD>
-      <TD class='td_basic'>${rdate.substring(1,16) }</TD>
+      <TD class='td_basic'>${rdate.substring(0,16) }</TD>
       <TD class='td_basic'>
         <A href="/orders/list_by_memberno.do?paymentno=${paymentno}">
           <!-- <img src="/payment/images/bu6.png" title="주문 내역 상세 조회"> -->

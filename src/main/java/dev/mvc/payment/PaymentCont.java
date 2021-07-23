@@ -170,7 +170,7 @@ ModelAndView mav = new ModelAndView();
       mav.setViewName("/payment/list_by_memberno"); // /views/order_pay/list_by_memberno.jsp   
       
     } else { // 회원으로 로그인하지 않았다면
-      mav.addObject("return_url", "/payment/list_by_memberno.do"); // 로그인 후 이동할 주소 ★
+      mav.addObject("return_url", "/register/list_by_memberno.do"); // 로그인 후 이동할 주소 ★
       
       mav.setViewName("redirect:/member/login.do"); // /WEB-INF/views/member/login_ck_form.jsp
     }
