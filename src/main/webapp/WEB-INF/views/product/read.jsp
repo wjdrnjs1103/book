@@ -32,6 +32,17 @@
    $('#btn_login').on('click', login_ajax);
  });
 
+ function send_msg(stateno) {
+   console.log(stateno);
+   var msg ="";
+   if (stateno == 1) {
+     msg = location.href='/message/create.do?productno=${productno}';
+   } else {
+     msg = "이미 판매완료된 상품입니다";
+     alert(msg);
+   }
+ }
+
 
  <%-- 로그인 --%>
  function login_ajax() {
@@ -244,7 +255,7 @@
             <%-- <del><fmt:formatNumber value="${price}" pattern="##,###" /> 원</del><br>                                                --%>
             <span style="font-size: 2.5em;">가격: ${productVO.price}원</span>
             <form>
-            <button type='button' onclick="location.href='/message/create.do?productno=${productno}'" class="btn btn-warning">메세지</button>
+            <button type='button' onclick="send_msg(${param.stateno})" class="btn btn-warning">메세지</button>
             <button type='button' id = 'btn_cart' onclick="cart_ajax(${productno})" class="btn btn-danger">관심상품</button>
             <button type='button' onclick="" class="btn btn-success">리뷰목록</button>
 
