@@ -56,7 +56,7 @@
           </li>
           
           <%-- 프로필/시간표: 종환님 담당 개발~ --%>   
-          <li class="nav-item"><a class="nav-link active" aria-current="page" href="/index.do" style="margin-right: 10px;">시간표</a></li>
+          <li class="nav-item"><a class="nav-link active" aria-current="page" href="/schedule/list.do?memberno=${sessionScope.memberno }" style="margin-right: 10px;">시간표</a></li>
           <li class="nav-item dropdown" style="margin-right: 10px;">
             <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">마이페이지</a>
             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
