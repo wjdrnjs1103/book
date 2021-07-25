@@ -75,9 +75,7 @@ public class ProductCont {
     mav.addObject("bookVO", bookVO);
     mav.addObject("bookgrpVO", bookgrpVO);
     
-    mav.setViewName("/product/create"); // /webapp/WEB-INF/views/product/create.jsp
-    // String content = "장소:\n인원:\n준비물:\n비용:\n기타:\n";
-    // mav.addObject("content", content);
+    mav.setViewName("/product/create"); 
 
     return mav; // forward
   }
@@ -318,6 +316,104 @@ public class ProductCont {
 
        return mav;
      }
+     
+     /**
+      * 목록 + 검색 + 페이징 지원 (회원 전용)
+      * http://localhost:9091/product/list_member
+      * 
+      * @param bookno
+      * @param word
+      * @param now_page
+      * @return
+      */
+     @RequestMapping(value = "/product/list_member.do", method = RequestMethod.GET)
+     public ModelAndView list_member(@RequestParam(value = "bookno", defaultValue = "1") int bookno,
+         @RequestParam(value = "word", defaultValue = "") String word,
+         @RequestParam(value = "now_page", defaultValue = "1") int now_page,
+         @RequestParam(value="cartno", defaultValue = "1") int cartno,
+         HttpServletRequest request) {
+       System.out.println("--> now_page: " + now_page);
+
+       ModelAndView mav = new ModelAndView();
+
+       // 숫자와 문자열 타입을 저장해야함으로 Obejct 사용
+       HashMap<String, Object> map = new HashMap<String, Object>();
+       map.put("bookno", bookno); // #{bookno}
+       map.put("word", word); // #{word}
+       map.put("now_page", now_page); // 페이지에 출력할 레코드의 범위를 산출하기위해 사용
+
+       // 검색 목록
+       List<ProductVO> list = productProc.list_by_bookno_search_paging(map);
+       mav.addObject("list", list);
+
+       // 검색된 레코드 갯수
+       int search_count = productProc.search_count(map);
+       mav.addObject("search_count", search_count);
+
+       BookVO bookVO = bookProc.read(bookno);
+       mav.addObject("bookVO", bookVO);
+
+       BookgrpVO bookgrpVO = bookgrpProc.read(bookVO.getBookgrpno());
+       mav.addObject("bookgrpVO", bookgrpVO);
+
+       /*
+        * SPAN태그를 이용한 박스 모델의 지원, 1 페이지부터 시작 현재 페이지: 11 / 22 [이전] 11 12 13 14 15 16 17
+        * 18 19 20 [다음]
+        * @param list_file 목록 파일명
+        * @param bookno 카테고리번호
+        * @param search_count 검색(전체) 레코드수
+        * @param now_page 현재 페이지
+        * @param word 검색어
+        * @return 페이징 생성 문자열
+        */
+       String paging = productProc.pagingBox("list_member.do", bookno, search_count, now_page, word);
+       mav.addObject("paging", paging);
+
+       mav.addObject("now_page", now_page);
+       
+       
+       // -------------------------------------------------------------------------------
+       // 쇼핑 카트 장바구니에 상품 등록전 로그인 폼 출력 관련 쿠기  
+       // -------------------------------------------------------------------------------
+       Cookie[] cookies = request.getCookies();
+       Cookie cookie = null;
+
+       String ck_id = ""; // id 저장
+       String ck_id_save = ""; // id 저장 여부를 체크
+       String ck_passwd = ""; // passwd 저장
+       String ck_passwd_save = ""; // passwd 저장 여부를 체크
+
+       if (cookies != null) {  // Cookie 변수가 있다면
+         for (int i=0; i < cookies.length; i++){
+           cookie = cookies[i]; // 쿠키 객체 추출
+           
+           if (cookie.getName().equals("ck_id")){
+             ck_id = cookie.getValue();                                 // Cookie에 저장된 id
+           }else if(cookie.getName().equals("ck_id_save")){
+             ck_id_save = cookie.getValue();                          // Cookie에 id를 저장 할 것인지의 여부, Y, N
+           }else if (cookie.getName().equals("ck_passwd")){
+             ck_passwd = cookie.getValue();                          // Cookie에 저장된 password
+           }else if(cookie.getName().equals("ck_passwd_save")){
+             ck_passwd_save = cookie.getValue();                  // Cookie에 password를 저장 할 것인지의 여부, Y, N
+           }
+         }
+       }
+       
+       System.out.println("-> ck_id: " + ck_id);
+       
+       mav.addObject("ck_id", ck_id); 
+       mav.addObject("ck_id_save", ck_id_save);
+       mav.addObject("ck_passwd", ck_passwd);
+       mav.addObject("ck_passwd_save", ck_passwd_save);
+       // ------------------------------------------------------------------------------- 
+
+       // /product/list_by_bookno_table_img1_search_paging.jsp
+       mav.setViewName("/product/list_member");
+
+       return mav;
+     }
+     
+     
      
      /**
       * Grid 형태의 화면 구성 http://localhost:9091/product/list_by_bookno_grid.do
@@ -662,8 +758,9 @@ public class ProductCont {
      public ModelAndView update_stateno(int productno) {
        ModelAndView mav = new ModelAndView();
        
-       this.productProc.update_stateno(productno);// 수정 처리
-              
+       int cnt = this.productProc.update_stateno(productno); // 수정 처리
+
+       
        mav.setViewName("/message/list"); 
 
        return mav; // forward

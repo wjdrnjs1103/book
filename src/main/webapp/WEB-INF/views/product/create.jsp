@@ -116,7 +116,7 @@
      <div class="form-group">
        <label class="control-label col-md-2">판매가</label>
        <div class="col-md-10">
-         <input type='number' name='price' 'required="required"
+         <input type='number' name='price' required="required"
                     min="0" max="10000000" step="500" 
                     class="form-control" style='width: 100%;'>
        </div>
@@ -132,7 +132,7 @@
  
     <div class="content_body_bottom">
       <button type="submit" class="btn btn-dark">등록</button>
-      <button type="button" onclick="location.href='./list_by_bookno_search_paging.do?bookno=${bookno }&now_page=1'" class="btn btn-dark">목록</button>
+      <button type="button" onclick="location.href='./list_member.do?bookno=${bookno }&now_page=1'" class="btn btn-dark">목록</button>
     </div>
   
   </FORM>

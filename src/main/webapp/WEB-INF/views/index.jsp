@@ -1,5 +1,21 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
  
+ <%
+String windowOpen = "open"; // 이벤트등 공지사항 출력 여부를 결정
+
+Cookie[] cookies = request.getCookies(); // 브러우저에 저장된 Cookie를 가져옴
+Cookie cookie = null;
+
+if (cookies != null) { // 쿠키가 존재 한다면
+  for (int index=0; index < cookies.length; index++) { // 쿠키 갯수만큼 순환
+    cookie = cookies[index];  // 쿠키 목록에서 쿠키 추출
+    if (cookie.getName().equals("windowOpen")) { // 이름 비교
+      windowOpen = cookie.getValue();  // 쿠키 값, close
+    }
+  }
+}
+%>
+ 
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -27,8 +43,27 @@
 <!-- Favicon-->
 <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
 
+<script type="text/javascript">
+window.onload = function() {
+  if ('<%=windowOpen %>' == 'open') {
+    openNotice();  // 창 열기 
+  }  
+}
+
+function openNotice(){
+  var url = './cookie/notice.do';
+  var win = window.open(url, '공지사항', 'width=500px, height=560px');
+  
+  var x = (screen.width - 500) / 2;
+  var y = (screen.height - 560) / 2;
+  
+  win.moveTo(x, y); // 화면 중앙으로 이동
+}
+
+</script>
+
 </head>
-<body>
+<body leftmargin="0" topmargin="0">
 <jsp:include page="./menu/top.jsp" flush='false' />
   
     <!-- Section-->

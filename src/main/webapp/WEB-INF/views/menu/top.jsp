@@ -30,16 +30,16 @@
             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
               <li><a class="dropdown-item" href="/bookgrp/list.do" >전공도서분류</a></li>
               <li><hr class="dropdown-divider" /></li>
-              <li><a class="dropdown-item" href="../book/list_by_bookgrpno.do?bookgrpno=1">공과대학전공</a></li>
-              <li><a class="dropdown-item" href="../book/list_by_bookgrpno.do?bookgrpno=2">자연대학전공</a></li>
-              <li><a class="dropdown-item" href="../book/list_by_bookgrpno.do?bookgrpno=3">경영대학전공</a></li>
-              <li><a class="dropdown-item" href="../book/list_by_bookgrpno.do?bookgrpno=4">사범대학전공</a></li>
-              <li><a class="dropdown-item" href="../book/list_by_bookgrpno.do?bookgrpno=5">문과대학전공</a></li>
-              <li><a class="dropdown-item" href="../book/list_by_bookgrpno.do?bookgrpno=6">사회과학대학전공</a></li>
-              <li><a class="dropdown-item" href="../book/list_by_bookgrpno.do?bookgrpno=7">의과대학전공</a></li>
-              <li><a class="dropdown-item" href="../book/list_by_bookgrpno.do?bookgrpno=8">예술체육대학전공</a></li>
-              <li><a class="dropdown-item" href="../book/list_by_bookgrpno.do?bookgrpno=9">외국어전공</a></li>
-              <li><a class="dropdown-item" href="../book/list_by_bookgrpno.do?bookgrpno=10">기타전공도서</a></li>
+              <li><a class="dropdown-item" href="../book/list_member.do?bookgrpno=1">공과대학전공</a></li>
+              <li><a class="dropdown-item" href="../book/list_member.do?bookgrpno=2">자연대학전공</a></li>
+              <li><a class="dropdown-item" href="../book/list_member.do?bookgrpno=3">경영대학전공</a></li>
+              <li><a class="dropdown-item" href="../book/list_member.do?bookgrpno=4">사범대학전공</a></li>
+              <li><a class="dropdown-item" href="../book/list_member.do?bookgrpno=5">문과대학전공</a></li>
+              <li><a class="dropdown-item" href="../book/list_member.do?bookgrpno=6">사회과학대학전공</a></li>
+              <li><a class="dropdown-item" href="../book/list_member.do?bookgrpno=7">의과대학전공</a></li>
+              <li><a class="dropdown-item" href="../book/list_member.do?bookgrpno=8">예술체육대학전공</a></li>
+              <li><a class="dropdown-item" href="../book/list_member.do?bookgrpno=9">외국어전공</a></li>
+              <li><a class="dropdown-item" href="../book/list_member.do?bookgrpno=10">기타전공도서</a></li>
             </ul>
           </li>
           
@@ -69,6 +69,8 @@
               <li><a class="dropdown-item" href="/message/list.do">쪽지</a></li>
             </ul>
           </li>
+          
+          <li class="nav-item"><a class="nav-link active" aria-current="page" href="/" style="margin-right: 10px;">이벤트공지</a></li>
      
           <%-- 관리자: 담당보류~ (게시글 CRUD / 도서분류 CRUD / 도서판매 RD / 회원목록 CRUD / 로그관리 R /) --%>
           <c:choose>
@@ -84,6 +86,7 @@
                     <li><a class="dropdown-item" href="/commgrp/list_ajax.do">커뮤니티 관리</a></li>
                     <li><a class="dropdown-item" href="/bookgrp/list_ajax.do">도서분류 관리</a></li>
                     <li><a class="dropdown-item" href="/book/list_by_bookgrpno.do">전공도서 관리</a></li>
+                    <li><a class="dropdown-item" href="/product/list_by_bookno_search_paging.do">전공도서상품 관리</a></li>
                     <li><a class="dropdown-item" href="#!">로그 관리</a></li>
                 </ul>
               </li>

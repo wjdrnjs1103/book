@@ -1,5 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
  
 <c:set var="productno" value="${productVO.productno }" />
 <c:set var="title" value="${productVO.title }" />
@@ -268,8 +269,7 @@
           </DIV>
           <DIV style="width: 47%; height: 260px; float: left; margin-right: 10px;">
             <span style="font-size: 1.5em; font-weight: bold;">${title }</span><br>
-            <%-- <del><fmt:formatNumber value="${price}" pattern="##,###" /> 원</del><br>                                                --%>
-            <span style="font-size: 2.5em;">가격: ${productVO.price}원</span>
+            <span style="font-size: 2.5em;">가격: <fmt:formatNumber value="${productVO.price}" pattern="##,###" />원</span> 
             <form>
             <button type='button' onclick="send_msg(${param.stateno})" class="btn btn-warning">메세지</button>
             <button type='button' id = 'btn_cart' onclick="cart_ajax(${productno}, ${param.stateno })" class="btn btn-danger">관심상품</button>

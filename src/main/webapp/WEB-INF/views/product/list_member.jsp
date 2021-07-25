@@ -287,8 +287,6 @@ function cart_ajax(productno, stateno) {
             
           </td>
           <td style='vertical-align: middle; text-align: center;'>
-            <A href="./update_text.do?productno=${productno}&now_page=${now_page }"><span class="glyphicon glyphicon-pencil"></span></A>
-            <A href="./delete.do?productno=${productno}&now_page=${now_page }"><span class="glyphicon glyphicon-trash"></span></A>
           </td>
         </tr>
       </c:forEach>
