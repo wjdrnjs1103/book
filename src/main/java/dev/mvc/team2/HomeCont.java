@@ -30,7 +30,7 @@ public class HomeCont {
   }
   
   // http://localhost:9091/cookie/notice_cookie.do
-  @RequestMapping(value = {"/cookie/notice_cookie.do"}, method = RequestMethod.GET)
+  @RequestMapping(value = {"/cookie/notice_cookie.do"}, method = RequestMethod.POST)
   public ModelAndView notice_cookie() {
     ModelAndView mav = new ModelAndView();
     mav.setViewName("/cookie/notice_cookie");  // /WEB-INF/views/cookie/notice_cookie.jsp
