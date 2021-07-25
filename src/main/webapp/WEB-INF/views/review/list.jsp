@@ -82,8 +82,8 @@
             <TD class="td_bs">${reviewVO.score }</TD>
             <TD class="td_bs">${reviewVO.rdate.substring(0, 16) }</TD>
             <TD class="td_bs">
-              <A href="./read_update.do?reviewwno=${reviewwno }" title="수정"><span class="glyphicon glyphicon-pencil"></span></A>
-              <A href="./read_delete.do?reviewwno=${reviewwno }" title="삭제"><span class="glyphicon glyphicon-trash"></span></A>
+              <A href="./update.do?reviewno=${reviewVO.reviewno }" title="수정"><span class="glyphicon glyphicon-pencil"></span></A>
+              <A href="./delete.do?reviewno=${reviewVO.reviewno }" title="삭제"><span class="glyphicon glyphicon-trash"></span></A>
             </TD>  
         </c:forEach> 
         </tbody>

@@ -88,18 +88,18 @@
      $('#div_login').show();    // 로그인폼 출력  
      
    } else {  // 로그인 한 경우
-	   var session = $.trim('${sessionScope.id}');
-	   var name = $.trim('${sessionScope.mname}');
-	   var writer = $.trim('${reviewVO.writer}');
+     var session = $.trim('${sessionScope.id}');
+     var name = $.trim('${sessionScope.mname}');
+     var writer = $.trim('${reviewVO.writer}');
 
-	   if(($.trim(session) != $.trim(writer)) && ($.trim(name) != '관리자') ){
+     if(($.trim(session) != $.trim(writer)) && ($.trim(name) != '관리자') ){
         alert('작성자만 수정할 수 있습니다.');
         return;
-	   }else{
-		    alert('수정 페이지로 이동');
-		    review_update_ajax(reviewno);
-	   }
-	   
+     }else{
+        alert('수정 페이지로 이동');
+        review_update_ajax(reviewno);
+     }
+     
    }  
  }
 
@@ -225,8 +225,8 @@
            <form style="padding-top: 70px; font-size: 1.0em;">
               <h5>작성자 : ${reviewVO.writer }</h5>
               <h5>상품 : ${productVO.title }</h5>
-              <h5>평점 : ${reviewVO.score }</h5>
               <h5>내용 : ${reviewVO.content }</h5>
+              <h5>평점 : ${reviewVO.score } 　 조회 : ${reviewVO.rcnt +1}</h5>
               <h6 style="color: #BEBEBE;">첨부파일 : ${file1 }</h6>
               <button type='button' id="btn_update" onclick="r_u_btn(${reviewno})" class="btn btn-success">수정</button>
               <button type='button' id="btn_delete" onclick="r_d_btn(${reviewno})" class="btn btn-warning">삭제</button>

@@ -253,10 +253,12 @@ public class ReviewCont {
    * @return
    */
   @RequestMapping(value="/review/read.do", method=RequestMethod.GET )
-  public ModelAndView read(int reviewno) {
+  public ModelAndView read(int reviewno) throws Exception{
     ModelAndView mav = new ModelAndView();
 
     ReviewVO reviewVO = this.reviewProc.read(reviewno);
+    reviewProc.rcnt_read(reviewVO);
+
     mav.addObject("reviewVO", reviewVO); // request.setAttribute("contentsVO", contentsVO);
 
     ProductVO productVO = this.productProc.read(reviewVO.getProductno());

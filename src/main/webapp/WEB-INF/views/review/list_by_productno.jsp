@@ -91,9 +91,9 @@
       
       <table class="table" style='width: 100%;'>
         <colgroup>
-          <col style="width: 60%;"></col>
+          <col style="width: 58%;"></col>
           <col style="width: 35%;"></col>
-          <col style="width: 5%;"></col>
+          <col style="width: 7%;"></col>
         </colgroup>
         
         <tbody>
@@ -106,7 +106,7 @@
                       <c:set var="score" value="${reviewVO.score }" />
                       <c:set var="writer" value="${reviewVO.writer }" />
                       <c:set var="rdate" value="${reviewVO.rdate }" />
-                      <c:set var="rcnt" value="${reviewVO.rcnt }" />
+                      <c:set var="rcnt" value="${reviewVO.rcnt }" />                 
                       <c:set var="thumb" value="${reviewVO.thumb }" />
                       <c:set var="file1" value="${reviewVO.file1 }" />
                       <c:set var="rsize" value="${reviewVO.rsize }" />
@@ -125,14 +125,19 @@
                             <c:when test="${thumb.endsWith('jpg') || thumb.endsWith('png') || thumb.endsWith('gif')}">
                               <%-- /static/contents/storage/ --%>
                               <a href="./read.do?reviewno=${reviewno}"><IMG src="/review/storage/${thumb }" style="width: 100px; height: 90px; margin-bottom: 7px;"></a><br>
-                              <span style="color:gray;">평점 : <span style="color:black;">${score }</span></span>
+                              <span style="color:gray;">조회수(<span style="color:black;">${rcnt }</span>)</span>                              
                             </c:when>
                             <c:otherwise> <!-- 이미지가 아닌 일반 파일 -->
                               <a style="width: 80px; height: 90px;">${file1}</a>
-                              <span style="margin-top: 10px; color:gray;">평점 : <span style="color:black;">${score }</span></span>
-                              <span style="margin-top: 10px; color:gray;">조회 : <span style="color:black;">${rcnt }</span></span>
+                              <span style="margin-top: 10px; color:gray;">평점 : <span style="color:black;">${score }</span></span><br>
+                              <span style="color:gray;">조회 : <span style="color:black;">${rcnt }</span></span>                              
                             </c:otherwise>
                           </c:choose>
+                        </td>
+                        <td style="padding-top: 45px;"> 
+                          <span class="starR1 on">별1_왼쪽</span>
+                          <span class="starR2 on">별1_오른쪽</span>　
+                          <span style=" color:gray;">(<span style="color:black;">${score }</span>)</span> 
                         </td>
                       </TR>   
                     </c:forEach>

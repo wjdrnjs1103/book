@@ -46,8 +46,9 @@
           <col style='width: 20%;'/>
           <col style='width: 36%;'/>  
           <col style='width: 10%;'/>  
-          <col style='width: 15%;'/>  
-          <col style='width: 12%;'/>
+          <col style='width: 7%;'/>  
+          <col style='width: 7%;'/>  
+          <col style='width: 13%;'/>
         </colgroup>
         <thead>  
           <TR class="table_title" style="height: 40px;">
@@ -55,6 +56,7 @@
             <TH class="th_bs">상품이름</TH>
             <TH class="th_bs">리뷰 내용</TH>
             <TH class="th_bs">평점</TH>
+            <TH class="th_bs">조회</TH>
             <TH class="th_bs">날짜</TH>
             <TH class="th_bs">기타</TH>
           </TR>
@@ -71,6 +73,7 @@
                     <c:set var="score" value="${list2[status.index].score }" />
                     <c:set var="writer" value="${list2[status.index].writer }" />
                     <c:set var="rdate" value="${list2[status.index].rdate }" />
+                    <c:set var="rcnt" value="${list2[status.index].rcnt }" />
                     <c:set var="thumb" value="${list2[status.index].thumb }" />
                     <c:set var="file1" value="${list2[status.index].file1 }" />
                     <c:set var="rsize" value="${list2[status.index].rsize }" />
@@ -82,10 +85,11 @@
                         <A href="./read.do?reviewno=${reviewno }">${content }</A>
                       </TD>
                       <TD class="td_bs">${score }</TD> 
+                      <TD class="td_bs">${rcnt }</TD> 
                       <TD class="td_bs">${rdate.substring(0, 16) }</TD>
                       <TD class="td_bs">
-                        <A href="./update.do?reviewno=${reviewno }" title="수정"><span class="glyphicon glyphicon-pencil"></span></A>
-                        <A href="./delete.do?reviewno=${reviewno }" title="삭제"><span class="glyphicon glyphicon-trash"></span></A>
+                        <A href="./read_update.do?reviewwno=${reviewwno }" title="수정"><span class="glyphicon glyphicon-pencil"></span></A>
+                        <A href="./read_delete.do?reviewwno=${reviewwno }" title="삭제"><span class="glyphicon glyphicon-trash"></span></A>
                       </TD>  
            
                     </TR>   
@@ -93,7 +97,7 @@
                </c:when>
                <c:otherwise>
                  <tr>
-                  <td colspan="6" style="text-align: center; font-size: 1.3em;">작성하신 리뷰가 없습니다.</td>
+                  <td colspan="6" style="text-align: center; font-size: 1.3em;">해당 상품에 대한 리뷰가 없습니다.</td>
                  </tr>
                </c:otherwise>
             </c:choose>
