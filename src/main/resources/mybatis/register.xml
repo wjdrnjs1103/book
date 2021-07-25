@@ -23,6 +23,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     WHERE id = #{id}
   </select>
   
+  <!-- 회원리스트 출력 -->
+  <select id="list" resultType="dev.mvc.register.RegisterVO">
+    SELECT memberno, id, passwd, mname, email, tel, zipcode, address1, address2, grade, oauth, mdate
+    FROM member
+    ORDER BY memberno ASC
+  </select>
+  
   <!-- 회원별 회원 정보 조회 -->
   <select id="read" resultType="dev.mvc.register.RegisterVO" parameterType="int">
     SELECT memberno, id, passwd, mname, email, tel, zipcode, address1, address2, mdate, grade

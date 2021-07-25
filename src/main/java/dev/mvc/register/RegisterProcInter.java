@@ -1,6 +1,7 @@
 package dev.mvc.register;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
@@ -12,6 +13,12 @@ public interface RegisterProcInter {
    * @return 등록된 갯수
    */
   public int create(RegisterVO registerVO);
+  
+  /**
+   * 회원 전체 목록
+   * @return
+   */
+  public List<RegisterVO> list();
   
   /**
    * 중복 아이디 검사

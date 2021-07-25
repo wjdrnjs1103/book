@@ -51,6 +51,31 @@ public class RegisterCont {
     return mav; // forward
   }
   
+  /**
+  * 목록 출력 가능
+  * @param session
+  * @return
+  */
+  @RequestMapping(value="/register/list.do", method=RequestMethod.GET)
+  public ModelAndView list(HttpSession session) {
+    ModelAndView mav = new ModelAndView();
+    
+    if (this.registerProc.isAdmin(session)) {
+      List<RegisterVO> list = registerProc.list();
+      mav.addObject("list", list);
+
+      mav.setViewName("/register/list"); // /webapp/WEB-INF/views/member/list.jsp
+     
+    } else {
+      mav.addObject("url", "login_need"); // login_need.jsp, redirect parameter 적용
+      
+      mav.setViewName("redirect:/register/msg.do");      
+    }
+    
+    
+    return mav;
+  }  
+  
   // http://localhost:9091/register/checkID.do?id=user2
   // http://localhost:9091/register/checkID.do?id=user1
   /**

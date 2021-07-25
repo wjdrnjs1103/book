@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ 
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="dev.mvc.schedule.ScheduleDAOInter"> 
+  <!-- 목록 -->
+  <select id="list" resultType="dev.mvc.schedule.ScheduleVO" parameterType="int">
+    SELECT classno, memberno, cday, classname, starttime, endtime, professor, textbook
+    FROM schedule
+    WHERE memberno = #{memberno}
+  </select>
+  
+  <!-- 조회 -->
+  <select id="read" resultType="dev.mvc.schedule.ScheduleVO" parameterType="int">
+    SELECT classno, memberno, cday, classname, starttime, endtime, professor, textbook
+    FROM schedule
+    WHERE memberno = #{memberno}
+  </select>
+  
+  <!-- 등록 -->
+  <insert id="create" parameterType="dev.mvc.schedule.ScheduleVO">
+    INSERT INTO schedule(classno, memberno, cday, classname, professor, starttime, endtime, textbook)
+    VALUES(schedule_seq.nextval, #{memberno}, #{cday}, #{classname}, #{professor}, #{starttime}, #{endtime}, #{textbook})
+  </insert>
+  
+</mapper>
