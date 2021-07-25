@@ -95,26 +95,98 @@ public class ScheduleCont {
     }
   }
   
- /**
-  * 등록 처리
-  * @param bookgrpVO  
+  /**
+   * 등록 처리
+   * @param scheduleVO  
+   * @return
+   */
+  @RequestMapping(value="/schedule/create.do", method=RequestMethod.POST )
+  public ModelAndView create(ScheduleVO scheduleVO) { 
+     
+    ModelAndView mav = new ModelAndView();
+     
+    int cnt = this.scheduleProc.create(scheduleVO);
+     
+    if (cnt == 1) {
+      mav.setViewName("redirect:/schedule/list.do");   
+    } else {
+      mav.addObject("code", "create");
+      mav.setViewName("/schedule/error_msg");
+    }
+  
+    return mav; // forward
+  }
+ 
+ 
+   /**
+  * 조회 + 수정폼/삭제폼 + Ajax
+  * http://localhost:9091/schedule/read_ajax.do?classno=1
+  * @param classno 
   * @return
   */
- @RequestMapping(value="/schedule/create.do", method=RequestMethod.POST )
- public ModelAndView create(ScheduleVO scheduleVO) { 
+  @RequestMapping(value="/schedule/read_ajax.do", 
+                               method=RequestMethod.GET )
+  @ResponseBody
+  public String read_ajax(int classno) {
+    System.out.println("read_ajax ok");
+    ScheduleVO scheduleVO = this.scheduleProc.read_by_classno(classno);
+     
+    JSONObject json = new JSONObject();
+    json.put("classno", scheduleVO.getClassno());
+    json.put("classname", scheduleVO.getClassname());
+    json.put("starttime", scheduleVO.getStarttime());
+    json.put("endtime", scheduleVO.getEndtime());
+    json.put("professor", scheduleVO.getProfessor());
+    json.put("textbook", scheduleVO.getTextbook());
+    json.put("cday", scheduleVO.getCday());
+    json.put("memberno", scheduleVO.getMemberno());
+     
+    return json.toString();
+  }
+ 
+ 
+  /**
+  * 수정 처리
+  * @param scheduleVO
+  * @return
+  */
+  @RequestMapping(value="/schedule/update.do", method=RequestMethod.POST )
+  public ModelAndView update(ScheduleVO scheduleVO) {
+    ModelAndView mav = new ModelAndView();
    
-   ModelAndView mav = new ModelAndView();
+    int cnt = this.scheduleProc.update(scheduleVO);
+    mav.addObject("cnt", cnt); // request에 저장
    
-   int cnt = this.scheduleProc.create(scheduleVO);
+    if (cnt == 1) {
+      mav.setViewName("redirect:/schedule/list.do");   
+    } else {
+      mav.setViewName("/schedule/update_msg"); 
+    } 
    
-   if (cnt == 1) {
-     mav.setViewName("redirect:/schedule/list.do");   
-   } else {
-     mav.addObject("code", "create");
-     mav.setViewName("/schedule/error_msg");
-   }
+    return mav;
+  }
+ 
+  /**
+  * 삭제
+  * @param classno 조회할 카테고리 번호
+  * @return
+  */
+  @RequestMapping(value="/schedule/delete.do", method=RequestMethod.POST )
+  public ModelAndView delete(int classno) {
+    ModelAndView mav = new ModelAndView();
+   
+    ScheduleVO scheduleVO = this.scheduleProc.read_by_classno(classno); // 삭제 정보
+    mav.addObject("scheduleVO", scheduleVO);  // request 객체에 저장
+   
+    int cnt = this.scheduleProc.delete(classno); // 삭제 처리
+    mav.addObject("cnt", cnt);  // request 객체에 저장
+   
+   
+    mav.setViewName("redirect:/schedule/list.do");   
 
-   return mav; // forward
- }
+  
+    return mav;
+  }
   
 }
+

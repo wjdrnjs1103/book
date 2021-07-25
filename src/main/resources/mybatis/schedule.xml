@@ -19,10 +19,31 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     WHERE memberno = #{memberno}
   </select>
   
+  <!-- 조회 -->
+  <select id="read_by_classno" resultType="dev.mvc.schedule.ScheduleVO" parameterType="int">
+    SELECT classno, memberno, cday, classname, starttime, endtime, professor, textbook
+    FROM schedule
+    WHERE  classno = #{classno}
+  </select>
+  
   <!-- 등록 -->
   <insert id="create" parameterType="dev.mvc.schedule.ScheduleVO">
     INSERT INTO schedule(classno, memberno, cday, classname, professor, starttime, endtime, textbook)
     VALUES(schedule_seq.nextval, #{memberno}, #{cday}, #{classname}, #{professor}, #{starttime}, #{endtime}, #{textbook})
   </insert>
+  
+   <!-- 수정 -->
+  <update id="update" parameterType="dev.mvc.schedule.ScheduleVO">
+    UPDATE schedule
+    SET classname=#{classname}, cday=#{cday}, starttime=#{starttime},
+           endtime=#{endtime}, professor=#{professor}, textbook=#{textbook}
+    WHERE classno = #{classno}
+  </update>
+  
+  <!-- 삭제 -->
+  <delete id="delete" parameterType="int">
+    DELETE FROM schedule
+    WHERE classno=#{classno}
+  </delete>
   
 </mapper>

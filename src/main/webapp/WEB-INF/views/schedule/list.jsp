@@ -37,7 +37,6 @@
   
   params = 'memberno=' + <%=(int)session.getAttribute("memberno")%>
   // console.log("params", params);
-  
   $(function() {
     $('#btn_update_cancel').on('click', cancel);
     $('#btn_delete_cancel').on('click', cancel);
@@ -125,36 +124,40 @@
   }
   
   // 수정폼
-  function read_update_ajax(bookgrpno) {
+  function read_update_ajax(classno) {
     $('#panel_create').css("display","none"); // hide, 태그를 숨김 
     $('#panel_delete').css("display","none"); // hide, 태그를 숨김
     $('#panel_update').css("display",""); // show, 숨겨진 태그 출력 
     
-    // console.log('-> bookgrpno:' + bookgrpno);
     var params = "";
     // params = $('#frm').serialize(); // 직렬화, 폼의 데이터를 키와 값의 구조로 조합
-    params = 'bookgrpno=' + bookgrpno; // 공백이 값으로 있으면 안됨.
+    params = 'classno=' + classno; // 공백이 값으로 있으면 안됨.
 
     $.ajax(
       {
-        url: '/bookgrp/read_ajax.do',
-        type: 'get',  // get, post
+        url: '/schedule/read_ajax.do',
+        type: 'get',   // get, post
         cache: false, // 응답 결과 임시 저장 취소
         async: true,  // true: 비동기 통신
         dataType: 'json', // 응답 형식: json, html, xml...
-        data: params,      // 데이터
-        success: function(rdata) { // 응답이 온경우, Spring에서 하나의 객체를 전달한 경우 통문자열
-          // {"bookgrpno":1,"visible":"Y","seqno":1,"rdate":"2021-04-08 17:01:28","name":"문화"}
-          var bookgrpno = rdata.bookgrpno;
-          var name = rdata.name;
-          var seqno = rdata.seqno;
-          var rdate = rdata.rdate;
+        data: params,  // 데이터
+        success: function(rdata) { 
+          var classno = rdata.classno;
+          var classname = rdata.classname;
+          var starttime = rdata.starttime;
+          var endtime = rdata.endtime;
+          var professor = rdata.professor;
+          var textbook = rdata.textbook;
+          var cday = rdata.cday;
 
           var frm_update = $('#frm_update');
-          $('#bookgrpno', frm_update).val(bookgrpno);
-          $('#name', frm_update).val(name);
-          $('#seqno', frm_update).val(seqno);
-          $('#rdate', frm_update).val(rdate);
+          $('#classno', frm_update).val(classno);
+          $('#classname', frm_update).val(classname);
+          $('#starttime', frm_update).val(starttime);
+          $('#endtime', frm_update).val(endtime);
+          $('#professor', frm_update).val(professor);
+          $('#textbook', frm_update).val(textbook);
+          $('#cday', frm_update).val(cday);
           
         },
         // Ajax 통신 에러, 응답 코드가 200이 아닌경우, dataType이 다른경우 
@@ -167,55 +170,32 @@
   } 
 
   // 삭제 폼(자식 레코드가 없는 경우의 삭제)
-  function read_delete_ajax(bookgrpno) {
+  function read_delete_ajax(classno) {
     $('#panel_create').css("display","none"); // hide, 태그를 숨김
     $('#panel_update').css("display","none"); // hide, 태그를 숨김  
     $('#panel_delete').css("display",""); // show, 숨겨진 태그 출력 
-    // return;
-    
-    // console.log('-> bookgrpno:' + bookgrpno);
+
     var params = "";
     // params = $('#frm').serialize(); // 직렬화, 폼의 데이터를 키와 값의 구조로 조합
-    params = 'bookgrpno=' + bookgrpno; // 공백이 값으로 있으면 안됨.
+    params = 'classno=' + classno; // 공백이 값으로 있으면 안됨.
     
     $.ajax(
       {
-        url: '/bookgrp/read_ajax.do',
+        url: '/schedule/read_ajax.do',
         type: 'get',  // get, post
         cache: false, // 응답 결과 임시 저장 취소
         async: true,  // true: 비동기 통신
         dataType: 'json', // 응답 형식: json, html, xml...
         data: params,      // 데이터
-        success: function(rdata) { // 응답이 온경우, Spring에서 하나의 객체를 전달한 경우 통문자열
-          // {"bookgrpno":1,"visible":"Y","seqno":1,"rdate":"2021-04-08 17:01:28","name":"문화"}
-          var bookgrpno = rdata.bookgrpno;
-          var name = rdata.name;
-          var seqno = rdata.seqno;
-          // var rdate = rdata.rdate;
-          var count_by_bookgrpno = parseInt(rdata.count_by_bookgrpno);
-          console.log('count_by_bookgrpno: ' + count_by_bookgrpno);
-
+        success: function(rdata) {
           var frm_delete = $('#frm_delete');
-          $('#bookgrpno', frm_delete).val(bookgrpno);
+          $('#classno', frm_delete).val(classno);
           
-          $('#frm_delete_name').html(name);
-          $('#frm_delete_seqno').html(seqno);
+          var frm_delete = $('#frm_delete');
+          $('#classno', frm_delete).val(classno);
           
-          if (count_by_bookgrpno > 0) { // 자식 레코드가 있다면
-      
-            $('#frm_delete_count_by_bookgrpno_panel').html('관련자료 ' + count_by_bookgrpno + ' 건');
-            $('#frm_delete_count_by_bookgrpno').show();
+          
 
-            // alert($('#a_list_by_bookgrpno').attr('href')); // ../book/list_by_bookgrpno.do?bookgrpno=
-            $('#a_list_by_bookgrpno').attr('href', '../book/list_by_bookgrpno.do?bookgrpno=' + bookgrpno);
-            
-          } else {
-            $('#frm_delete_count_by_bookgrpno').hide();
-          }
-          // console.log('-> btn_recom: ' + $('#btn_recom').val());  // X
-          // console.log('-> btn_recom: ' + $('#btn_recom').html());
-          // $('#btn_recom').html('♥('+rdata.recom+')');
-          // $('#span_animation').hide();
         },
         // Ajax 통신 에러, 응답 코드가 200이 아닌경우, dataType이 다른경우 
         error: function(request, status, error) { // callback 함수
@@ -224,9 +204,6 @@
       }
     );  //  $.ajax END
 
-    // $('#span_animation').css('text-align', 'center');
-    // $('#span_animation').html("<img src='/contents/images/ani04.gif' style='width: 8%;'>");
-    // $('#span_animation').show(); // 숨겨진 태그의 출력
   } 
   
 </script>
@@ -241,27 +218,22 @@
 
   <DIV class='container c_bottom_10'> 
     <DIV class='title_line'>
-      <a href="./list.do" class='link-primary'>시간표 입력</a>
+      <a href="/schedule/schedule.do?memberno=${memberno }" class='link-primary'>시간표</a>
     </DIV>
           
     <!-- 등록 -->
-    <DIV id='panel_create' 
-            style='padding: 10px 0px 10px 0px; background-color: #F9F9F9; width: 100%; 
-                      text-align: center;'>
+    <DIV id='panel_create' style='padding: 10px 0px 10px 0px; background-color: #F9F9F9; width: 100%; text-align: center;'>
       <FORM name='frm_create' id='frm_create' method='POST' action='./create.do'>
         <input type='hidden' name='memberno' id='memberno' value='${sessionScope.memberno}'>
         <label>강의명</label>
         <input type='text' name='classname' id='classname' value='' required="required" style='width: 10%;'
                    autofocus="autofocus">
         <label>요일</label>
-        <input type='text' name='cday' id='cday' value='' required="required" 
-                  min='9' max='18' step='1' style='width: 10%;'>
+        <input type='text' name='cday' id='cday' value='' required="required" style='width: 10%;'>
         <label>교수</label>
-        <input type='text' name='professor' id='professor' value='' required="required" 
-                  min='9' max='18' step='1' style='width: 10%;'>
+        <input type='text' name='professor' id='professor' value='' required="required" style='width: 10%;'>
         <label>교재</label>
-        <input type='text' name='textbook' id='textbook' value='' required="required" 
-                  min='9' max='18' step='1' style='width: 10%;'>
+        <input type='text' name='textbook' id='textbook' value='' style='width: 10%;'>
         <label>시작시간</label>
         <input type='number' name='starttime' id='starttime' value='9' required="required" 
                   min='9' max='18' step='1' style='width: 5%;'>
@@ -270,55 +242,56 @@
                   min='9' max='18' step='1' style='width: 5%;'>
           
         <button type="button" onclick="create(${sessionScope.memberno})" class="btn btn-dark">저장</button>
-        <button type="button" onclick="cancel();"  class="btn btn-dark">취소</button>
       </FORM>
     </DIV>
     
     <!-- 강의 수정 -->
-    <DIV id='panel_update' style='padding: 10px 0px 10px 0px; background-color: #F9F9F9;
-            width: 100%; text-align: center; display: none;'>
-      <FORM name='frm_create' id='frm_create' method='POST' action='./create.do'>
-     
-      
+    <DIV id='panel_update' 
+                  style='padding: 10px 0px 10px 0px; background-color: #F9F9F9; width: 100%; 
+                            text-align: center; display: none;'>
+      <FORM name='frm_update' id='frm_update' method='POST' action='./update.do'>
+        <input type='hidden' name='memberno' id='memberno' value='${sessionScope.memberno}'>
+        <input type='hidden' name='classno' id='classno' value='${scheduleVO.classno}'>
         <label>강의명</label>
-        <input type='text' name='name' id='name' value='' required="required" style='width: 25%;'
-                   autofocus="autofocus">
-    
-        <label>순서</label>
-        <input type='number' name='seqno' id='seqno' value='1' required="required" 
-                  min='1' max='1000' step='1' style='width: 5%;'>
-         
-         <button type="submit" id='submit' class="btn btn-dark">등록</button>
-         <button type="button" onclick="cancel();"  class="btn btn-dark">취소</button>
+        <input type='text' name='classname' id='classname' value='' required="required" style='width: 10%;'>
+        <label>요일</label>
+        <input type='text' name='cday' id='cday' value='' required="required" style='width: 10%;'>
+        <label>교수</label>
+        <input type='text' name='professor' id='professor' value='' required="required" style='width: 10%;'>
+        <label>교재</label>
+        <input type='text' name='textbook' id='textbook' value='' style='width: 10%;'>
+        <label>시작시간</label>
+        <input type='number' name='starttime' id='starttime' value='9' required="required" 
+                  min='9' max='18' step='1' style='width: 5%;'>
+        <label>종료시간</label>
+        <input type='number' name='endtime' id='endtime' value='18' required="required" 
+                  min='9' max='18' step='1' style='width: 5%;'>
+          
+        <button type="submit" class="btn btn-dark">저장</button>
+        <button type="button" onclick="cancel();"  class="btn btn-dark">취소</button>
       </FORM>
     </DIV>
   
     <%-- 삭제 --%>
     <DIV id='panel_delete' style='padding: 10px 0px 10px 0px; background-color: #F9F9F9; 
-            width: 100%; text-align: center; display: none;'>
+                  width: 100%; text-align: center; display: none;'>
       <div class="msg_warning">강의를 삭제하시겠습니까?</div>
       <FORM name='frm_delete' id='frm_delete' method='POST' action='./delete.do'>
-        <input type='hidden' name='bookgrpno' id='bookgrpno' value=''>
+        <input type='hidden' name='classno' id='classno' value=''>
           
-        <label>강의 번호</label><span id='frm_delete_name'></span>  
-        <label>강의명</label>: <span id='frm_delete_seqno'></span>
-        
-        <%-- 자식 레코드 갯수 출력 --%>
-        <div id='frm_delete_count_by_bookgrpno' 
-               style='color: #FF0000; font-weight: bold; display: none; margin: 10px auto;'>
-          <span id='frm_delete_count_by_bookgrpno_panel'></span>     
-          『<A id='a_list_by_bookgrpno' href="">관련 자료 삭제하기</A>』
-        </div>
+        <label>강의 이름</label><span id='frm_delete_classname'></span>  
+        <label>번호</label>: <span id='frm_delete_classno'></span>
          
         <button type="submit" id='submit' class="btn btn-dark">삭제</button>
-         <button type="button" onclick="cancel();"  class="btn btn-dark">취소</button>
+        <button type="button" onclick="cancel();"  class="btn btn-dark">취소</button>
       </FORM>
     </DIV>
       
      <TABLE class='table mt-5'>
         <colgroup>
           <col style='width: 10%;'/>
-          <col style='width: 30%;'/>
+          <col style='width: 20%;'/>
+          <col style='width: 10%;'/> 
           <col style='width: 10%;'/> 
           <col style='width: 10%;'/>
           <col style='width: 10%;'/>
@@ -331,6 +304,7 @@
           <TH class="th_bs">강의번호</TH>
           <TH class="th_bs">강의명</TH>
           <TH class="th_bs">시작시간</TH>
+          <TH class="th_bs">종료시간</TH>
           <TH class="th_bs">요일</TH>
           <TH class="th_bs">교수</TH>
           <TH class="th_bs">교제</TH>
@@ -340,14 +314,23 @@
       
         <tbody>
         <c:forEach var="scheduleVO" items="${list }">
-          <c:set var="classno" value="${scheduleVO.classno }" />
           <TR>
             <TD class="td_bs">${scheduleVO.classno }</TD>
             <TD class="td_bs">${scheduleVO.classname }</TD>
             <TD class="td_bs">${scheduleVO.starttime }</TD>
+            <TD class="td_bs">${scheduleVO.endtime }</TD>
             <TD class="td_bs">${scheduleVO.cday }</TD>
             <TD class="td_bs">${scheduleVO.professor }</TD>
-            <TD class="td_bs">${scheduleVO.textbook }</TD>
+            <TD class="td_bs">
+              <c:choose>
+                <c:when test="${scheduleVO.textbook ==''}" >
+                  <A href="/bookgrp/list.do" style="color: #FF0000">미등록</A>
+                </c:when>
+                <c:otherwise>
+                  ${scheduleVO.textbook }
+                </c:otherwise>
+              </c:choose>
+            </TD> 
             <TD class="td_bs">
               <A href="javascript: read_update_ajax(${scheduleVO.classno })" title="수정"><span class="glyphicon glyphicon-pencil"></span></A>
               <A href="javascript: read_delete_ajax(${scheduleVO.classno })" title="삭제"><span class="glyphicon glyphicon-trash"></span></A>  
@@ -355,8 +338,8 @@
           </TR>   
         </c:forEach> 
         </tbody>
-     
     </TABLE>
+    <button class="btn btn-primary" style="float: right;" onclick="location.href='/schedule/schedule.do?memberno=${memberno }'" >시간표</button>
   </DIV>
 </section>
 

@@ -56,12 +56,12 @@ var classname = [];
 var starttime = [];
 var endtime = [];
 var cday = [];
+var professor = [];
+var textbook = [];
 
 function load(memberno) {
   var params = "";
   params = 'memberno=' + memberno; // 공백이 값으로 있으면 안됨.
-
-
   $.ajax(
     {
       url: '/schedule/load.do',
@@ -77,30 +77,29 @@ function load(memberno) {
           starttime[key] = rdata[key].starttime;
           endtime[key] = rdata[key].endtime;
           cday[key] = rdata[key].cday;
-      }
-
-        for(var i in classno){
+        }
+        console.log(classno.length);
+        for(var i =0;  i<classno.length; i++){
           classno[i]; 
           classname[i];
           starttime[i];
           endtime[i];
           cday[i];
-          // console.log(cday[i]);
-
+          console.log(cday[i]);
           for (cday[i]; cday[i]<=5; cday[i]++){
             for (starttime[i]; starttime[i]<=endtime[i]; starttime[i]++){
-              $('#'+starttime[i]+'_'+[i]).attr('rowspan', (endtime[i]-starttime[i])); 
-              $('#'+starttime[i]+'_'+[i]).html('<h4><A href="/schedule/read.do?classno='+ classno[i] +'">'+classname[i]+'</A></h4>');
-              $('#'+starttime[i]+'_'+[i]).css('background', randomColor());
+              $('#'+starttime[i]+'_'+cday[i]).attr('rowspan', (endtime[i]-starttime[i])); 
+              $('#'+starttime[i]+'_'+cday[i]).html('<h4><A href="/schedule/read.do?classno='+ classno[i] +'">'+classname[i]+'</A></h4>');
+              $('#'+starttime[i]+'_'+cday[i]).css('background', randomColor());
               
               for (starttime[i]; starttime[i]<endtime[i]-1; starttime[i]++){
                 console.log((Number(starttime[i])+1)+[i]);
                 $('#'+(Number(starttime[i])+1)+'_'+[i]).remove();
               }
-              break; 
+              break;
             }
+            break;
           }
-
         }
         
       },
@@ -110,9 +109,7 @@ function load(memberno) {
       }
     }
   );  //  $.ajax END
-
 }
-
 function randomColor() {
   var colorCode ='#'+Math.round(Math.random() * 0xffffff).toString(16);
   return colorCode;
