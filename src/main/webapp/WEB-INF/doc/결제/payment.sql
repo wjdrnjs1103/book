@@ -9,7 +9,7 @@ CREATE TABLE payment(
     realname                          VARCHAR(30)    NOT NULL,
     phone                               VARCHAR(20)    NOT NULL,
     postcode                          VARCHAR(10)    NOT NULL,
-    address                           VARCHAR(50)    NOT NULL,
+    address                           VARCHAR(100)    NOT NULL,
     detaddress                        VARCHAR(50)    NOT NULL,
     paytype                           NUMBER(1)    DEFAULT 1     NOT NULL,
     paymoney                          NUMBER(30)     NOT NULL,

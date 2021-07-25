@@ -65,7 +65,7 @@ public class OrdersCont {
    } else { // 회원으로 로그인하지 않았다면
       mav.addObject("return_url", "/orders/list_by_memberno.do"); // 로그인 후 이동할 주소 ★
       
-      mav.setViewName("redirect:/member/login.do"); // /WEB-INF/views/member/login_ck_form.jsp
+      mav.setViewName("redirect:/register/login.do"); // /WEB-INF/views/member/login_ck_form.jsp
     }
     
     return mav;
