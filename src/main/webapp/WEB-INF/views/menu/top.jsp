@@ -63,8 +63,8 @@
               <%-- 프로필 개발 --%>
               <li><a class="dropdown-item" href="#!" >나의 계정</a></li>
               <li><hr class="dropdown-divider" /></li>
-              <li><a class="dropdown-item" href="#!">구입 목록</a></li>
-              <li><a class="dropdown-item" href="#!">매입 목록</a></li>
+              <li><a class="dropdown-item" href="/payment/list_by_memberno.do">구입 목록</a></li>
+              <li><a class="dropdown-item" href="/selling/list_all.do">매입 목록</a></li>
               <li><a class="dropdown-item" href="#!">리뷰</a></li>
               <li><a class="dropdown-item" href="/message/list.do">쪽지</a></li>
             </ul>
