@@ -27,7 +27,8 @@
 <!-- Favicon-->
 <link rel="icon" type="/image/x-icon" href="assets/favicon.ico" />
 
-<script type="text/javascript">
+<script type="text/javascript"> 
+
 </script>
  
 </head> 
@@ -37,50 +38,53 @@
   <section class="py-5">
     <DIV class='container c_bottom_10'>
       <DIV class='title_line'>
-        리뷰목록(거래목록)
+        리뷰 전체 목록(관리자)
       </DIV>
       
       <TABLE class='table mt-5'>
         <colgroup>
-          <col style='width: 10;'/>
+          <col style='width: 7%;'/>
+          <col style='width: 7%;'/>
           <col style='width: 10%;'/>
           <col style='width: 10%;'/>
-          <col style='width: 30%;'/>  
-          <col style='width: 20%;'/>  
-          <col style='width: 20%;'/>
+          <col style='width: 37%;'/>  
+          <col style='width: 7%;'/>  
+          <col style='width: 12%;'/>  
+          <col style='width: 10%;'/>
         </colgroup>
         <thead>  
           <TR class="table_title">
-            <TH class="th_bs">번호</TH>
             <TH class="th_bs">상품번호</TH>
-            <TH class="th_bs">보낸사람</TH>
-            <TH class="th_bs_left">제목</TH>
+            <TH class="th_bs">리뷰번호</TH>
+            <TH class="th_bs">판매 회원번호</TH>
+            <TH class="th_bs">리뷰 작성자</TH>
+            <TH class="th_bs">내용</TH>
+            <TH class="th_bs">평점</TH>
             <TH class="th_bs">날짜</TH>
             <TH class="th_bs">기타</TH>
           </TR>
         </thead>
         
         <tbody>
-        <c:forEach var="messageVO" items="${list}">
-          <TR>
-            <TD class="td_bs">${messageVO.messageno }</TD>
-            <TD class="td_bs">
-              <A href="">${messageVO.productno }</A>
-            </TD>
-            <TD class="td_bs">
-              <A href="">${messageVO.sender }</A>
-            </TD>
-            <TD class="td_bs_left">
-              <A href="/message/read.do?messageno=${messageVO.messageno }&sender=${messageVO.sender}">${messageVO.title }</A>
-            </TD>
-            <TD class="td_bs">${messageVO.s_date.substring(0, 10) }</TD>
-     
+        <c:forEach var="reviewVO" items="${list}" varStatus="status">
+            <c:set var="productno" value="${reviewVO.productno }" />
+            <c:set var="memberno" value="${reviewVO.memberno }" />
+            <c:set var="r_member" value="${list2[status.index].memberno }" />
             
+            <TR>
+            <TD class="td_bs"><A href="../product/read.do?productno=${productno }">${productno }</A></TD>
+            <TD class="td_bs">${reviewVO.reviewno }</TD>
+            <TD class="td_bs">${r_member }</TD>
+            <TD class="td_bs">${reviewVO.writer}</TD>
+            <TD class="td_bs_left">
+              <A href="/review/read.do?reviewno=${reviewVO.reviewno }">${reviewVO.content }</A>
+            </TD>
+            <TD class="td_bs">${reviewVO.score }</TD>
+            <TD class="td_bs">${reviewVO.rdate.substring(0, 16) }</TD>
             <TD class="td_bs">
-              <%-- Ajax 기반 Delete폼--%>
-              <A href="javascript: read_delete_ajax(${messageVO.messageno})" title="삭제"><span class="glyphicon glyphicon-trash"></span></A>    
-            </TD>   
-          </TR>   
+              <A href="./read_update.do?reviewwno=${reviewwno }" title="수정"><span class="glyphicon glyphicon-pencil"></span></A>
+              <A href="./read_delete.do?reviewwno=${reviewwno }" title="삭제"><span class="glyphicon glyphicon-trash"></span></A>
+            </TD>  
         </c:forEach> 
         </tbody>
       </TABLE>

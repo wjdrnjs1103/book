@@ -48,28 +48,25 @@ $(function() {
 
   <div class="container">
     <div class="col-md-6 col-md-offset-3" style="text-align: center;">                        
-      <h3 style="font-weight: bold;">새로운 리뷰 쓰기</h3>
+      <h3 style="font-weight: bold;">리뷰 수정</h3>
     </div>
     <div class="page-header"></div>
 
     <div class="col-sm-6 col-md-offset-3">
-      <FORM name='frm' method='POST' action='./create.do' class="form-horizontal"
-                enctype="multipart/form-data">        
-        <c:set var="writer" value="${id }" />
-        <input type="hidden" name="productno" value="${param.productno }"> 
-        <input type="hidden" name="memberno" value="${memberno}">
-        <input type="hidden" name="writer" value="${writer}">
+      <FORM name='frm' method='POST' action='./update.do' class="form-horizontal"
+                enctype="multipart/form-data">   
+        <input type="hidden" name="productno" value="${reviewVO.productno }"> 
+        <input type="hidden" name="reviewno" value="${reviewVO.reviewno}">
         
         <div class="form-group" >
             <label for="inputName">리뷰 상품 이름 : </label>
-            <span style='font-weight:bold; width: 100%;'>${productVO.title}</span><span style="color:gray; font-size: 0.8em;"> (상품 번호: ${param.productno})</span>
+            <span style='font-weight:bold; width: 100%;'>${productVO.title}</span><span style="color:gray; font-size: 0.8em;"> (상품 번호: ${reviewVO.productno})</span>
         </div>
         
-        <%-- 아직 별 입력 받지 못하고 있음 개발할 예정 --%>
         <div class="form-group" >
             <span >별점과 리뷰를 남겨주세요.</span><br>
             <div class="starRev" >
-              <input name="score" id="score" value="">
+              <input style="margin: 6px; "type="number" min=1 max=5 name="score" id="score" value="${reviewVO.score }">
               <span class="starR1 on">별1_왼쪽</span>
               <span class="starR2">별1_오른쪽</span>
               <span class="starR1">별2_왼쪽</span>
@@ -87,30 +84,32 @@ $(function() {
         <div class="form-group" >
          <div class="review_contents">
             <div class="warning_msg">5자 이상으로 작성해 주세요.</div>
-            <textarea style="width:100%;" rows="12" class="input_" name='content' id='content' required="required"></textarea>
+            <textarea style="width:100%;" rows="12" class="input_" name='content' id='content' required="required">${reviewVO.content }</textarea>
          </div>
         </div>
         
         <div class="form-group" >
-             <label for="inputName">파일 첨부</label><br>
-             <input class="input_ " type='file' class="form-control" name='file1MF' id='file1MF' style='width: 100.1%; color: #aaa;'
-                    value='' placeholder="파일 선택">
+             <DIV style='text-align: center; margin-left: 2%; width: 15%; float: left;'>
+                    <c:set var="file1" value="${reviewVO.file1.toLowerCase() }" />
+                    <c:set var="thumb" value="${reviewVO.thumb }" />
+                    <c:choose>
+                      <c:when test="${thumb.endsWith('jpg') || thumb.endsWith('png') || thumb.endsWith('gif')}">
+                        <IMG src="/review/storage/${file1 }" style='width: 70%;'> 
+                      </c:when>
+                      <c:otherwise> <!-- 이미지가 아닌 일반 파일 -->
+                        <img src='/review/images/bin-file.png' style="width: 30%;">
+                      </c:otherwise>
+                    </c:choose>
+             </DIV>
+             <div>
+               <input class="input_ " type='file' class="form-control" name='file1MF' id='file1MF' style='color: #aaa; margin-top: 20px; width: 82%;'
+                      value='' placeholder="파일 선택">
+             </div>
         </div>   
         
         <div class="content_body_bottom" style="margin-left: 15px;">
             <button type="submit" class="btn_gray">저장</button>
         </div>    
-         <!--
-        <button type="button" onclick="location.href='./list_by_productno.do?productno=${productno}'" class="btn_gray">목록</button>
-        
-        <div class="form-group text-center">
-            <button type="submit" id="btn_register" class="btn btn-primary">
-                보내기<i class="fa fa-check spaceLeft"></i>
-            </button>
-            <button type="button" class="btn btn-warning">
-                취소<i class="fa fa-times spaceLeft"></i>
-            </button>
-        </div> -->
       </form>
     </div>
   </div> <!-- container// -->

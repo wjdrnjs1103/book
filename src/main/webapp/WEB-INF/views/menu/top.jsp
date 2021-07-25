@@ -7,7 +7,7 @@
   <!-- Navigation-->
   <nav class="navbar navbar-expand-lg navbar-light bg-light" style="margin-bottom: 0px;">
     <div class="container px-4 px-lg-5">
-      <a class="navbar-brand" href="/index.do">Used Book Market </a>
+      <a class="navbar-brand" href="/index.do" style="font-weight: bold;">Used Book Market </a>
       
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
       
@@ -56,22 +56,29 @@
           </li>
           
           <%-- 프로필/시간표: 종환님 담당 개발~ --%>   
-          <li class="nav-item"><a class="nav-link active" aria-current="page" href="/schedule/schedule.do?memberno=${sessionScope.memberno }" style="margin-right: 10px;">시간표</a></li>
-          <li class="nav-item dropdown" style="margin-right: 10px;">
-            <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">마이페이지</a>
-            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <%-- 프로필 개발 --%>
-              <li><a class="dropdown-item" href="#!" >나의 계정</a></li>
-              <li><hr class="dropdown-divider" /></li>
-              <li><a class="dropdown-item" href="/payment/list_by_memberno.do">구입 목록</a></li>
-              <li><a class="dropdown-item" href="/selling/list_all.do">매입 목록</a></li>
-              <li><a class="dropdown-item" href="#!">리뷰</a></li>
-              <li><a class="dropdown-item" href="/message/list.do">쪽지</a></li>
-            </ul>
-          </li>
+          <li class="nav-item"><a class="nav-link" aria-current="page" href="/schedule/schedule.do?memberno=${sessionScope.memberno }" style="margin-right: 10px;">시간표</a></li>
           
-          <li class="nav-item"><a class="nav-link active" aria-current="page" href="/" style="margin-right: 10px;">이벤트공지</a></li>
-     
+          <%-- 이벤트 공지 --%>
+          <li class="nav-item"><a class="nav-link" aria-current="page" href="/" style="margin-right: 10px;">이벤트공지</a></li>        
+          
+          <li class="nav-item dropdown" style="margin-right: 10px;">
+          <c:choose>
+            <c:when test="${sessionScope.id == null}"> <%-- 로그인 안 한 경 우 --%>
+            </c:when>
+            <c:otherwise>
+              <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">마이페이지</a>
+              <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <%-- 프로필 개발 --%>
+                <li><a class="dropdown-item" href="#!" >나의 계정</a></li>
+                <li><hr class="dropdown-divider" /></li>
+                <li><a class="dropdown-item" href="/payment/list_by_memberno.do">구입 목록</a></li>
+                <li><a class="dropdown-item" href="/selling/list_all.do">매입 목록</a></li>
+                <li><a class="dropdown-item" href="/review/list_by_memberno.do?memberno=${memberno}">리뷰</a></li>
+                <li><a class="dropdown-item" href="/message/list.do">쪽지</a></li>
+              </ul>
+            </c:otherwise>
+          </c:choose>
+               
           <%-- 관리자: 담당보류~ (게시글 CRUD / 도서분류 CRUD / 도서판매 RD / 회원목록 CRUD / 로그관리 R /) --%>
           <c:choose>
             <%-- 관리자일 경우에만 표시 --%>
@@ -87,6 +94,7 @@
                     <li><a class="dropdown-item" href="/bookgrp/list_ajax.do">도서분류 관리</a></li>
                     <li><a class="dropdown-item" href="/book/list_by_bookgrpno.do">전공도서 관리</a></li>
                     <li><a class="dropdown-item" href="/product/list_by_bookno_search_paging.do">전공도서상품 관리</a></li>
+                    <li><a class="dropdown-item" href="/review/list.do">리뷰 관리</a></li>
                     <li><a class="dropdown-item" href="#!">로그 관리</a></li>
                 </ul>
               </li>

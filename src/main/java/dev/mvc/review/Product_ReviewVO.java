@@ -1,21 +1,16 @@
 package dev.mvc.review;
 
-import org.springframework.web.multipart.MultipartFile;
-
-/*
-    reviewno                          NUMBER(10)      NOT NULL    PRIMARY KEY,
-    productno                         NUMBER(10)     NULL ,
-    memberno                          NUMBER(10)      NULL ,
-    content                           CLOB            NOT NULL,
-    score                             NUMBER(2)       NOT NULL,
-    rcnt                              NUMBER(10)      NOT NULL,
-    rdate                             DATE            NOT NULL,
-    file1                             VARCHAR2(100)   NULL ,
-    thumb                             VARCHAR2(100)   NULL ,
-    rsize                             NUMBER(20)     DEFAULT 0     NULL ,
-
- */
-public class ReviewVO {
+public class Product_ReviewVO {
+  
+  /** 상품 번호 */
+  private int r_productno;
+  /** 상품 등록한 회원 번호*/
+  private int r_memberno;
+  /** 상품 제목 */
+  private String r_title;
+  /** 상품 내용 */
+  private String r_content;
+  
   
   /** 리뷰 번호 */
   private int reviewno;
@@ -39,15 +34,35 @@ public class ReviewVO {
   private long rsize;
   /** 리뷰 작성자 */
   private String writer;
-  
-  /** 
-  이미지 MultipartFile 
-  <input type='file' class="form-control" name='file1MF' id='file1MF' 
-                   value='' placeholder="파일 선택">
-  */
-  private MultipartFile file1MF;
   /** 파일 크기 단위 출력 */
   private String size1_label;
+  
+  
+  public int getR_productno() {
+    return r_productno;
+  }
+  public void setR_productno(int r_productno) {
+    this.r_productno = r_productno;
+  }
+  public int getR_memberno() {
+    return r_memberno;
+  }
+  public void setR_memberno(int r_memberno) {
+    this.r_memberno = r_memberno;
+  }
+  public String getR_title() {
+    return r_title;
+  }
+  public void setR_title(String r_title) {
+    this.r_title = r_title;
+  }
+  public String getR_content() {
+    return r_content;
+  }
+  public void setR_content(String r_content) {
+    this.r_content = r_content;
+  }
+  
   
   public int getReviewno() {
     return reviewno;
@@ -115,18 +130,11 @@ public class ReviewVO {
   public void setWriter(String writer) {
     this.writer = writer;
   }
-  
-  public MultipartFile getFile1MF() {
-    return file1MF;
-  }
-  public void setFile1MF(MultipartFile file1mf) {
-    file1MF = file1mf;
-  }
   public String getSize1_label() {
     return size1_label;
   }
   public void setSize1_label(String size1_label) {
     this.size1_label = size1_label;
   }
-  
+
 }

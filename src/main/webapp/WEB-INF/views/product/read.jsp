@@ -273,7 +273,7 @@
             <form>
             <button type='button' onclick="send_msg(${param.stateno})" class="btn btn-warning">메세지</button>
             <button type='button' id = 'btn_cart' onclick="cart_ajax(${productno}, ${param.stateno })" class="btn btn-danger">관심상품</button>
-            <button type='button' onclick="" class="btn btn-success">리뷰목록</button>
+            <button type='button' onclick="location.href='../review/list_by_productno.do?productno=${productno}'" class="btn btn-success">리뷰목록</button>
 
             <span id="span_animation"></span>
             </form>

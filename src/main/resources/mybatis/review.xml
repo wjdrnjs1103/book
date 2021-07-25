@@ -1,11 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ 
 <!DOCTYPE mapper
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-
+ 
 <mapper namespace="dev.mvc.review.ReviewDAOInter">
+  
+  <!-- 리뷰 등록 -->
   <insert id="create" parameterType="dev.mvc.review.ReviewVO">
-    INSERT INTO review(reviewno, memberno, productno, title, content, score)
-    VALUES(review_seq.nextval, #{memberno}, #{productno}, #{title}, #{content}, #{score })
+    INSERT INTO review(reviewno, productno, memberno, content, score, rcnt, 
+                             rdate, file1, thumb, rsize, writer)
+    VALUES(review_seq.nextval, #{productno}, #{memberno}, #{content}, #{score }, #{rcnt},
+          sysdate, #{file1}, #{thumb}, #{rsize}, #{writer})
   </insert>
-
+  
+  <select id="list_reviewno_asc" resultType="dev.mvc.review.ReviewVO">
+    SELECT reviewno, productno, memberno, content, score, rcnt, rdate, file1, thumb, rsize, writer
+    FROM review
+    ORDER BY reviewno ASC
+  </select>
+  
+  <select id="list_by_productno" resultType="dev.mvc.review.ReviewVO" >
+    SELECT reviewno, productno, memberno, content, score, rcnt, rdate, file1, thumb, rsize, writer
+    FROM review
+    WHERE productno=#{productno}
+    ORDER BY reviewno DESC
+  </select>
+  
+  <select id="list_by_memberno" resultType="dev.mvc.review.ReviewVO" >
+    SELECT reviewno, productno, memberno, content, score, rcnt, rdate, file1, thumb, rsize, writer
+    FROM review
+    WHERE memberno=#{memberno}
+  </select>
+  
+  <!-- Product + Review all join 연결, Product_ReviewVO -->
+  <select id="list_all_join" resultType="dev.mvc.review.Product_ReviewVO">
+    SELECT r.productno as r_productno, r.memberno as r_memberno, r.title as r_title, r.content as r_content,
+               c.reviewno, c.productno, c.memberno, c.content, c.score, c.rcnt, c.rdate, c.file1, c.thumb, c.rsize, c.writer
+    FROM product r, review c
+    WHERE r.productno = c.productno
+    ORDER BY productno ASC, reviewno DESC
+  </select>
+  
+   <!-- Product + Review product join 연결, Product_ReviewVO -->
+  <select id="list_by_productno_join" resultType="dev.mvc.review.Product_ReviewVO">
+    SELECT r.productno as r_productno, r.memberno as r_memberno, r.title as r_title, r.content as r_content,
+             c.reviewno, c.productno, c.memberno, c.content, c.score, c.rcnt, c.rdate, c.file1, c.thumb, c.rsize, c.writer
+    FROM product r, review c
+    WHERE r.productno= r.productno AND r.productno = c.productno 
+    ORDER BY reviewno DESC
+  </select>
+  
+  <!-- 일반적인 조회 -->
+  <select id="read" resultType="dev.mvc.review.ReviewVO" parameterType="int">
+    SELECT reviewno, productno, memberno, content, score, rcnt, rdate, file1, thumb, rsize, writer
+    FROM review
+    WHERE reviewno = #{reviewno}
+  </select>
+  
+  <!-- 리뷰 수정 및 파일 수정 -->
+  <update id="update" parameterType="dev.mvc.review.ReviewVO">
+    UPDATE review
+    SET content=#{content}, score=#{score}, file1=#{file1}, thumb=#{thumb}, rsize=#{rsize}
+    WHERE reviewno = #{reviewno}
+  </update>
+  
+  <!-- 삭제 -->
+  <delete id="delete" parameterType="int">
+    DELETE FROM review
+    WHERE reviewno=#{reviewno}
+  </delete>
+  
+  <!-- 조회수 증가 -->
+  <update id="rcnt_read" parameterType="int">
+    UPDATE review
+    SET rcnt = rcnt + 1
+    WHERE reviewno = #{reviewno}
+  </update>
 </mapper>
