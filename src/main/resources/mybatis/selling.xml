@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ 
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="dev.mvc.selling.SellingDAOInter">
+
+  <!-- 회원별 전체 판매 상품 목록 -->
+  <select id="list_all" resultType="dev.mvc.selling.SellingVO" parameterType="int">
+    SELECT p.productno, m.memberno, m.id, p.title, p.price, p.thumb1, p.rdate, p.stateno, p.cnt
+    FROM product p, member m
+    WHERE (p.memberno = m.memberno) AND m.memberno=#{memberno}
+    ORDER BY p.productno DESC
+  </select>
+  
+  <!-- 판매 중인 판매 상품 목록 -->
+  <select id="list_selling" resultType="dev.mvc.selling.SellingVO" parameterType="int">
+    SELECT p.productno, m.memberno, m.id, p.title, p.price, p.thumb1, p.rdate, p.stateno, p.cnt
+    FROM product p, member m
+    WHERE (p.memberno = m.memberno) AND m.memberno=#{memberno} AND stateno=1
+  </select>
+  
+  <!-- 판매 완료된 판매 상품 목록 -->
+  <select id="list_sold" resultType="dev.mvc.selling.SellingVO" parameterType="int">
+    SELECT p.productno, m.memberno, m.id, p.title, p.price, p.thumb1, p.rdate, p.stateno, p.cnt
+    FROM product p, member m
+    WHERE (p.memberno = m.memberno) AND m.memberno=#{memberno} AND stateno=2
+  </select>
+
+</mapper>
