@@ -7,7 +7,6 @@ CREATE TABLE cart(
 		memberno                      		NUMBER(10)		 NULL ,
         productno                       		NUMBER(10)		 NULL ,
         cnt                                         NUMBER(10)     DEFAULT 1     NOT NULL,
-        tot                                         NUMBER(10)      NULL,
 		sdate                         		DATE		 NOT NULL,
   FOREIGN KEY (productno) REFERENCES product (productno),
   FOREIGN KEY (memberno) REFERENCES member (memberno)
