@@ -59,6 +59,8 @@ var cday = [];
 var professor = [];
 var textbook = [];
 
+// window.addEventListener('load', load(memberno));
+
 function load(memberno) {
   var params = "";
   params = 'memberno=' + memberno; // 공백이 값으로 있으면 안됨.
@@ -94,7 +96,7 @@ function load(memberno) {
               
               for (starttime[i]; starttime[i]<endtime[i]-1; starttime[i]++){
                 console.log((Number(starttime[i])+1)+[i]);
-                $('#'+(Number(starttime[i])+1)+'_'+[i]).remove();
+                $('#'+(Number(starttime[i])+1)+'_'+cday[i]).remove();
               }
               break;
             }

@@ -77,7 +77,6 @@
   }
   
   function create(memberno) {
-    // console.log("create 함수진입 시발 왜안되냐고옴니ㅏ비ㅏ절 ;")
     var frm_create = $('#frm_create');
     
     var memberno = $('#memberno', frm_create).val();
@@ -229,7 +228,13 @@
         <input type='text' name='classname' id='classname' value='' required="required" style='width: 10%;'
                    autofocus="autofocus">
         <label>요일</label>
-        <input type='text' name='cday' id='cday' value='' required="required" style='width: 10%;'>
+        <select name="cday" id='cday' value='' required="required" style='width: 10%;'>
+          <option value="0">월요일</option>
+          <option value="1">화요일</option>
+          <option value="2">수요일</option>
+          <option value="3">목요일</option>
+          <option value="4">금요일</option>
+        </select>
         <label>교수</label>
         <input type='text' name='professor' id='professor' value='' required="required" style='width: 10%;'>
         <label>교재</label>
@@ -319,7 +324,15 @@
             <TD class="td_bs">${scheduleVO.classname }</TD>
             <TD class="td_bs">${scheduleVO.starttime }</TD>
             <TD class="td_bs">${scheduleVO.endtime }</TD>
-            <TD class="td_bs">${scheduleVO.cday }</TD>
+            <TD class="td_bs">
+            <c:choose>
+              <c:when test="${scheduleVO.cday eq 0}"> 월요일</c:when>
+              <c:when test="${scheduleVO.cday eq 1}"> 화요일</c:when>
+              <c:when test="${scheduleVO.cday eq 2}"> 수요일</c:when>
+              <c:when test="${scheduleVO.cday eq 3}"> 목요일</c:when>
+              <c:when test="${scheduleVO.cday eq 4}"> 금요일</c:when>
+            </c:choose>
+            </TD>
             <TD class="td_bs">${scheduleVO.professor }</TD>
             <TD class="td_bs">
               <c:choose>
