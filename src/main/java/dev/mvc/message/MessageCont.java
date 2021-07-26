@@ -44,6 +44,19 @@ public class MessageCont {
   }
   
   /**
+   * 새로고침 방지
+   * @return
+   */
+  @RequestMapping(value="/message/msg.do", method=RequestMethod.GET)
+  public ModelAndView msg(String url){
+    ModelAndView mav = new ModelAndView();
+
+    mav.setViewName(url); // forward
+    
+    return mav; // forward
+  }
+  
+  /**
    * 쪽지 보내기 폼
    * http://localhost:9091/message/create.do?
    * @return
@@ -90,20 +103,27 @@ public class MessageCont {
    * @return
    */
   @RequestMapping(value="/message/create.do", method=RequestMethod.POST )
-  public ModelAndView create(MessageVO messageVO, int productno) {
+  public ModelAndView create(HttpSession session, MessageVO messageVO, int productno) {
     ModelAndView mav = new ModelAndView();
-    
-    int recv_member = this.messageProc.get_memberno(productno); // get_memberno 함수로 게시글 작성자의 회원번호 추출
-    messageVO.setRecv_member(recv_member);
-    messageVO.setProductno(productno);
-    
-    int cnt = this.messageProc.create(messageVO);
-    
-    mav.addObject("cnt", cnt); // redirect parameter 적용
-    
-    mav.setViewName("/product/list_by_bookno_search_paging"); // webapp/message/create.jsp
-   
-    return mav; // forward
+    if(session.getAttribute("id") == null) {
+      mav.setViewName("/register/login_form");
+      
+      return mav;
+    } else {
+      int recv_member = this.messageProc.get_memberno(productno); // get_memberno 함수로 게시글 작성자의 회원번호 추출
+      messageVO.setRecv_member(recv_member);
+      messageVO.setProductno(productno);
+      
+      int cnt = this.messageProc.create(messageVO);
+      
+      mav.addObject("cnt", cnt); // redirect parameter 적용
+      mav.addObject("url", "/message/msg");
+      
+      mav.setViewName("redirect:/message/msg.do"); // webapp/message/create.jsp
+     
+      return mav; // forward
+    }
+
   }
   
   /**

@@ -66,7 +66,7 @@
               <li><a class="dropdown-item" href="#!">구입 목록</a></li>
               <li><a class="dropdown-item" href="#!">매입 목록</a></li>
               <li><a class="dropdown-item" href="#!">리뷰</a></li>
-              <li><a class="dropdown-item" href="/message/list.do">쪽지</a></li>
+              <li><a class="dropdown-item" href="/message/list.do?memberno=${sessionScope.memberno }">쪽지</a></li>
             </ul>
           </li>
           

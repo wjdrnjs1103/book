@@ -42,34 +42,33 @@
     <div class="page-header"></div>
     <h4>상품정보(추후에 스타일 정리)</h4>
     
-    <c:set var="file1saved" value="${productVO.file1saved.toLowerCase() }" />
-    <c:if test="${file1saved.endsWith('jpg') || file1saved.endsWith('png') || file1saved.endsWith('gif')}">
-      <DIV style="width: 15%; float: left; margin-right: 20px;">
-        <IMG src="/product/storage/${productVO.file1saved }" style="width: 100%;">
-      </DIV>
-      <DIV style="width: 47%; float: left; margin-right: 10px;">
-        <span style="font-size: 1.5em; font-weight: bold;">상품명: ${productVO.title }</span><br>
-      </DIV>
-      <DIV style="width: 47%; float: left; margin-right: 10px;">
-        <span style="font-size: 1.5em; font-weight: bold;">판매자: ${productVO.memberno }</span><br>
-      </DIV>
-      <DIV style="width: 47%; float: left; margin-right: 10px;">
-        <span style="font-size: 1.5em; font-weight: bold;">가격: ${productVO.price }</span><br>
-      </DIV>
-    </c:if>
-
-    <div class="col-sm-6 col-md-offset-3" style="float: right">
+    <div style="position:relative; width: 100%; height:100%; margin-bottom: 30px;">
+      <c:set var="file1saved" value="${productVO.file1saved.toLowerCase() }" />
+      <c:if test="${file1saved.endsWith('jpg') || file1saved.endsWith('png') || file1saved.endsWith('gif')}">
+        <DIV style="width: 20%;  float: left; margin-right: 10px; float: rigth;">
+          <IMG src="/product/storage/${productVO.file1saved }" style="width: 100%;">
+        </DIV>
+        <DIV style="width: 50%; float: rigth; margin-right: 10px;"><br>
+          <span style="font-size: 1.5em; font-weight: bold;">상품명: ${productVO.title }</span><br>
+        </DIV>
+        <DIV style="width: 50%; float: rigth; margin-right: 10px;" ><br>
+          <span style="font-size: 1.5em; font-weight: bold;">판매자: ${productVO.memberno }</span><br>
+        </DIV>
+        <DIV style="width: 50%; float: rigth; margin-right: 10px;"><br>
+          <span style="font-size: 1.5em; font-weight: bold;">가격: ${productVO.price }</span><br>
+        </DIV>
+      </c:if>
+    </div>
+    <div style="position:relative; width: 100%; height:100%; margin-top: 10px;">
       <form name='frm' id='frm' style='margin-top: 50px;' action="./create.do" method='post'>
         <input type='hidden' name='send_member' value='${sessionScope.memberno}'>
         <input type='hidden' name='productno' value='${param.productno }'>
         <div class="form-group">
-            <label for="inputName">제목</label>
-            <input type="text" class="form-control" name="title" id="title" value='' placeholder="제목">
+            <input type="text" class="form-control" required="required"  name="title" id="title" value='' placeholder="제목">
         </div>
-
+  
         <div class="form-group">
-            <label for="inputMobile">내용</label>
-            <textarea name='contents' id='contents' required="required" class="form-control" rows="12" style='width: 100%;'>안녕하세요</textarea>
+            <textarea name='contents' id='contents' required="required"  placeholder="내용" class="form-control" rows="12" style='width: 100%;'></textarea>
         </div>
   
         <div class="form-group text-center">
@@ -82,6 +81,7 @@
         </div>
       </form>
     </div>
+
   </div> <!-- container// -->
 <jsp:include page="../menu/bottom.jsp"  flush='false' />
 </body>

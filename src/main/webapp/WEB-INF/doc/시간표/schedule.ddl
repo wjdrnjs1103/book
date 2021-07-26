@@ -64,3 +64,7 @@ commit;
     FROM schedule
     WHERE memberno = 2;
     
+        SELECT classno, memberno, cday, classname, starttime, endtime, professor, textbook
+    FROM schedule
+    WHERE  classno = 1;
+    
