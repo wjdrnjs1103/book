@@ -27,7 +27,7 @@ public class ReviewCont {
   
   @Autowired
   @Qualifier("dev.mvc.product.ProductProc")
-  private ProductProcInter productProc;
+  private ProductProcInter productProc=null;
   
   @Autowired
   @Qualifier("dev.mvc.register.RegisterProc")

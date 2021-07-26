@@ -224,10 +224,10 @@
         <TABLE class='table table_top_margin'>
           <colgroup>
             <col style='width: 10%;'/>
-            <col style='width: 62%;'/>
+            <col style='width: 58%;'/>
             <col style='width: 10%;'/> 
-            <col style='width: 10%;'/> 
-            <col style='width: 8%;'/>
+            <col style='width: 12%;'/> 
+            <col style='width: 10%;'/>
           </colgroup>
          
           <thead>  
@@ -240,7 +240,7 @@
             </TR>
           </thead>
           
-          <tbody  style="font-size: 1.08em;">
+          <tbody style="font-size: 1.08em;">
             <c:forEach var="boardVO" items="${list}" varStatus="status">
               <c:set var="commgrpno" value="${boardVO.commgrpno }" />
               <c:set var="memberno" value="${boardVO.memberno}" />
@@ -252,13 +252,13 @@
               <c:set var="writer" value="${list2[status.index].writer }" />
               <c:set var="brdate" value="${boardVO.brdate }" />
 
-              <TR>
+              <TR style="height: 45px;">
                 <TD class="td_bs">${boardno }</TD>
                 <TD class="td_bs_left">
                   <A href="./read.do?boardno=${boardno }&search_option=${search_option }&word=${param.word }&now_page=${param.now_page }">${title }</A>
                 </TD>
                 <TD class="td_bs_left">${writer}</TD>
-                <TD class="td_bs">${brdate.substring(0, 10) }</TD>
+                <TD class="td_bs">${brdate.substring(0, 16) }</TD>
                 <TD class="td_bs">${boardVO.bcnt}</TD>
                
               </TR>   

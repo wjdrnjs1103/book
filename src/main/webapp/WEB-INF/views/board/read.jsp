@@ -6,6 +6,7 @@
 <c:set var="boardno" value="${param.boardno }" />
 <c:set var="memberno" value="${sessionScope.memberno}" />
 <c:set var="bcnt" value="${boardVO.bcnt}" />
+<c:set var="breplycnt" value="${boardVO.breplycnt}" />
 
 
 <!DOCTYPE html> 
@@ -217,6 +218,8 @@
     var f = $('#frm_login');
     var frm_reply = $('#frm_reply');
     
+    var breplycnt = ${boardVO.breplycnt };
+    
     var id = $.trim('${sessionScope.id}');  
     // console.log('지금 댓글 등록 시도하는 ID: ', id)
 
@@ -229,6 +232,10 @@
       // 오라클: 한글 1자가 3바이트임으로 300자로 제한
       // alert('내용 길이: ' + $('#content', frm_reply).val().length);
       // return;
+      if ($('#replycontent', frm_reply).val().length == 0){
+    	  alert('댓글 내용을 입력해주세요.');
+        return;
+      }
       
       if ($('#replycontent', frm_reply).val().length > 300) {
         /* $('#modal_title').html('댓글 등록'); // 제목 
@@ -258,7 +265,7 @@
             alert("댓글을 등록했습니다.");
             $('#replycontent', frm_reply).val('');
             $('#replypwd', frm_reply).val('');
-
+            
             // list_by_boardno_join(); // 댓글 목록을 새로 읽어옴
 
             $('#reply_list').html(''); // 댓글 목록 패널 초기화, val(''): 안됨
@@ -643,8 +650,9 @@
                   <form name='frm_reply' id='frm_reply'>
                     <input type='hidden' name='memberno' id='memberno' value='${memberno}'>
                     <input type='hidden' name='boardno' id='boardno' value='${boardno}'>
+                    <input type='hidden' name='breplycnt' id='breplycnt' value='${breplycnt}'>
                     
-                    <span style="font-size: 1.1em; font-weight: bold;">댓글 ${boardVO.breplycnt }</span>
+                    <span style="font-size: 1.1em; font-weight: bold;">댓글</span>
                     
                     <div style="margin-top:15px; margin-bottom:20px; padding: 10px 20px 30px 20px; height: 150px; width: 98%; border: solid 2px #e6e6e6; border-radius: 5px;">
                       <span style="font-weight: bold; font-size: 0.96em;">댓쓴이 : ${id}</span><br>
@@ -681,13 +689,16 @@
           <div style="width:50%; float:right; text-align: right; margin-top:1px;">
              <c:choose>
                 <c:when test="${commgrpno == 1}">
-                  <button type='button' onclick="location.href='./list_by_commgrpno_search_paging.do?commgrpno=1&word=${param.word}&now_page=${param.now_page }'" class="btn_gray">목록</button>
+                  <button type='button' onclick="location.href='./list_by_commgrpno_search_paging.do?commgrpno=1&search_option=${param.search_option}&word=${param.word}&now_page=${param.now_page }'" class="btn_gray">목록</button>
                 </c:when>
                 <c:when test="${commgrpno == 2}">
-                  <button type='button' onclick="location.href='./list_by_commgrpno_notice_search_paging.do?commgrpno=2&word=${param.word}&now_page=${param.now_page }'" class="btn_gray">목록</button>
+                  <button type='button' onclick="location.href='./list_by_commgrpno_notice_search_paging.do?commgrpno=2&search_option=${param.search_option}&word=${param.word}&now_page=${param.now_page }'" class="btn_gray">목록</button>
+                </c:when>
+                <c:when test="${commgrpno == 3}">
+                  <button type='button' onclick="location.href='./list_by_commgrpno_qna_search_paging.do?commgrpno=3&search_option=${param.search_option}&word=${param.word}&now_page=${param.now_page }'" class="btn_gray">목록</button>
                 </c:when>
                 <c:otherwise>
-                  <button type='button' onclick="location.href='./list_by_commgrpno_notice_search_paging.do?commgrpno=3&word=${param.word}&now_page=${param.now_page }'" class="btn_gray">목록</button>
+                  <button type='button' onclick="location.href='./list_by_commgrpno_search_paging.do?commgrpno=${commgrpno }&search_option=${param.search_option}&word=${param.word}&now_page=${param.now_page }'" class="btn_gray">목록</button>
                 </c:otherwise>
              </c:choose>
             <%-- <button type="button" onclick="location.href='./list_by_commgrpno_search_paging.do?commgrpno=${param.commgrpno}&word=${param.word }&now_page=${param.now_page }'" 

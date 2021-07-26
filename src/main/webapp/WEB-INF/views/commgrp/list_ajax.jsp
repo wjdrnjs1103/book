@@ -212,7 +212,20 @@
                 <TD class="td_bs">${commgrpVO.seqno }</TD>
                 <TD class="td_bs">${commgrpVO.commgrpno }</TD>
                 <TD class="td_bs_left">
-                  <A href="../board/list_by_commgrpno_search_paging.do?commgrpno=${commgrpno}&word=&now_page=1">${commgrpVO.name }</A>
+                  <c:choose>
+                    <c:when test="${commgrpVO.commgrpno == 1}">
+                      <A href="../board/list_by_commgrpno_search_paging.do?commgrpno=1&word=&now_page=1">${commgrpVO.name }</A>
+                    </c:when>
+                    <c:when test="${commgrpno == 2}">
+                      <A href="../board/list_by_commgrpno_notice_search_paging.do?commgrpno=2&word=&now_page=1">${commgrpVO.name }</A>
+                    </c:when>
+                    <c:when test="${commgrpno == 3}">
+                      <A href="../board/list_by_commgrpno_qna_search_paging.do?commgrpno=3&word=&now_page=1">${commgrpVO.name }</A>
+                    </c:when>
+                    <c:otherwise>
+                      <A href="../board/list_by_commgrpno_qna_search_paging.do?commgrpno=${commgrpno}&word=&now_page=1">${commgrpVO.name }</A>
+                    </c:otherwise>
+                  </c:choose>
                 </TD>
                 <TD class="td_bs">${commgrpVO.rdate.substring(0, 10) }</TD>
          

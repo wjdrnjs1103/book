@@ -120,11 +120,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   <!-- QnA 그룹별 검색 목록 + 페이징 + 메인 이미지 -->   
   <select id="list_by_commgrpno_qna_search_paging" 
              resultType="dev.mvc.board.BoardVO" parameterType="HashMap">
-   SELECT boardno, memberno, commgrpno, title, bcon, brdate, budate, word, file1, thumb, bsize, bcnt, writer r
+   SELECT boardno, memberno, commgrpno, title, bcon, brdate, budate, word, file1, thumb, bsize, bcnt, breplycnt, writer r
    FROM (
-              SELECT boardno, memberno, commgrpno, title, bcon, brdate, budate, word, file1, thumb, bsize, bcnt, writer, rownum as r
+              SELECT boardno, memberno, commgrpno, title, bcon, brdate, budate, word, file1, thumb, bsize, bcnt, breplycnt, writer, rownum as r
               FROM (
-                        SELECT boardno, memberno, commgrpno, title, bcon, brdate, budate, word, file1, thumb, bsize, bcnt, writer
+                        SELECT boardno, memberno, commgrpno, title, bcon, brdate, budate, word, file1, thumb, bsize, bcnt, breplycnt, writer
                         FROM board
                         <choose>
                           <when test="search_option == 'all' ">
@@ -150,7 +150,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   <!-- Commgrp + Board join, 연결 목록 -->
   <select id="list_all_join" resultType="dev.mvc.board.Commgrp_BoardVO">
     SELECT r.commgrpno as r_commgrpno, r.name as r_name,
-           c.boardno, c.commgrpno, c.title, c.bcon, c.brdate, c.budate, c.word, c.file1, c.thumb, c.bsize, c.bcnt, c.writer
+           c.boardno, c.commgrpno, c.title, c.bcon, c.brdate, c.budate, c.word, c.file1, c.thumb, c.bsize, c.bcnt, c.breplycnt, c.writer
     FROM commgrp r, board c
     WHERE r.commgrpno = c.commgrpno
     ORDER BY boardno DESC
@@ -159,7 +159,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   <!-- Commgrp + Board join 연결, commgrp 선택 목록, Commgrp_BoardVO -->
   <select id="list_by_commgrpno_join" resultType="dev.mvc.board.Commgrp_BoardVO">
     SELECT r.commgrpno as r_commgrpno, r.name as r_name,
-           c.boardno, c.commgrpno, c.title, c.bcon, c.brdate, c.budate, c.word, c.file1, c.thumb, c.bsize, c.bcnt, c.writer
+           c.boardno, c.commgrpno, c.title, c.bcon, c.brdate, c.budate, c.word, c.file1, c.thumb, c.bsize, c.bcnt, c.breplycnt, c.writer
     FROM commgrp r, board c
     WHERE r.commgrpno = r.commgrpno AND r.commgrpno = c.commgrpno
     ORDER BY c.boardno DESC

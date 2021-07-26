@@ -38,9 +38,7 @@ public class ReplyCont {
   }
   
   @ResponseBody
-  @RequestMapping(value = "/reply/create.do",
-                            method = RequestMethod.POST,
-                            produces = "text/plain;charset=UTF-8")
+  @RequestMapping(value = "/reply/create.do", method = RequestMethod.POST, produces = "text/plain;charset=UTF-8")
   public String create(HttpServletRequest request, ReplyVO replyVO) {
     int count = replyProc.create(replyVO);
     
@@ -86,9 +84,7 @@ public class ReplyCont {
    * @return
    */
    @ResponseBody
-   @RequestMapping(value = "/reply/list_by_boardno.do",
-                              method = RequestMethod.GET,
-                              produces = "text/plain;charset=UTF-8")
+   @RequestMapping(value = "/reply/list_by_boardno.do", method = RequestMethod.GET, produces = "text/plain;charset=UTF-8")
    public String list_by_boardno(int boardno) {
      List<ReplyVO> list = replyProc.list_by_boardno(boardno);
     
@@ -128,9 +124,7 @@ public class ReplyCont {
     * @return
     */
    @ResponseBody
-   @RequestMapping(value = "/reply/list_by_boardno_join.do",
-                               method = RequestMethod.GET,
-                               produces = "text/plain;charset=UTF-8")
+   @RequestMapping(value = "/reply/list_by_boardno_join.do", method = RequestMethod.GET, produces = "text/plain;charset=UTF-8")
    public String list_by_boardno_join(int boardno) {
      // String msg="JSON 출력";
      // return msg;
@@ -145,7 +139,6 @@ public class ReplyCont {
    
    /**
     * 패스워드를 검사한 후 삭제 
-    * http://localhost:9090/resort/reply/delete.do?replyno=1&replypwd=1234
     * {"delete_cnt":0,"replypwd_cnt":0}
     * {"delete_cnt":1,"replypwd_cnt":1}
     * @param replyno
@@ -153,9 +146,7 @@ public class ReplyCont {
     * @return
     */
    @ResponseBody
-   @RequestMapping(value = "/reply/delete.do", 
-                               method = RequestMethod.POST,
-                               produces = "text/plain;charset=UTF-8")
+   @RequestMapping(value = "/reply/delete.do", method = RequestMethod.POST, produces = "text/plain;charset=UTF-8")
    public String delete(int replyno, String replypwd) {
      Map<String, Object> map = new HashMap<String, Object>();
      map.put("replyno", replyno);
@@ -182,9 +173,7 @@ public class ReplyCont {
     * @return
     */
    @ResponseBody
-   @RequestMapping(value = "/reply/list_by_boardno_join_add.do",
-                               method = RequestMethod.GET,
-                               produces = "text/plain;charset=UTF-8")
+   @RequestMapping(value = "/reply/list_by_boardno_join_add.do", method = RequestMethod.GET, produces = "text/plain;charset=UTF-8")
    public String list_by_boardno_join_add(int boardno, int replypage) {
    //    System.out.println("boardno: " + boardno);
    //    System.out.println("replypage: " + replypage);

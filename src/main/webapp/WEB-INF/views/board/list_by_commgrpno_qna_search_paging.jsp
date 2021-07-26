@@ -2,6 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <c:set var="commgrpno" value="${param.commgrpno }" />
+<c:set var="boardno" value="${boardVO.boardno }" />
 
 
 <!DOCTYPE html> 
@@ -79,7 +80,7 @@ $(function() {
     );  //  $.ajax END
   }
   
-  <%-- 게시판에 글쓰기 --%>
+  <%-- 문의글 글쓰기 권한 확인 --%>
   function b_c_btn(commgrpno) {
     var f = $('#frm_login');
     $('#commgrpno', f).val(commgrpno);  // 게시글 등록시 사용할 커뮤니티 번호를 저장.
@@ -95,7 +96,7 @@ $(function() {
     }  
   }
     
-  <%-- 게시글 등록 --%>
+  <%-- 문의글 등록 --%>
   function board_create_ajax() {
     var f = $('#frm_login');
     var commgrpno = $('#commgrpno', f).val();  // 쇼핑카트 등록시 사용할 상품 번호.
@@ -106,6 +107,46 @@ $(function() {
     // console.log('-> board_create_ajax: ' + commgrpno);
     // return;
     location.href='/board/create.do?commgrpno=' + commgrpno +'&word=&now_page=1';
+  }
+
+  <%-- 문의글 읽기 권한 확인 --%>
+  function b_r_btn(boardno) {
+    var f = $('#frm_login');
+
+    console.log('-> boardno: ' + boardno); 
+    
+    // console.log('-> id:' + '${sessionScope.id}');
+    if ('${sessionScope.id}' == '') {  // 로그인이 안되어 있다면
+      $('#div_login').show();    // 로그인폼 출력  
+      
+    } else {  // 로그인 한 경우
+    	 var session = $.trim('${sessionScope.id}');
+       var name = $.trim('${sessionScope.mname}'); // 지금 로그인한 member의 mname을 admin이라는 변수에 저장
+       // console.log("session ID: " + session);
+       // console.log("사용자 이름: "+ name);
+
+       // 문의글 읽기 : 관리자만 가능(memberVO.mname=관리자, 로그인된 ID = admin)
+       if(($.trim(name) != '관리자') && ($.trim(session) != 'admin')){
+           // console.log('-->' + '${boardVO.writer}')
+          alert('문의글 읽기는 관리자만 가능합니다');
+       }
+       else {
+    	   board_read_ajax(boardno);
+       }
+    } 
+  }
+
+  <%-- 문의글 읽기 --%>
+  function board_read_ajax(boardno) {
+    var f = $('#frm_login');
+
+    var params = "";
+    // params = $('#frm_login').serialize(); // 직렬화, 폼의 데이터를 키와 값의 구조로 조합
+    params += 'boardno=' + boardno;
+    // console.log('-> board_create_ajax: ' + commgrpno);
+    // return;
+    location.href='/board/read.do?boardno='+boardno+'&search_option=all&word=&now_page=1';
+    ///read.do?boardno=${boardno }&word=${param.word }&now_page=${param.now_page }
   }
   
 </script>
@@ -180,15 +221,15 @@ $(function() {
         <TABLE class='table table_top_margin'>
           <colgroup>
             <col style='width: 10%;'/>
-            <col style='width: 62%;'/>
+            <col style='width: 58%;'/>
             <col style='width: 10%;'/> 
-            <col style='width: 10%;'/> 
-            <col style='width: 8%;'/>
+            <col style='width: 12%;'/> 
+            <col style='width: 10%;'/>
           </colgroup>
          
           <thead>  
             <TR class="table_title">
-              <TH class="th_bs">번호</TH>
+              <TH class="th_bs"></TH>
               <TH class="th_bs">제목</TH>
               <TH class="th_bs_left">작성자</TH>
               <TH class="th_bs">작성일</TH>
@@ -196,28 +237,29 @@ $(function() {
             </TR>
           </thead>
           
-          <tbody style="font-size: 1.08em; padding:3px;">
+          <tbody style="font-size: 1.08em;">
             <c:forEach var="boardVO" items="${list}" varStatus="status">
               <c:set var="commgrpno" value="${boardVO.commgrpno }" />
-              <c:set var="boardno" value="${boardVO.boardno }" />
+              <c:set var="boardno" value="${list2[status.index].boardno }" />
               <c:set var="title" value="${boardVO.title }" />
               <c:set var="bcon" value="${boardVO.bcon }" />
               <c:set var="word" value="${boardVO.word }" />
-              <c:set var="bcnt" value="${boardVO.bcnt }" />
+              <c:set var="bcnt" value="${list2[status.index].bcnt }" />
               <c:set var="writer" value="${list2[status.index].writer }" />
               <c:set var="brdate" value="${boardVO.brdate }" />
-
+              <c:set var="breplycnt" value="${list2[status.index].breplycnt }" />
               
-              <TR>
-                <TD>
-                  
+              <TR style="height:45px;">
+                <TD class="td_bs">
+                   <button style="width:50px; height: 25px; background: white; border:solid 0.2px #032D5F; border-radius: 2px;
+                           color: #024697; font-weight:bold; font-size: 0.78em;">문의</button>
                 </TD>
                 <%-- <TD class="td_bs">${boardno }</TD> --%>
                 <TD class="td_bs_left">
-                   <A href="./read.do?boardno=${boardno }&word=${param.word }&now_page=${param.now_page }">${title }</A>
+                   <button onclick="b_r_btn(${boardno})" style="border: none; background: white;">${title }</button>
                 </TD>
                 <TD class="td_bs_left">${writer}</TD>
-                <TD class="td_bs">${boardVO.brdate.substring(0, 10) }</TD>
+                <TD class="td_bs">${boardVO.brdate.substring(0, 16) }</TD>
                 <TD class="td_bs">${bcnt}</TD>
                
               </TR>   
@@ -260,7 +302,7 @@ $(function() {
             
             <c:if test="${param.word.length() > 0 }">
               <button type='button' class="btn_gray"
-                           onclick="location.href='./list_by_commgrpno_search_paging.do?commgrpno=${commgrpVO.commgrpno}&word=&now_page=1'">검색 취소</button>  
+                           onclick="location.href='./list_by_commgrpno_qna_search_paging.do?commgrpno=${commgrpVO.commgrpno}&word=&now_page=1'">검색 취소</button>  
             </c:if>    
           </form>
         </div>

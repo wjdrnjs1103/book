@@ -67,23 +67,48 @@
         
         <tbody>
         <c:forEach var="reviewVO" items="${list}" varStatus="status">
-            <c:set var="productno" value="${reviewVO.productno }" />
-            <c:set var="memberno" value="${reviewVO.memberno }" />
-            <c:set var="r_member" value="${list2[status.index].memberno }" />
+            <c:set var="productno" value="${list2[status.index].productno }" />
+            <c:set var="memberno" value="${list2[status.index].memberno }" />
+            <c:set var="reviewno" value="${list2[status.index].reviewno }" />
+            <c:set var="r_member" value="${list2[status.index].r_memberno }" />
+            <c:set var="content" value="${list2[status.index].content }" />
+            <c:set var="writer" value="${list2[status.index].writer }" />
+            <c:set var="score" value="${list2[status.index].score }" />
+            <c:set var="rdate" value="${list2[status.index].rdate }" />
             
             <TR>
-            <TD class="td_bs"><A href="../product/read.do?productno=${productno }">${productno }</A></TD>
-            <TD class="td_bs">${reviewVO.reviewno }</TD>
-            <TD class="td_bs">${r_member }</TD>
-            <TD class="td_bs">${reviewVO.writer}</TD>
-            <TD class="td_bs_left">
-              <A href="/review/read.do?reviewno=${reviewVO.reviewno }">${reviewVO.content }</A>
-            </TD>
-            <TD class="td_bs">${reviewVO.score }</TD>
-            <TD class="td_bs">${reviewVO.rdate.substring(0, 16) }</TD>
             <TD class="td_bs">
-              <A href="./update.do?reviewno=${reviewVO.reviewno }" title="수정"><span class="glyphicon glyphicon-pencil"></span></A>
-              <A href="./delete.do?reviewno=${reviewVO.reviewno }" title="삭제"><span class="glyphicon glyphicon-trash"></span></A>
+              <c:choose>
+                <c:when test="${productno > 0}">
+                  <A href="../product/read.do?productno=${productno }">${productno }</A>
+                </c:when>
+                <c:otherwise></c:otherwise>
+              </c:choose>
+            </TD>
+            <TD class="td_bs">${reviewno }</TD>
+            <TD class="td_bs">${r_member }</TD>
+            <TD class="td_bs">${writer}</TD>
+            <TD class="td_bs_left">
+              <c:choose>
+                <c:when test="${productno > 0}">
+                  <A href="./read.do?reviewno=${reviewno }">${content }</A>
+                </c:when>
+                <c:otherwise>
+                  <A style="padding-left: 20%; font-weight: bold;">상품이 판매자로부터 삭제됨.</A>
+                </c:otherwise>
+              </c:choose>
+            </TD>
+            <TD class="td_bs">${score }</TD>
+            <TD class="td_bs">${rdate.substring(0, 16) }</TD>
+            <TD class="td_bs">
+             <c:choose>
+                <c:when test="${productno > 0}">
+                  <A href="./update.do?reviewno=${reviewno }" title="수정"><span class="glyphicon glyphicon-pencil"></span></A>
+                  <A href="./delete.do?reviewno=${reviewVO.reviewno }" title="삭제"><span class="glyphicon glyphicon-trash"></span></A>
+                </c:when>
+                <c:otherwise></c:otherwise>
+              </c:choose>
+            
             </TD>  
         </c:forEach> 
         </tbody>

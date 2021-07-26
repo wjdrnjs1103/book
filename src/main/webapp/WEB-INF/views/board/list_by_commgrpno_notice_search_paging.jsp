@@ -188,10 +188,10 @@
         <TABLE class='table table_top_margin'>
           <colgroup>
             <col style='width: 10%;'/>
-            <col style='width: 60%;'/>
-            <col style='width: 12%;'/> 
+            <col style='width: 58%;'/>
             <col style='width: 10%;'/> 
-            <col style='width: 8%;'/>
+            <col style='width: 12%;'/> 
+            <col style='width: 10%;'/>
           </colgroup>
          
           <thead>  
@@ -216,7 +216,7 @@
               <c:set var="brdate" value="${boardVO.brdate }" />
 
               
-              <TR>
+              <TR style="height:45px;">
                 <TD class="td_bs">
                   <button style="width:50px; height: 25px; background: #FFE3E4; border:solid 0.2px #FFD7D8; border-radius: 2px;
                     color: #FF4E59; font-weight:bold; font-size: 0.78em;">공지</button>
@@ -225,7 +225,7 @@
                   <A href="./read.do?boardno=${boardno }&search_option=${search_option }&word=${param.word }&now_page=${param.now_page }">${boardVO.title }</A>
                 </TD>
                 <TD class="td_bs_left">${writer}(관리자)</TD>
-                <TD class="td_bs">${boardVO.brdate.substring(0, 10) }</TD>
+                <TD class="td_bs">${boardVO.brdate.substring(0, 16) }</TD>
                 <TD class="td_bs">${boardVO.bcnt}</TD>
                
               </TR>   

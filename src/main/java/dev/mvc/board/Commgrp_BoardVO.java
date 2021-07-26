@@ -41,6 +41,8 @@ public class Commgrp_BoardVO {
   private long bsize;
   /** 조회수 */
   private int bcnt;
+  /** 댓글수 */
+  private int breplycnt;
   /** 게시판 작성자 */
   private String writer;
  
@@ -141,6 +143,12 @@ public class Commgrp_BoardVO {
   }
   public void setWriter(String writer) {
     this.writer = writer;
+  }
+  public int getBreplycnt() {
+    return breplycnt;
+  }
+  public void setBreplycnt(int breplycnt) {
+    this.breplycnt = breplycnt;
   }
   
   

@@ -77,19 +77,46 @@
                     <c:set var="thumb" value="${list2[status.index].thumb }" />
                     <c:set var="file1" value="${list2[status.index].file1 }" />
                     <c:set var="rsize" value="${list2[status.index].rsize }" />
-                      
+                    
                     <TR>
-                      <TD class="td_bs"><A href="../product/read.do?productno=${productno }">${productno }</A></TD>
-                      <TD class="td_bs"><A href="../product/read.do?productno=${productno }">${r_title }</A></TD>
+                      <TD class="td_bs">
+                          <c:choose>
+                            <c:when test="${productno > 0}">
+                              <A href="../product/read.do?productno=${productno }">${productno }</A>
+                            </c:when>
+                            <c:otherwise></c:otherwise>
+                          </c:choose>
+                      </TD>
+                      <TD class="td_bs">
+                          <c:choose>
+                            <c:when test="${productno > 0}">
+                              <A href="../product/read.do?productno=${productno }">${r_title }</A>
+                            </c:when>
+                            <c:otherwise></c:otherwise>
+                          </c:choose>
+                      </TD>
                       <TD class="td_bs_left">
-                        <A href="./read.do?reviewno=${reviewno }">${content }</A>
+                        <c:choose>
+                            <c:when test="${productno > 0}">
+                              <A href="./read.do?reviewno=${reviewno }">${content }</A>
+                            </c:when>
+                            <c:otherwise>
+                              <A style="padding-left: 30%; font-weight: bold;">해당 상품이 삭제되어 조회가 어렵습니다.</A>
+                            </c:otherwise>
+                        </c:choose>
                       </TD>
                       <TD class="td_bs">${score }</TD> 
                       <TD class="td_bs">${rcnt }</TD> 
                       <TD class="td_bs">${rdate.substring(0, 16) }</TD>
                       <TD class="td_bs">
-                        <A href="./read_update.do?reviewwno=${reviewwno }" title="수정"><span class="glyphicon glyphicon-pencil"></span></A>
-                        <A href="./read_delete.do?reviewwno=${reviewwno }" title="삭제"><span class="glyphicon glyphicon-trash"></span></A>
+                        <c:choose>
+                            <c:when test="${productno > 0}">
+                              <A href="./read_update.do?reviewwno=${reviewwno }" title="수정"><span class="glyphicon glyphicon-pencil"></span></A>
+                              <A href="./read_delete.do?reviewwno=${reviewwno }" title="삭제"><span class="glyphicon glyphicon-trash"></span></A>
+                            </c:when>
+                            <c:otherwise>
+                            </c:otherwise>
+                        </c:choose>
                       </TD>  
            
                     </TR>   
@@ -97,7 +124,7 @@
                </c:when>
                <c:otherwise>
                  <tr>
-                  <td colspan="6" style="text-align: center; font-size: 1.3em;">해당 상품에 대한 리뷰가 없습니다.</td>
+                  <td colspan="7" style="text-align: center; font-size: 1.3em;">작성한 리뷰가 없습니다.</td>
                  </tr>
                </c:otherwise>
             </c:choose>

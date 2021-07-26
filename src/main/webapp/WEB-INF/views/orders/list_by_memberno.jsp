@@ -65,12 +65,13 @@
           <colgroup>
             <col style='width: 5%;'/>
             <col style='width: 10%;'/>
-            <col style='width: 35%;'/>
+            <col style='width: 30%;'/>
             <col style='width: 5%;'/>
             <col style='width: 5%;'/>
             <col style='width: 15%;'/>
             <col style='width: 15%;'/>
             <col style='width: 10%;'/>
+            <col style='width: 5%;'/>
            
           </colgroup>
           <TR class="table_title">
@@ -83,6 +84,7 @@
             <TH class='th_bs'>배송상태</TH>
             <TH class='th_bs'>주문일</TH>
             <TH class='th_bs'>환불신청</TH>
+            <TH class='th_bs'>리뷰</TH>
           </TR>
          
           <c:forEach var="ordersVO" items="${list }">
@@ -120,6 +122,10 @@
             <TD class='td_basic'>${rdate.substring(0,16) }</TD>
             <TD class='td_basic'>
               <A href="/refund/create.do?ordersno=${ordersno }">환불신청</A>
+            </TD>
+            <TD class='td_basic'>
+              <a class="glyphicon glyphicon-share" title="리뷰 작성" href="../review/create.do?productno=${productno }">
+              </A>
             </TD>
           </TR>
           </c:forEach>
