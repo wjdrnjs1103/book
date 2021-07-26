@@ -22,8 +22,15 @@ public class CartVO {
   private int price;
   /** 상품 개수 */
   private int cnt;
+  /** 금액 */
+  private int tot;
   
-
+  public int getTot() {
+    return tot;
+  }
+  public void setTot(int tot) {
+    this.tot = tot;
+  }
   public int getCartno() {
     return cartno;
   }
