@@ -239,18 +239,23 @@ public class MessageCont {
    */
   @RequestMapping(value="/message/read.do", method=RequestMethod.GET )
   public ModelAndView read(HttpServletRequest request, int messageno, int productno) {
-    
     ModelAndView mav = new ModelAndView();
    
-    int stateno = this.productProc.get_stateno(productno);
-    
-    MessageVO messageVO = this.messageProc.read(messageno);
-    mav.addObject("messageVO", messageVO); // request.setAttribute("productVO", productVO);
-    mav.addObject("stateno", stateno);
-    
-    mav.setViewName("/message/read"); // /WEB-INF/views/product/read.jsp
+    if (productno == 0) {
+      mav.setViewName("/message/no_product_msg");
       
-    return mav;
+      return mav;
+    } else {
+      int stateno = this.productProc.get_stateno(productno);
+      
+      MessageVO messageVO = this.messageProc.read(messageno);
+      mav.addObject("messageVO", messageVO); // request.setAttribute("productVO", productVO);
+      mav.addObject("stateno", stateno);
+      
+      mav.setViewName("/message/read"); // /WEB-INF/views/product/read.jsp
+        
+      return mav;
+    }
   }
   
 }
