@@ -301,9 +301,17 @@ function cart_ajax(productno, stateno) {
           
             <span style="font-size: 1.1em;">가격: <fmt:formatNumber value="${productVO.price}" pattern="##,###" /></span>                      
             <br>
-            <button type='button' id='btn_cart' class="btn btn-danger" style='margin-bottom: 2px;'
+            <c:choose>
+              <c:when test="${memberno == sessionScope.memberno }">
+                <button type='button' id='btn_mypost' class="btn btn-danger" style='margin-bottom: 2px;'
+                        onclick="alert('내가쓴 게시글은 찜할수 없습니다.');">찜하기</button><br>
+              </c:when>
+              <c:otherwise>
+                <button type='button' id='btn_cart' class="btn btn-danger" style='margin-bottom: 2px;'
                         onclick="cart_ajax(${productno}, ${stateno })">찜하기</button><br>
-             
+              </c:otherwise>
+            </c:choose>
+
             <c:choose>
               <c:when test="${stateno ==1 }">
                 <h4>판매중</h4>

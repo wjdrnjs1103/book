@@ -34,7 +34,7 @@
   var endtime_arr = [];
   var cday_arr = [];
   var params = "";
-  
+  console.log(classno_arr );
   params = 'memberno=' + <%=(int)session.getAttribute("memberno")%>
   // console.log("params", params);
   $(function() {
@@ -87,39 +87,66 @@
     var textbook = $('#textbook', frm_create).val();
     var classname = $('#classname', frm_create).val();   
  
-    isOverlap(starttime, endtime);  // 시간교차판단 함수
-
-    
-    alert("강의가 등록되었습니다. 시간표 불러오기를 통해 확인해주세요.");
-    frm_create.submit();
+    if(classname == 0) {
+      alert("강의명을 입력해주세요");
+      return;
+    } else if (professor == 0) {
+      alert("교수를 입력해주세요");
+      return;
+    } else if(isCross(starttime, endtime)==false) {
+      alert("시간설정을 다시해주세요");
+      return;
+    } else {
+      if(isOverlap(starttime, endtime, cday)==false) {
+        console.log("isOverlap 요일교차체크");
+        alert("해당 요일에 겹치는 강의가 있습니다.");
+        return;
+      } else {
+        alert("강의가 등록되었습니다. 시간표 불러오기를 통해 확인해주세요.");
+        frm_create.submit();
+      }
+    }
+   
   }
   
-  function isOverlap(starttime, endtime) {
-    if (Number(starttime) >= Number(endtime)) {
-      alert('시간을 다시 설정해주세요');
-      return false;
+  function isOverlap(starttime, endtime, cday) {
+    console.log("isOverlap 함수진입");
+    for(var i =0;  i<classno_arr.length; i++){
+      classno_arr[i]; 
+      cday_arr[i];
+      starttime_arr[i];
+      endtime_arr[i];
+      
+      for (cday_arr[i]; cday_arr[i]<5; cday_arr[i]++){
+        if(cday == cday_arr[i]){
+          if(starttime < endtime_arr[i]){
+            console.log("입력된 요일", cday);
+            console.log("비교군 요일", cday_arr[i]);
+            console.log("입력된 starttime", starttime);
+            console.log("입력된 endtime", endtime);
+            console.log("비교군 starttime", starttime_arr[i]);
+            console.log("비교군 endtime", endtime_arr[i]);
+            return false;
+          } else if(starttime_arr[i] > endtime) {
+            return false;
+          } else {
+            break;
+          }
+          break;
+        }
+        break;
+      }
     }
+    return true;
   }
 
-  function convCday(cday){
-    switch(cday){
-      case "월요일":
-        cday = 0;
-        break;
-      case "화요일":
-        cday = 1;
-        break;
-      case "수요일":
-        cday = 2;
-        break;
-      case "목요일":
-        cday = 3;
-        break;
-      case "금요일":
-        cday = 4;
-        break;
+  function isCross(starttime, endtime) {
+    console.log("isCross 함수진입");
+    if (Number(starttime) >= Number(endtime)) {
+      return false;
+    } else {
+      return true;
     }
-    return cday;
   }
   
   // 수정폼
@@ -244,7 +271,7 @@
                   min='9' max='18' step='1' style='width: 5%;'>
         <label>종료시간</label>
         <input type='number' name='endtime' id='endtime' value='18' required="required" 
-                  min='9' max='18' step='1' style='width: 5%;'>
+                  min='9' max='19' step='1' style='width: 5%;'>
           
         <button type="button" onclick="create(${sessionScope.memberno})" class="btn btn-dark">저장</button>
       </FORM>
