@@ -32,6 +32,7 @@ import com.zaxxer.hikari.HikariDataSource;
                            "dev.mvc.reply",
                            "dev.mvc.review",
                            "dev.mvc.schedule",
+                           "dev.mvc.selling"
                            })
 public class DatabaseConfiguration {
     
