@@ -6,7 +6,7 @@
 
   <!-- Navigation-->
   <nav class="navbar navbar-expand-lg navbar-light bg-light" style="margin-bottom: 0px;">
-    <div class="container px-4 px-lg-5">
+    <div class="container px-4 px-lg-5"> 
       <a class="navbar-brand" href="/index.do">Used Book Market </a>
       
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
@@ -56,7 +56,7 @@
           </li>
           
           <%-- 프로필/시간표: 종환님 담당 개발~ --%>   
-          <li class="nav-item"><a class="nav-link active" aria-current="page" href="/index.do" style="margin-right: 10px;">시간표</a></li>
+          <li class="nav-item"><a class="nav-link active" aria-current="page" href="/schedule/schedule.do" style="margin-right: 10px;">시간표</a></li>
           <li class="nav-item dropdown" style="margin-right: 10px;">
             <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">마이페이지</a>
             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
