@@ -1,9 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
-<c:set var="commgrpno" value="${param.commgrpno }" />
-
-
+ 
 <!DOCTYPE html> 
 <html lang="ko"> 
 <head> 
@@ -33,8 +30,6 @@ $(function() {
     //$('#btn_create').on('click', function() { b_c_btn(commgrpno)});
     $('#btn_login').on('click', login_ajax);
     $('#btn_loadDefault').on('click', loadDefault);
-
-    
   });
 
   function loadDefault() {
@@ -66,8 +61,7 @@ $(function() {
             board_create_ajax();            
             
           } else {
-            alert('로그인에 실패했습니다. 잠시후 다시 시도해주세요.');
-            location.href='/register/login.do';
+            alert('로그인에 실패했습니다.<br>잠시후 다시 시도해주세요.');
             
           }
         },
@@ -82,7 +76,7 @@ $(function() {
   <%-- 게시판에 글쓰기 --%>
   function b_c_btn(commgrpno) {
     var f = $('#frm_login');
-    $('#commgrpno', f).val(commgrpno);  // 게시글 등록시 사용할 커뮤니티 번호를 저장.
+    $('#commgrpno', f).val(commgrpno);  // 쇼핑카트 등록시 사용할 상품 번호를 저장.
     
     console.log('-> commgrpno: ' + $('#commgrpno', f).val()); 
     
@@ -103,9 +97,9 @@ $(function() {
     var params = "";
     // params = $('#frm_login').serialize(); // 직렬화, 폼의 데이터를 키와 값의 구조로 조합
     params += 'commgrpno=' + commgrpno;
-    // console.log('-> board_create_ajax: ' + commgrpno);
+    console.log('-> board_create_ajax: ' + commgrpno);
     // return;
-    location.href='/board/create.do?commgrpno=' + commgrpno +'&word=&now_page=1';
+    location.href='/board/create.do?commgrpno=' + commgrpno+'&word=&now_page=1';
   }
   
 </script>
@@ -117,25 +111,25 @@ $(function() {
 
 <div class="py-5">
   
-    <DIV class='container c_bottom'> 
+    <DIV class='container'> 
         <DIV class='title_line_none'>
-          <!-- <a href="../commgrp/list.do" class='title_link'>커뮤니티</a> -->
-          <a href="./list_by_commgrpno_qna_search_paging.do?commgrpno=${param.commgrpno }&word=&now_page=1" class='title_link'>${commgrpVO.name}</a>
+          <a href="./list_by_commgrpno_search_paging.do?commgrpno=${commgrpno }&word=&now_page=1" class='title_link'>${commgrpVO.name}</a>
         </DIV>
-
+        
         <ASIDE class="aside_right">
           <A href="javascript:location.reload();">새로고침</A>
-          <span class='menu_divide' > |  </span>
-          <A href="./list_by_commgrpno_qna_search_paging.do?commgrpno=${param.commgrpno }&word=${param.word }&now_page=${param.now_page}" >목록</A>        
-        </ASIDE> 
+          <span class='menu_divide' >　</span>
+          <A href="./list_by_commgrpno_search_paging.do?commgrpno=${param.commgrpno }&search_option=${search_option }&word=${param.word }&now_page=${param.now_page}" title="기본 목록형"><IMG style="width:24px;"src='/css/images/list_gray.png'></A>        
+          <span class='menu_divide' >　</span>
+          <A href="./list_by_commgrpno_grid_search_paging.do?commgrpno=${param.commgrpno }&search_option=${search_option }&word=${param.word }&now_page=1"><IMG style="width:24px;"src='/css/images/photo_gray.png'></A>        
+        </ASIDE>
         
-        <DIV class='menu_line'></DIV>
+        <DIV class='menu_line_1_b'></DIV>
         
         <%-- ******************** Ajax 기반 로그인 폼 시작 ******************** --%>
         <DIV id='div_login' style='width: 80%; margin: 0px auto; display: none;'>
           <FORM name='frm_login' id='frm_login' method='POST' action='/member/login.do' class="form-horizontal">
             <input type="hidden" name="commgrpno" id="commgrpno" value="commgrpno">
-            <input type="hidden" name="writer" id="writer" value="writer">
             
             <div class="form-group">
               <label class="col-md-4 control-label" style='font-size: 0.8em;'>아이디</label>    
@@ -177,26 +171,7 @@ $(function() {
         </DIV>
         <%-- ******************** Ajax 기반 로그인 폼 종료 ******************** --%>
         
-        <TABLE class='table table_top_margin'>
-          <colgroup>
-            <col style='width: 10%;'/>
-            <col style='width: 62%;'/>
-            <col style='width: 10%;'/> 
-            <col style='width: 10%;'/> 
-            <col style='width: 8%;'/>
-          </colgroup>
-         
-          <thead>  
-            <TR class="table_title">
-              <TH class="th_bs">번호</TH>
-              <TH class="th_bs">제목</TH>
-              <TH class="th_bs_left">작성자</TH>
-              <TH class="th_bs">작성일</TH>
-              <TH class="th_bs">조회</TH>
-            </TR>
-          </thead>
-          
-          <tbody style="font-size: 1.08em; padding:3px;">
+        <div style='width: 100%; margin-top: 1%;'> <%-- 갤러리 Layout 시작 --%>
             <c:forEach var="boardVO" items="${list}" varStatus="status">
               <c:set var="commgrpno" value="${boardVO.commgrpno }" />
               <c:set var="boardno" value="${boardVO.boardno }" />
@@ -206,45 +181,86 @@ $(function() {
               <c:set var="bcnt" value="${boardVO.bcnt }" />
               <c:set var="writer" value="${list2[status.index].writer }" />
               <c:set var="brdate" value="${boardVO.brdate }" />
-
-              
-              <TR>
-                <TD>
-                  
-                </TD>
-                <%-- <TD class="td_bs">${boardno }</TD> --%>
-                <TD class="td_bs_left">
-                   <A href="./read.do?boardno=${boardno }&word=${param.word }&now_page=${param.now_page }">${title }</A>
-                </TD>
-                <TD class="td_bs_left">${writer}</TD>
-                <TD class="td_bs">${boardVO.brdate.substring(0, 10) }</TD>
-                <TD class="td_bs">${bcnt}</TD>
+            
+            <c:set var="file1" value="${boardVO.file1 }" />
+            <c:set var="bsize" value="${boardVO.bsize }" />
+            <c:set var="thumb" value="${boardVO.thumb }" />        
                
-              </TR>   
-            </c:forEach> 
-          </tbody>
-        </TABLE>
-
+            <c:set var="budate" value="${boardVO.budate }" />            
+      
+            <%-- 하나의 행에 이미지를 4개씩 출력후 행 변경 --%>
+            <c:if test="${status.index % 5 == 0 && status.index != 0 }"> 
+              <HR class=''>
+            </c:if>
+            
+            <!-- 하나의 이미지, 24 * 4 = 96% -->
+            <DIV style='width: 19%; height: 290px; float: left; margin-top:5px; margin-bottom: 23px; margin-left: 10px;  padding: 0.2%; 
+                 background-color: white; text-align: center;'>
+              <c:choose>
+                <c:when test="${bsize > 0}"> <!-- 파일이 존재하면 -->
+                  <c:choose> 
+                    <c:when test="${thumb.endsWith('jpg') || thumb.endsWith('png') || thumb.endsWith('gif')}"> <!-- 이미지 인경우 -->
+                      <div onclick="./read.do?boardno=${boardno}&search_option=${param.search_option }&word=${param.word }&now_page=${param.now_page}">               
+                        <IMG src="./storage/${thumb }" style='width: 98%; height: 210px;'>
+                      </div>
+                      <div style="margin-top: 5px; padding-left: 5px; text-align: left; font-weight: bold; font-size: 1.02em;">${title}</div>
+                      <div style="margin-top: 7px; padding-left: 5px; text-align: left; font-size: 0.94em; color: #8B8B8B;">${writer}</div>
+                      <div style="padding-left: 5px; text-align: left; font-size: 0.85em; color: #AEADAD;">${brdate.substring(0, 16) }　· 조회 ${bcnt }</div>
+                      <br>
+                    </c:when>
+                    
+                    <c:otherwise> <!-- 이미지가 아닌 일반 파일 -->
+                      <DIV style='width: 98%; height: 210px; display: table; border: solid 1px #CCCCCC;'>
+                        <DIV style='display: table-cell; vertical-align: middle; text-align: center;'> <!-- 수직 가운데 정렬 -->
+                          <a href="./read.do?boardno=${boardno}&search_option=${param.search_option }&word=${param.word }&now_page=${param.now_page}">${file1}</a><br>
+                        </DIV>
+                      </DIV>
+                     <div style="margin-top: 5px; padding-left: 5px; text-align: left; font-weight: bold; font-size: 1.02em;">${title}</div>     
+                     <div style="margin-top: 7px; padding-left: 5px; text-align: left; font-size: 0.94em; color: #8B8B8B;">${writer}</div>
+                     <div style="padding-left: 5px; text-align: left; font-size: 0.85em; color: #AEADAD;">${brdate.substring(0, 16) }　· 조회 ${bcnt }</div>         
+                    </c:otherwise>
+                  </c:choose>
+                </c:when>
+                
+                <c:otherwise> <%-- 파일이 없는 경우 기본 이미지 출력 --%>
+                  <div>
+                    <a href="./read.do?boardno=${boardno}&search_option=${param.search_option }&word=${param.word }&now_page=${param.now_page}">
+                      <img src='/board/images/none2.png' style='width: 98%; height: 210px;'>
+                    </a><br>
+                  </div>
+                  <%-- <div style="margin-top: 5px; padding-left: 5px; text-align: left; font-weight: bold;">이미지를 등록해주세요.</div> --%>
+                  <div style="margin-top: 5px; padding-left: 5px; text-align: left; font-weight: bold; font-size: 1.02em;">${title}</div>
+                  <%-- <div style=" padding-left: 5px; text-align: left; font-size: 0.83em; color: #8B8B8B; ">${title}</div> --%>
+                  <div style="margin-top: 7px; padding-left: 5px; text-align: left; font-size: 0.94em; color: #8B8B8B;">${writer}</div>
+                  <div style="padding-left: 5px; text-align: left; font-size: 0.85em; color: #AEADAD;">${brdate.substring(0, 16) }　· 조회 ${bcnt }</div>
+                </c:otherwise>
+                
+              </c:choose>         
+            </DIV>  
+          </c:forEach>
+        </DIV><!-- 갤러리 Layout 종료 -->
+        
+        <div class="menu_line_1_g"></div>
+        
         <div class="content_body_bottom ">
-          <button type='button' class="btn" id="btn_create" style="border: solid 1px;" 
+           <button type='button' class="btn" id="btn_create" style="border: solid 1px;" 
                   onclick="b_c_btn(${commgrpno})">글쓰기</button>  
-<%--           <button type='button' class="btn" id="board style="border: solid 1px;" 
-                  onclick="location.href='./create.do?commgrpno=${param.commgrpno }&word=${param.word }&now_page=${param.now_page }'">글쓰기</button>   --%>
+          <%-- <button type='button' class="btn" style="border: solid 1px;"
+                             onclick="location.href='./create.do?commgrpno=${param.commgrpno }&word=${param.word }&now_page=${param.now_page }'">글쓰기</button>   --%>
         </div>
-          
-        <DIV class='content_body_bottom_c_page'>${paging }</DIV>    
-
+        
+        <DIV class='content_body_bottom_c_page'>${paging2 }</DIV>    
+        
         <%-- 검색 --%>
         <div class="content_body_bottom_c_search">
-          <form name='frm' id='frm' method='get' action='./list_by_commgrpno_qna_search_paging.do'>
+          <form name='frm' id='frm' method='get' action='./list_by_commgrpno_grid_search_paging.do'>
             <input type='hidden' name='commgrpno' value='${param.commgrpno }'>
-            <input type='hidden' name='now_page' value='${param.now_page }'>
             
             <select class="input_search_word_"  name="search_option" id= 'search_option' style='width:10%;'>
               <option value='all'${param.search_option == "all" ? "selected='selected'":""}>전체 검색</option>
               <option value='title'${param.search_option == "title" ? "selected='selected'":""}>제목</option>
               <option value='bcon'${param.search_option == "bcon" ? "selected='selected'":""}>내용</option>                    
-            </select>  
+            </select> 
             
             <c:choose>
               <c:when test="${param.word != '' }"> <%-- 검색하는 경우 --%>
@@ -260,7 +276,7 @@ $(function() {
             
             <c:if test="${param.word.length() > 0 }">
               <button type='button' class="btn_gray"
-                           onclick="location.href='./list_by_commgrpno_search_paging.do?commgrpno=${commgrpVO.commgrpno}&word=&now_page=1'">검색 취소</button>  
+                           onclick="location.href='./list_by_commgrpno_grid_search_paging.do?commgrpno=${commgrpVO.commgrpno}&word=&now_page=1'">검색 취소</button>  
             </c:if>    
           </form>
         </div>
@@ -270,11 +286,11 @@ $(function() {
           광고
         </div>
         
-        
-    </DIV>
+    </div>
 </div>
  
-<jsp:include page="../menu/bottom.jsp" flush='false' />
+<jsp:include page="../menu/bottom.jsp" />
 </body>
  
 </html>
+

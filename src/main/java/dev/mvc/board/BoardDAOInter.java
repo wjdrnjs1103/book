@@ -5,7 +5,6 @@ import java.util.List;
 
 
 public interface BoardDAOInter {
-  
   /**
    * 등록
    * @param boardVO
@@ -76,7 +75,7 @@ public interface BoardDAOInter {
    * @param now_page 현재 페이지, now_page는 1부터 시작
    * @return
    */
-  public String pagingBox2(String list_file, int commgrpno, int search_count, int now_page);
+  public String pagingBox2(String list_file, int commgrpno, int search_count, String word, int now_page);
   
   /**
    * 특정 커뮤니티 등록된 글 목록, Grid List
@@ -91,6 +90,13 @@ public interface BoardDAOInter {
    * @return
    */
   public List<BoardVO> list_by_commgrpno_grid_paging(HashMap<String, Object> map);
+  
+  /**
+   * 커뮤니티 그룹별 Grid 목록 + 검색 + 페이징
+   * @param map
+   * @return
+   */
+  public List<BoardVO> list_by_commgrpno_grid_search_paging(HashMap<String, Object> map);
 
   /**
    * 조회

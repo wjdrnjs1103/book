@@ -43,11 +43,11 @@
       <TABLE class='table mt-5'>
         <colgroup>
           <col style='width: 7%;'/>
-          <col style='width: 20%;'/>
-          <col style='width: 36%;'/>  
-          <col style='width: 10%;'/>  
+          <col style='width: 18%;'/>
+          <col style='width: 35%;'/>  
           <col style='width: 7%;'/>  
           <col style='width: 7%;'/>  
+          <col style='width: 13%;'/>  
           <col style='width: 13%;'/>
         </colgroup>
         <thead>  

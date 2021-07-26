@@ -96,9 +96,9 @@
       if(($.trim(name) != '관리자') && ($.trim(session) != 'admin')){
           // console.log('-->' + '${boardVO.writer}')
          alert('공지사항은 작성자만 가능합니다');
-   	  }
+      }
       else {
-    	  board_create_ajax(commgrpno);
+        board_create_ajax(commgrpno);
       }
     }  
   }
@@ -133,7 +133,7 @@
         <ASIDE class="aside_right">
           <A href="javascript:location.reload();">새로고침</A>
           <span class='menu_divide' > |　</span>
-          <A href="./list_by_commgrpno_notice_search_paging.do?commgrpno=${param.commgrpno }&word=${param.word }&now_page=${param.now_page}">목록</A>
+          <A href="./list_by_commgrpno_notice_search_paging.do?commgrpno=${param.commgrpno }&search_option=${search_option }&word=${param.word }&now_page=${param.now_page}">목록</A>
 <%--                     <A href="./list_by_commgrpno_grid.do?commgrpno=${param.commgrpno }&now_page=${param.now_page}"><IMG style="width:24px;"src='/css/images/photo_gray.png'></A>         --%>
         </ASIDE> 
         
@@ -222,7 +222,7 @@
                     color: #FF4E59; font-weight:bold; font-size: 0.78em;">공지</button>
                 </TD>
                 <TD class="td_bs_left">
-                  <A href="./read.do?boardno=${boardno }&word=${param.word }&now_page=${param.now_page }">${boardVO.title }</A>
+                  <A href="./read.do?boardno=${boardno }&search_option=${search_option }&word=${param.word }&now_page=${param.now_page }">${boardVO.title }</A>
                 </TD>
                 <TD class="td_bs_left">${writer}(관리자)</TD>
                 <TD class="td_bs">${boardVO.brdate.substring(0, 10) }</TD>
@@ -244,16 +244,15 @@
 
         <%-- 검색 --%>
         <div class="content_body_bottom_c_search">
-          <form name='frm' id='frm' method='get' action='./list_by_commgrpno_search_paging.do'>
+          <form name='frm' id='frm' method='get' action='./list_by_commgrpno_notice_search_paging.do'>
             <input type='hidden' name='commgrpno' value='${param.commgrpno }'>
             <input type='hidden' name='now_page' value='${param.now_page }'>
             
-            <%-- 상세 검색 기능 구현 해야함 --%>
-            <select class="input_search_word_" style='width:10%;'>
+            <select class="input_search_word_"  name="search_option" id= 'search_option' style='width:10%;'>
               <option value='all'${param.search_option == "all" ? "selected='selected'":""}>전체 검색</option>
               <option value='title'${param.search_option == "title" ? "selected='selected'":""}>제목</option>
               <option value='bcon'${param.search_option == "bcon" ? "selected='selected'":""}>내용</option>                    
-            </select> 
+            </select>  
             
             <c:choose>
               <c:when test="${param.word != '' }"> <%-- 검색하는 경우 --%>
@@ -269,7 +268,7 @@
             
             <c:if test="${param.word.length() > 0 }">
               <button type='button' class="btn_gray"
-                           onclick="location.href='./list_by_commgrpno_search_paging.do?commgrpno=${commgrpVO.commgrpno}&word=&now_page=1'">검색 취소</button>  
+                           onclick="location.href='./list_by_commgrpno_notice_search_paging.do?commgrpno=${commgrpVO.commgrpno}&word=&now_page=1'">검색 취소</button>  
             </c:if>    
           </form>
         </div>

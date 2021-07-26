@@ -24,7 +24,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   <!-- 커뮤니티 그룹별 검색 목록 -->
   <select id="list_by_commgrpno_search" resultType="dev.mvc.board.BoardVO" 
              parameterType="HashMap">
-    SELECT boardno, commgrpno, title, bcon, brdate, budate, word, file1, thumb, bsize, bcnt, writer
+    SELECT boardno, memberno, commgrpno, title, bcon, brdate, budate, word, file1, thumb, bsize, bcnt, writer
     FROM board
     <choose>
       <when test="word == null or word == ''"> <!-- 검색하지 않는 경우 -->
@@ -56,23 +56,25 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </choose>
   </select>
   
+  
   <!-- 커뮤니티 그룹별 검색 목록 + 페이징 + 메인 이미지 -->   
   <select id="list_by_commgrpno_search_paging" 
              resultType="dev.mvc.board.BoardVO" parameterType="HashMap">
-   SELECT boardno, commgrpno, title, bcon, brdate, budate, word, file1, thumb, bsize, bcnt, writer r
+   SELECT boardno, memberno, commgrpno, title, bcon, brdate, budate, word, file1, thumb, bsize, bcnt, writer r
    FROM (
-              SELECT boardno, commgrpno, title, bcon, brdate, budate, word, file1, thumb, bsize, bcnt, writer, rownum as r
+              SELECT boardno, memberno, commgrpno, title, bcon, brdate, budate, word, file1, thumb, bsize, bcnt, writer, rownum as r
               FROM (
-                        SELECT boardno, commgrpno, title, bcon, brdate, budate, word, file1, thumb, bsize, bcnt, writer
+                        SELECT boardno, memberno, commgrpno, title, bcon, brdate, budate, word, file1, thumb, bsize, bcnt, writer
                         FROM board
                         <choose>
-                          <when test="word == null or word == ''"> <!-- 검색하지 않는 경우 -->
-                             WHERE commgrpno=#{commgrpno}
+                          <when test="search_option == 'all' ">
+                             WHERE commgrpno=#{commgrpno} AND (title LIKE '%' || #{word} || '%' 
+                                                           OR bcon LIKE '%' || #{word} || '%'   
+                                                           OR word LIKE '%' || #{word} || '%'  )
                           </when>
-                          <otherwise> <!-- 검색하는 경우의 레코드 갯수 -->
-                            WHERE commgrpno=#{commgrpno} AND (title LIKE '%' || #{word} || '%' 
-                                                                           OR bcon LIKE '%' || #{word} || '%'   
-                                                                           OR word LIKE '%' || #{word} || '%'  )
+                          <otherwise>
+                             <!-- 내가 지정한 조건 (전체 출력, 제목, 내용) 의 검색조건으로 게시물을 검색하는 쿼리 -->
+                             WHERE commgrpno=#{commgrpno} AND (${search_option} LIKE '%' || #{word} || '%' )
                           </otherwise>
                         </choose>
                         ORDER BY boardno DESC
@@ -84,23 +86,25 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
           3 page: WHERE r >= 21 AND r <= 30; -->
   </select>
   
-   <!-- 공지사항 그룹별 검색 목록 + 페이징 + 메인 이미지 -->   
+  
+  <!-- 공지사항 그룹별 검색 목록 + 페이징 + 메인 이미지 -->   
   <select id="list_by_commgrpno_notice_search_paging" 
              resultType="dev.mvc.board.BoardVO" parameterType="HashMap">
-   SELECT boardno, commgrpno, title, bcon, brdate, budate, word, file1, thumb, bsize, bcnt, writer r
+   SELECT boardno, memberno, commgrpno, title, bcon, brdate, budate, word, file1, thumb, bsize, bcnt, writer r
    FROM (
-              SELECT boardno, commgrpno, title, bcon, brdate, budate, word, file1, thumb, bsize, bcnt, writer, rownum as r
+              SELECT boardno, memberno, commgrpno, title, bcon, brdate, budate, word, file1, thumb, bsize, bcnt, writer, rownum as r
               FROM (
-                        SELECT boardno, commgrpno, title, bcon, brdate, budate, word, file1, thumb, bsize, bcnt, writer
+                        SELECT boardno, memberno, commgrpno, title, bcon, brdate, budate, word, file1, thumb, bsize, bcnt, writer
                         FROM board
                         <choose>
-                          <when test="word == null or word == ''"> <!-- 검색하지 않는 경우 -->
-                             WHERE commgrpno=#{commgrpno}
+                          <when test="search_option == 'all' ">
+                             WHERE commgrpno=#{commgrpno} AND (title LIKE '%' || #{word} || '%' 
+                                                           OR bcon LIKE '%' || #{word} || '%'   
+                                                           OR word LIKE '%' || #{word} || '%'  )
                           </when>
-                          <otherwise> <!-- 검색하는 경우의 레코드 갯수 -->
-                            WHERE commgrpno=#{commgrpno} AND (title LIKE '%' || #{word} || '%' 
-                                                                           OR bcon LIKE '%' || #{word} || '%'   
-                                                                           OR word LIKE '%' || #{word} || '%'  )
+                          <otherwise>
+                             <!-- 내가 지정한 조건 (전체 출력, 제목, 내용) 의 검색조건으로 게시물을 검색하는 쿼리 -->
+                             WHERE commgrpno=#{commgrpno} AND (${search_option} LIKE '%' || #{word} || '%' )
                           </otherwise>
                         </choose>
                         ORDER BY boardno DESC
@@ -116,20 +120,21 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   <!-- QnA 그룹별 검색 목록 + 페이징 + 메인 이미지 -->   
   <select id="list_by_commgrpno_qna_search_paging" 
              resultType="dev.mvc.board.BoardVO" parameterType="HashMap">
-   SELECT boardno, commgrpno, title, bcon, brdate, budate, word, file1, thumb, bsize, bcnt, writer r
+   SELECT boardno, memberno, commgrpno, title, bcon, brdate, budate, word, file1, thumb, bsize, bcnt, writer r
    FROM (
-              SELECT boardno, commgrpno, title, bcon, brdate, budate, word, file1, thumb, bsize, bcnt, writer, rownum as r
+              SELECT boardno, memberno, commgrpno, title, bcon, brdate, budate, word, file1, thumb, bsize, bcnt, writer, rownum as r
               FROM (
-                        SELECT boardno, commgrpno, title, bcon, brdate, budate, word, file1, thumb, bsize, bcnt, writer
+                        SELECT boardno, memberno, commgrpno, title, bcon, brdate, budate, word, file1, thumb, bsize, bcnt, writer
                         FROM board
                         <choose>
-                          <when test="word == null or word == ''"> <!-- 검색하지 않는 경우 -->
-                             WHERE commgrpno=#{commgrpno}
+                          <when test="search_option == 'all' ">
+                             WHERE commgrpno=#{commgrpno} AND (title LIKE '%' || #{word} || '%' 
+                                                           OR bcon LIKE '%' || #{word} || '%'   
+                                                           OR word LIKE '%' || #{word} || '%'  )
                           </when>
-                          <otherwise> <!-- 검색하는 경우의 레코드 갯수 -->
-                            WHERE commgrpno=#{commgrpno} AND (title LIKE '%' || #{word} || '%' 
-                                                                           OR bcon LIKE '%' || #{word} || '%'   
-                                                                           OR word LIKE '%' || #{word} || '%'  )
+                          <otherwise>
+                             <!-- 내가 지정한 조건 (전체 출력, 제목, 내용) 의 검색조건으로 게시물을 검색하는 쿼리 -->
+                             WHERE commgrpno=#{commgrpno} AND (${search_option} LIKE '%' || #{word} || '%' )
                           </otherwise>
                         </choose>
                         ORDER BY boardno DESC
@@ -160,6 +165,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     ORDER BY c.boardno DESC
   </select>
   
+  <!-- Board + Register join, 연결 목록 
+  <select id="list_join_m" resultType="dev.mvc.board.Board_RegisterVO">
+    SELECT r_boardno, r_memberno, r_commgrpno, r_title, r_bcon, r_brdate, r_budate, r_word, r_file1, r_thumb, r_bsize, r_bcnt, r_writer
+           c_memberno, c_id, c_passwd, c_mname, c_email, c_tel, c_zipcode, c_address1, c_address2, c_mdate, c_grade
+    FROM board r, register c
+    WHERE r.memberno = c.memberno
+    ORDER BY memberno DESC
+  </select> -->
+  
   <select id="list_by_commgrpno_grid" parameterType="int" resultType="dev.mvc.board.BoardVO">
     SELECT boardno, commgrpno, title, bcon, brdate, budate, word, file1, thumb, bsize, bcnt, writer
     FROM board
@@ -170,7 +184,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   
   <select id="list_by_commgrpno_grid_paging" 
              resultType="dev.mvc.board.BoardVO" parameterType="HashMap">
-    SELECT boardno, commgrpno, title, bcon, brdate, budate, word, file1, thumb, bsize, bcnt, writer r
+   SELECT boardno, commgrpno, title, bcon, brdate, budate, word, file1, thumb, bsize, bcnt, writer r
    FROM (
               SELECT boardno, commgrpno, title, bcon, brdate, budate, word, file1, thumb, bsize, bcnt, writer, rownum as r
               FROM (
@@ -179,6 +193,31 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
                         WHERE commgrpno=#{commgrpno}
                         ORDER BY boardno DESC
                    )
+    )
+    WHERE <![CDATA[ r >= #{start_num} AND r <= #{end_num} ]]>
+  </select>
+  
+  <select id="list_by_commgrpno_grid_search_paging" 
+             resultType="dev.mvc.board.BoardVO" parameterType="HashMap">
+   SELECT boardno, memberno, commgrpno, title, bcon, brdate, budate, word, file1, thumb, bsize, bcnt, writer r
+   FROM (
+              SELECT boardno, memberno, commgrpno, title, bcon, brdate, budate, word, file1, thumb, bsize, bcnt, writer, rownum as r
+              FROM (
+                        SELECT boardno, memberno, commgrpno, title, bcon, brdate, budate, word, file1, thumb, bsize, bcnt, writer
+                        FROM board
+                        <choose>
+                          <when test="search_option == 'all' ">
+                             WHERE commgrpno=#{commgrpno} AND (title LIKE '%' || #{word} || '%' 
+                                                           OR bcon LIKE '%' || #{word} || '%'   
+                                                           OR word LIKE '%' || #{word} || '%'  )
+                          </when>
+                          <otherwise>
+                             <!-- 내가 지정한 조건 (전체 출력, 제목, 내용) 의 검색조건으로 게시물을 검색하는 쿼리 -->
+                             WHERE commgrpno=#{commgrpno} AND (${search_option} LIKE '%' || #{word} || '%' )
+                          </otherwise>
+                        </choose>
+                        ORDER BY boardno DESC
+               )
     )
     WHERE <![CDATA[ r >= #{start_num} AND r <= #{end_num} ]]>
   </select>

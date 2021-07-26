@@ -20,6 +20,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import dev.mvc.commgrp.CommgrpProcInter;
 import dev.mvc.commgrp.CommgrpVO;
+import dev.mvc.register.RegisterProcInter;
 import dev.mvc.tool.Tool;
 import dev.mvc.tool.Upload;
 
@@ -35,11 +36,10 @@ public class BoardCont {
    * 
    * @Qualifier("dev.mvc.book.BookProc") 
    * private BookProcInter bookProc;
- 
+   */
   @Autowired
   @Qualifier("dev.mvc.register.RegisterProc")
-  private RegisterProcInter registerProc;
-    */
+  private RegisterProcInter registerProc=null;
   
   @Autowired
   @Qualifier("dev.mvc.board.BoardProc")
@@ -255,9 +255,10 @@ public class BoardCont {
    @RequestMapping(value = "/board/list_by_commgrpno_search_paging.do", method = RequestMethod.GET)
    public ModelAndView list_by_commgrpno_search_paging(@RequestParam(value = "commgrpno", defaultValue = "1") int commgrpno,
                                                        @RequestParam(value = "word", defaultValue = "") String word,
+                                                       @RequestParam(defaultValue = "all") String search_option,
                                                        @RequestParam(value = "now_page", defaultValue = "1") int now_page,
                                                        HttpServletRequest request) {
-     System.out.println("-> list_by_commgrpno_search_paging now_page: " + now_page);
+     // System.out.println("-> list_by_commgrpno_search_paging now_page: " + now_page);
 
      ModelAndView mav = new ModelAndView();
 
@@ -265,6 +266,7 @@ public class BoardCont {
      HashMap<String, Object> map = new HashMap<String, Object>();
      map.put("commgrpno", commgrpno); // #{commgrpno}
      map.put("word", word); // #{word}
+     map.put("search_option", search_option); // #{word}
      map.put("now_page", now_page); // 페이지에 출력할 레코드의 범위를 산출하기위해 사용
 
      // 검색 목록
@@ -298,9 +300,10 @@ public class BoardCont {
       * @param word 검색어
       * @return 페이징 생성 문자열
       */
-     String paging = boardProc.pagingBox("list_by_commgrpno_search_paging.do", commgrpno, search_count, word, now_page);
+     String paging = boardProc.pagingBox("list_by_commgrpno_search_paging.do", commgrpno, search_count, search_option, word, now_page);
      mav.addObject("paging", paging);
      mav.addObject("word", word);
+     mav.addObject("search_option", search_option);
      mav.addObject("now_page", now_page);
 
      // /board/list_by_commgrpno_table_img1_search_paging.jsp
@@ -355,9 +358,10 @@ public class BoardCont {
    @RequestMapping(value = "/board/list_by_commgrpno_notice_search_paging.do", method = RequestMethod.GET)
    public ModelAndView list_by_commgrpno_notice_search_paging(@RequestParam(value = "commgrpno", defaultValue = "1") int commgrpno,
                                                        @RequestParam(value = "word", defaultValue = "") String word,
+                                                       @RequestParam(defaultValue = "all") String search_option,
                                                        @RequestParam(value = "now_page", defaultValue = "1") int now_page,
                                                        HttpServletRequest request) {
-     System.out.println("-> list_by_commgrpno_notice_search_paging now_page: " + now_page);
+     // System.out.println("-> list_by_commgrpno_notice_search_paging now_page: " + now_page);
 
      ModelAndView mav = new ModelAndView();
 
@@ -365,6 +369,7 @@ public class BoardCont {
      HashMap<String, Object> map = new HashMap<String, Object>();
      map.put("commgrpno", commgrpno); // #{commgrpno}
      map.put("word", word); // #{word}
+     map.put("search_option", search_option); // #{search_option}
      map.put("now_page", now_page); // 페이지에 출력할 레코드의 범위를 산출하기위해 사용
 
      // 검색 목록
@@ -373,7 +378,7 @@ public class BoardCont {
 
      // 조인 검색 목록
      List<Commgrp_BoardVO> list2 = this.boardProc.list_all_join();
-     mav.addObject("list2", list2); // request.setAttribute("list", list);
+     mav.addObject("list2", list2);
      
      // 검색된 레코드 갯수
      int search_count = boardProc.search_count(map);
@@ -392,9 +397,10 @@ public class BoardCont {
       * @param word 검색어
       * @return 페이징 생성 문자열
       */
-     String paging = boardProc.pagingBox("list_by_commgrpno_notice_search_paging.do", commgrpno, search_count, word, now_page);
+     String paging = boardProc.pagingBox("list_by_commgrpno_notice_search_paging.do", commgrpno, search_count, search_option, word, now_page);
      mav.addObject("paging", paging);
      mav.addObject("word", word);
+     mav.addObject("search_option", search_option);
      mav.addObject("now_page", now_page);
 
      // /board/list_by_commgrpno_notice_search_paging.jsp
@@ -449,9 +455,10 @@ public class BoardCont {
    @RequestMapping(value = "/board/list_by_commgrpno_qna_search_paging.do", method = RequestMethod.GET)
    public ModelAndView list_by_commgrpno_qna_search_paging(@RequestParam(value = "commgrpno", defaultValue = "1") int commgrpno,
                                                        @RequestParam(value = "word", defaultValue = "") String word,
+                                                       @RequestParam(defaultValue = "all") String search_option,
                                                        @RequestParam(value = "now_page", defaultValue = "1") int now_page,
                                                        HttpServletRequest request) {
-     System.out.println("-> list_by_commgrpno_qna_search_paging now_page: " + now_page);
+     // System.out.println("-> list_by_commgrpno_qna_search_paging now_page: " + now_page);
 
      ModelAndView mav = new ModelAndView();
 
@@ -459,6 +466,7 @@ public class BoardCont {
      HashMap<String, Object> map = new HashMap<String, Object>();
      map.put("commgrpno", commgrpno); // #{commgrpno}
      map.put("word", word); // #{word}
+     map.put("search_option", search_option); // #{search_option}
      map.put("now_page", now_page); // 페이지에 출력할 레코드의 범위를 산출하기위해 사용
 
      // 검색 목록
@@ -486,9 +494,10 @@ public class BoardCont {
       * @param word 검색어
       * @return 페이징 생성 문자열
       */
-     String paging = boardProc.pagingBox("list_by_commgrpno_qna_search_paging.do", commgrpno, search_count, word, now_page);
+     String paging = boardProc.pagingBox("list_by_commgrpno_qna_search_paging.do", commgrpno, search_count, search_option, word, now_page);
      mav.addObject("paging", paging);
      mav.addObject("word", word);
+     mav.addObject("search_option", search_option);
      mav.addObject("now_page", now_page);
 
      // /board/list_by_commgrpno_qna_search_paging.jsp
@@ -563,6 +572,7 @@ public class BoardCont {
      map.put("commgrpno", commgrpno); // #{commgrpno}
          
      List<Commgrp_BoardVO> list = this.boardProc.list_by_commgrpno_join(map);
+     
      mav.addObject("list", list); // request.setAttribute("list", list);
 
      mav.setViewName("/board/list_by_commgrpno_join"); // /board/list_by_commgrpno_join.jsp
@@ -604,9 +614,10 @@ public class BoardCont {
    @RequestMapping(value = "/board/list_by_commgrpno_grid_paging.do", method = RequestMethod.GET)
    public ModelAndView list_by_commgrpno_grid_paging(@RequestParam(value = "commgrpno", defaultValue = "1") int commgrpno,
                                                        @RequestParam(value = "word", defaultValue = "") String word,
+                                                       @RequestParam(defaultValue = "all") String search_option,
                                                        @RequestParam(value = "now_page", defaultValue = "1") int now_page,
                                                        HttpServletRequest request) {
-     System.out.println("-> list_by_commgrpno_grid_paging now_page: " + now_page);
+     // System.out.println("-> list_by_commgrpno_grid_paging now_page: " + now_page);
 
      ModelAndView mav = new ModelAndView();
 
@@ -614,6 +625,7 @@ public class BoardCont {
      HashMap<String, Object> map = new HashMap<String, Object>();
      map.put("commgrpno", commgrpno); // #{commgrpno}
      map.put("word", word); 
+     map.put("search_option", search_option); // #{search_option}
      map.put("now_page", now_page); // 페이지에 출력할 레코드의 범위를 산출하기위해 사용
 
      // 검색 목록
@@ -641,10 +653,11 @@ public class BoardCont {
       * @param word 검색어
       * @return 페이징 생성 문자열
       */
-     String paging2 = boardProc.pagingBox2("list_by_commgrpno_grid_paging.do", commgrpno, search_count, now_page);
+     String paging2 = boardProc.pagingBox2("list_by_commgrpno_grid_paging.do", commgrpno, search_count, search_option, word, now_page);
      mav.addObject("paging2", paging2);
      mav.addObject("commgrpno", commgrpno);
      mav.addObject("word", word);
+     mav.addObject("search_option", search_option);
      mav.addObject("now_page", now_page);
 
      mav.setViewName("/board/list_by_commgrpno_grid_paging");
@@ -687,6 +700,102 @@ public class BoardCont {
      return mav;
    }
    
+   /**
+    * Grid 목록 + 검색 + 페이징 지원
+   * http://localhost:9091/board/list_by_commgrpno_grid_search_paging.do?commgrpno=1&now_page=1
+   * 
+   * @param commgrpno
+   * @param now_page
+   * @return
+   */
+  @RequestMapping(value = "/board/list_by_commgrpno_grid_search_paging.do", method = RequestMethod.GET)
+  public ModelAndView list_by_commgrpno_grid_search_paging(@RequestParam(value = "commgrpno", defaultValue = "1") int commgrpno,
+                                                      @RequestParam(value = "word", defaultValue = "") String word,
+                                                      @RequestParam(defaultValue = "all") String search_option,
+                                                      @RequestParam(value = "now_page", defaultValue = "1") int now_page,
+                                                      HttpServletRequest request) {
+    // System.out.println("-> list_by_commgrpno_grid_search_paging now_page: " + now_page);
+
+    ModelAndView mav = new ModelAndView();
+
+    // 숫자와 문자열 타입을 저장해야함으로 Obejct 사용
+    HashMap<String, Object> map = new HashMap<String, Object>();
+    map.put("commgrpno", commgrpno); // #{commgrpno}
+    map.put("word", word); // #{word}
+    map.put("search_option", search_option); // #{search_option}
+    map.put("now_page", now_page); // 페이지에 출력할 레코드의 범위를 산출하기위해 사용
+
+    // 검색 목록
+    List<BoardVO> list = boardProc.list_by_commgrpno_grid_search_paging(map);
+    mav.addObject("list", list);
+    
+    // 조인 검색 목록
+    List<Commgrp_BoardVO> list2 = this.boardProc.list_all_join();
+    mav.addObject("list2", list2); // request.setAttribute("list", list);
+
+    // 검색된 레코드 갯수
+    int search_count = boardProc.search_count(map);
+    mav.addObject("search_count", search_count);
+
+    CommgrpVO commgrpVO = commgrpProc.read(commgrpno);
+    mav.addObject("commgrpVO", commgrpVO);
+
+    /*
+     * SPAN태그를 이용한 박스 모델의 지원, 1 페이지부터 시작 현재 페이지: 11 / 22 [이전] 11 12 13 14 15 16 17
+     * 18 19 20 [다음]
+     * @param list_file 목록 파일명
+     * @param commgrpno 카테고리번호
+     * @param search_count 검색(전체) 레코드수
+     * @param now_page 현재 페이지
+     * @param word 검색어
+     * @return 페이징 생성 문자열
+     */
+    String paging2 = boardProc.pagingBox2("list_by_commgrpno_grid_search_paging.do", commgrpno, search_count, search_option, word, now_page);
+    mav.addObject("paging2", paging2);
+    mav.addObject("commgrpno", commgrpno);
+    mav.addObject("word", word);
+    mav.addObject("search_option", search_option);
+    mav.addObject("now_page", now_page);
+
+    mav.setViewName("/board/list_by_commgrpno_grid_search_paging");
+
+    // -------------------------------------------------------------------------------
+    // 게시글 등록전 로그인 폼 출력 관련 쿠기  
+    // -------------------------------------------------------------------------------
+    Cookie[] cookies = request.getCookies();
+    Cookie cookie = null;
+
+    String ck_id = ""; // id 저장
+    String ck_id_save = ""; // id 저장 여부를 체크
+    String ck_passwd = ""; // passwd 저장
+    String ck_passwd_save = ""; // passwd 저장 여부를 체크
+
+    if (cookies != null) {  // Cookie 변수가 있다면
+      for (int i=0; i < cookies.length; i++){
+        cookie = cookies[i]; // 쿠키 객체 추출
+        
+        if (cookie.getName().equals("ck_id")){
+          ck_id = cookie.getValue();                                 // Cookie에 저장된 id
+        }else if(cookie.getName().equals("ck_id_save")){
+          ck_id_save = cookie.getValue();                          // Cookie에 id를 저장 할 것인지의 여부, Y, N
+        }else if (cookie.getName().equals("ck_passwd")){
+          ck_passwd = cookie.getValue();                          // Cookie에 저장된 password
+        }else if(cookie.getName().equals("ck_passwd_save")){
+          ck_passwd_save = cookie.getValue();                  // Cookie에 password를 저장 할 것인지의 여부, Y, N
+        }
+      }
+    }
+    
+    System.out.println("-> ck_id: " + ck_id);
+
+    mav.addObject("ck_id", ck_id); 
+    mav.addObject("ck_id_save", ck_id_save);
+    mav.addObject("ck_passwd", ck_passwd);
+    mav.addObject("ck_passwd_save", ck_passwd_save);
+    // -------------------------------------------------------------------------------
+    
+    return mav;
+  }
 
   /**
    * 조회

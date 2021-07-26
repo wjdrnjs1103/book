@@ -1,6 +1,7 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
  
+
 <!DOCTYPE html> 
 <html lang="ko"> 
 <head> 
@@ -30,6 +31,8 @@
     //$('#btn_create').on('click', function() { b_c_btn(commgrpno)});
     $('#btn_login').on('click', login_ajax);
     $('#btn_loadDefault').on('click', loadDefault);
+
+    
   });
 
   function loadDefault() {
@@ -86,8 +89,8 @@
       $('#div_login').show();    // 로그인폼 출력  
       
     } else {  // 로그인 한 경우
-  	  board_create_ajax();
-  	}  
+      board_create_ajax();
+    }  
   }
     
   <%-- 게시글 등록 --%>
@@ -102,7 +105,49 @@
     // return;
     location.href='/board/create.do?commgrpno=' + commgrpno +'&word=&now_page=1';
   }
-  
+
+  <%-- 조회수 증가 --%>
+  /**
+  function bcnt_ajax(boardno, status_count){
+      // console.log("-> bcnt_" + status_count + ": " + $('#bcnt_' + status_count).html());  // A tag body      
+      var params = "";
+      // params = $('#frm').serialize(); // 직렬화, 폼의 데이터를 키와 값의 구조로 조합
+      params = 'boardno=' + boardno; // 공백이 값으로 있으면 안됨.
+      $.ajax(
+        {
+          url: '/board/update_bcnt_ajax.do',
+          type: 'get',  // get, post
+          cache: false, // 응답 결과 임시 저장 취소
+          async: true,  // true: 비동기 통신
+          dataType: 'json', // 응답 형식: json, html, xml...
+          data: params,      // 데이터
+          success: function(rdata) { // 응답이 온경우
+            var str = '';
+            if (rdata.cnt == 1) {
+              location.href='/board/read.do?boardno=' + boardno;
+                           
+              var str = $('#bcnt_' + status_count);
+              console.log("str");
+            } else {
+              // $('#span_animation_' + status_count).html("X");
+              var str = $('#bcnt_' + status_count);
+              console.log("str");
+            }
+          },
+          // Ajax 통신 에러, 응답 코드가 200이 아닌경우, dataType이 다른경우 
+          error: function(request, status, error) { // callback 함수
+            console.log(error);
+          }
+        }
+      );  //  $.ajax END
+
+      $('#bcnt_' + status_count).html("<img src='/board/images/ani04.gif' style='width: 10%;'>");
+      // $('#span_animation_' + status_count).css('text-align', 'center');
+      // $('#span_animation_' + status_count).html("<img src='/contents/images/ani04.gif' style='width: 10%;'>");
+      // $('#span_animation_' + status_count).show(); // 숨겨진 태그의 출력
+        
+    } 
+    */
 </script>
  
 </head> 
@@ -121,9 +166,9 @@
         <ASIDE class="aside_right">
           <A href="javascript:location.reload();">새로고침</A>
           <span class='menu_divide' >　</span>
-          <A href="./list_by_commgrpno_search_paging.do?commgrpno=${param.commgrpno }&word=${param.word }&now_page=${param.now_page}" title="기본 목록형"><IMG style="width:24px;"src='/css/images/list_gray.png'></A>        
+          <A href="./list_by_commgrpno_search_paging.do?commgrpno=${param.commgrpno }&search_option=${search_option }&word=${param.word }&now_page=${param.now_page}" title="기본 목록형"><IMG style="width:24px;"src='/css/images/list_gray.png'></A>        
           <span class='menu_divide' >　</span>
-          <A href="./list_by_commgrpno_grid_paging.do?commgrpno=${param.commgrpno }&word=&now_page=1"><IMG style="width:24px;"src='/css/images/photo_gray.png'></A>        
+          <A href="./list_by_commgrpno_grid_search_paging.do?commgrpno=${param.commgrpno }&search_option=${search_option }&word=${param.word }&now_page=1"><IMG style="width:24px;"src='/css/images/photo_gray.png'></A>        
 <%--                     <A href="./list_by_commgrpno_grid.do?commgrpno=${param.commgrpno }&now_page=${param.now_page}"><IMG style="width:24px;"src='/css/images/photo_gray.png'></A>         --%>
         </ASIDE> 
         
@@ -133,25 +178,28 @@
         <DIV id='div_login' style='width: 80%; margin: 0px auto; display: none;'>
           <FORM name='frm_login' id='frm_login' method='POST' action='/register/login.do' class="form-horizontal">
             <input type="hidden" name="commgrpno" id="commgrpno" value="commgrpno">
+            <input type="hidden" name="memberno" id="memberno" value="${param.memberno}">
+            
             
             <div class="form-group">
               <label class="col-md-4 control-label" style='font-size: 0.8em;'>아이디</label>    
-              <div class="col-md-7">
+              <div class="col-md-8">
                 <input type='text' class="form-control" name='id' id='id' 
                            value='${ck_id }' required="required" 
-                           style='width: 40%;' placeholder="아이디" autofocus="autofocus">
+                           style='width: 30%;' placeholder="아이디" autofocus="autofocus">
                 <Label>   
                   <input type='checkbox' name='id_save' value='Y' 
                             ${ck_id_save == 'Y' ? "checked='checked'" : "" }> 저장
                 </Label>                   
               </div>
+         
             </div>   
          
             <div class="form-group">
               <label class="col-md-4 control-label" style='font-size: 0.8em;'>패스워드</label>    
-              <div class="col-md-7">
+              <div class="col-md-8">
                 <input type='password' class="form-control" name='passwd' id='passwd' 
-                          value='${ck_passwd }' required="required" style='width: 40%;' placeholder="패스워드">
+                          value='${ck_passwd }' required="required" style='width: 30%;' placeholder="패스워드">
                 <Label>
                   <input type='checkbox' name='passwd_save' value='Y' 
                             ${ck_passwd_save == 'Y' ? "checked='checked'" : "" }> 저장
@@ -195,6 +243,7 @@
           <tbody  style="font-size: 1.08em;">
             <c:forEach var="boardVO" items="${list}" varStatus="status">
               <c:set var="commgrpno" value="${boardVO.commgrpno }" />
+              <c:set var="memberno" value="${boardVO.memberno}" />
               <c:set var="boardno" value="${boardVO.boardno }" />
               <c:set var="title" value="${boardVO.title }" />
               <c:set var="bcon" value="${boardVO.bcon }" />
@@ -206,11 +255,11 @@
               <TR>
                 <TD class="td_bs">${boardno }</TD>
                 <TD class="td_bs_left">
-                  <A href="./read.do?boardno=${boardno }&word=${param.word }&now_page=${param.now_page }">${title }</A>
+                  <A href="./read.do?boardno=${boardno }&search_option=${search_option }&word=${param.word }&now_page=${param.now_page }">${title }</A>
                 </TD>
                 <TD class="td_bs_left">${writer}</TD>
                 <TD class="td_bs">${brdate.substring(0, 10) }</TD>
-                <TD class="td_bs">${bcnt}</TD>
+                <TD class="td_bs">${boardVO.bcnt}</TD>
                
               </TR>   
             </c:forEach> 
@@ -231,9 +280,8 @@
           <form name='frm' id='frm' method='get' action='./list_by_commgrpno_search_paging.do'>
             <input type='hidden' name='commgrpno' value='${param.commgrpno }'>
             <input type='hidden' name='now_page' value='${param.now_page }'>
-            
-            <%-- 상세 검색 기능 구현 해야함 --%>
-            <select class="input_search_word_" style='width:10%;'>
+                        
+            <select class="input_search_word_"  name="search_option" id= 'search_option' style='width:10%;'>
               <option value='all'${param.search_option == "all" ? "selected='selected'":""}>전체 검색</option>
               <option value='title'${param.search_option == "title" ? "selected='selected'":""}>제목</option>
               <option value='bcon'${param.search_option == "bcon" ? "selected='selected'":""}>내용</option>                    
@@ -243,6 +291,7 @@
               <c:when test="${param.word != '' }"> <%-- 검색하는 경우 --%>
                 <input class="input_search_word_" type='text' name='word' id='word' value='${param.word }' style='width: 25%;'>
               </c:when>
+              
               <c:otherwise> <%-- 검색하지 않는 경우 --%>
                 <input class="input_search_word_" type='text' name='word' id='word' value='' style='width: 25%;'>
               </c:otherwise>
