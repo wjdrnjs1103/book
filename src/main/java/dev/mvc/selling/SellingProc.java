@@ -29,4 +29,10 @@ public class SellingProc implements SellingProcInter {
     return list;
   }
 
+  @Override
+  public int create(SellingVO sellingVO) {
+    int cnt = this.sellingDAO.create(sellingVO);
+    return cnt;
+  }
+
 }

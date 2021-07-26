@@ -7,6 +7,7 @@ import java.util.Map;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +24,8 @@ import dev.mvc.book.BookProcInter;
 import dev.mvc.book.BookVO;
 import dev.mvc.bookgrp.BookgrpProcInter;
 import dev.mvc.bookgrp.BookgrpVO;
+import dev.mvc.selling.SellingProcInter;
+import dev.mvc.selling.SellingVO;
 //import dev.mvc.member.MemberProcInter;
 import dev.mvc.tool.Tool;
 import dev.mvc.tool.Upload;
@@ -40,6 +43,10 @@ public class ProductCont {
   @Autowired
   @Qualifier("dev.mvc.product.ProductProc")
   private ProductProcInter productProc;
+  
+  @Autowired
+  @Qualifier("dev.mvc.selling.SellingProc")
+  private SellingProcInter sellingProc;
   
   public ProductCont() {
     System.out.println("-> ProductCont created.");
@@ -86,7 +93,7 @@ public class ProductCont {
    * @return
    */
   @RequestMapping(value = "/product/create.do", method = RequestMethod.POST)
-  public ModelAndView create(HttpServletRequest request, ProductVO productVO) {
+  public ModelAndView create(HttpServletRequest request, HttpSession session, ProductVO productVO) {
     ModelAndView mav = new ModelAndView();
     
     // -------------------------------------------------------------------
@@ -145,6 +152,39 @@ public class ProductCont {
 //    if (cnt == 1) {
 //      bookProc.increaseCnt(productVO.getbookno()); // 글수 증가
 //    }
+    
+ // -------------------------------------------------------------------
+    //  판매 상품 등록
+    // -------------------------------------------------------------------
+    
+    
+      int productno = productVO.getProductno();
+      
+      SellingVO sellingVO = new SellingVO(); 
+      if (cnt == 1) { // 상품 등록이 정상적으로 된 경우
+      
+        int memberno = (int)session.getAttribute("memberno");
+        productVO.setMemberno(memberno); // 회원 번호 저장
+        
+        // selling Insert 
+        sellingVO.setProductno(productno);
+        sellingVO.setMemberno(memberno); 
+        sellingVO.setSellno(productno);
+        
+        System.out.println("selling_productno:" + sellingVO.getProductno());
+        System.out.println("selling_memberno:" + sellingVO.getMemberno());
+        System.out.println("selling_sellno: "+ sellingVO.getSellno()); 
+        
+        this.sellingProc.create(sellingVO); // 판매 내역 등록
+      }// if end
+         
+    
+    
+    // -------------------------------------------------------------------
+    //  판매 등록 끝
+    // -------------------------------------------------------------------
+    
+    
     mav.addObject("cnt", cnt); // request.setAttribute("cnt", cnt)
 
     // System.out.println("--> bookno: " + productVO.getbookno());

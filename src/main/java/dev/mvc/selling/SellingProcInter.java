@@ -4,6 +4,12 @@ import java.util.List;
 
 public interface SellingProcInter {
 
+  /**
+   * 판매 내역 등록
+   * @param sellingVO
+   * @return
+   */
+  public int create(SellingVO sellingVO);
   
   /**
    * 전체 판매 상품 목록

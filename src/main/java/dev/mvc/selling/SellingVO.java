@@ -6,7 +6,13 @@ package dev.mvc.selling;
     cnt                          NUMBER(10)     NOT NULL,
  */
 public class SellingVO {
-  
+  private int sellno;
+  public int getSellno() {
+    return sellno;
+  }
+  public void setSellno(int sellno) {
+    this.sellno = sellno;
+  }
   /** 상품 번호 */
   private int productno;
   /** 회원 번호 */
