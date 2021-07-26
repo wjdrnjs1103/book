@@ -113,14 +113,23 @@
        </div>
     </div>   
     
-     <div class="form-group">
-       <label class="control-label col-md-2">판매가</label>
+   <div class="form-group">
+     <label class="control-label col-md-2">판매가</label>
        <div class="col-md-10">
-         <input type='number' name='price' required="required"
-                    min="0" max="10000000" step="500" 
+         <input type='number' name='price' required="required" value="0"
+                    min="0" max="10000000" step="10" 
                     class="form-control" style='width: 100%;'>
        </div>
     </div>   
+    
+    <div class="form-group">
+     <label class="control-label col-md-2">수량</label>
+       <div class="col-md-10">
+         <input type='number' name="cnt" required="required" value="1"
+                    min="0" max="10000000" step="1" 
+                    class="form-control" style='width: 100%;'>
+       </div>
+    </div>     
     
     <div class="form-group">
        <label class="control-label col-md-2">이미지</label>
