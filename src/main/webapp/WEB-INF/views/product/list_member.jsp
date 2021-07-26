@@ -280,6 +280,7 @@ function cart_ajax(productno, stateno) {
         <c:set var="thumb1" value="${productVO.thumb1 }" />
         <c:set var="price" value="${productVO.price }" />
         <c:set var="stateno" value="${productVO.stateno }" />
+        <c:set var="memberno" value="${productVO.memberno }" />
         
         <tr> 
           <td style='vertical-align: middle; text-align: center;'>
@@ -301,7 +302,7 @@ function cart_ajax(productno, stateno) {
             <span style="font-size: 1.1em;">가격: <fmt:formatNumber value="${productVO.price}" pattern="##,###" /></span>                      
             <br>
             <button type='button' id='btn_cart' class="btn btn-danger" style='margin-bottom: 2px;'
-                        onclick="cart_ajax(${productno}, ${stateno })">찜하기 </button><br>
+                        onclick="cart_ajax(${productno}, ${stateno })">찜하기</button><br>
              
             <c:choose>
               <c:when test="${stateno ==1 }">
@@ -314,8 +315,15 @@ function cart_ajax(productno, stateno) {
             <span style="font-size: 0.8em;">${productVO.rdate}</span>
             
           </td>
-          <td style='vertical-align: middle; text-align: center;'>
-          </td>
+          <c:choose>
+            <c:when test="${productVO.memberno == sessionScope.memberno }">
+              <td style='vertical-align: middle; text-align: center;'>
+                <A href="./update_text.do?productno=${productno}&now_page=${now_page }"><span class="glyphicon glyphicon-pencil"></span></A>
+                <A href="./delete.do?productno=${productno}&now_page=${now_page }"><span class="glyphicon glyphicon-trash"></span></A>
+              </td>
+            </c:when>
+          </c:choose>
+
         </tr>
       </c:forEach>
       

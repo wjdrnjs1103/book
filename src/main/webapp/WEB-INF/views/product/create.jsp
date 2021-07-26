@@ -129,7 +129,7 @@
                     value='' placeholder="파일 선택">
        </div>
     </div>   
- 
+    
     <div class="content_body_bottom">
       <button type="submit" class="btn btn-dark">등록</button>
       <button type="button" onclick="location.href='./list_member.do?bookno=${bookno }&now_page=1'" class="btn btn-dark">목록</button>
