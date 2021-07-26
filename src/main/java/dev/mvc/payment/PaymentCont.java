@@ -45,34 +45,42 @@ public class PaymentCont {
    */
   @RequestMapping(value="/payment/create.do", method=RequestMethod.GET)
   public ModelAndView create(HttpSession session) {
-ModelAndView mav = new ModelAndView();
+    ModelAndView mav = new ModelAndView();
     
-    int tot =0; // 개별 금액
-    int tot_sum=0; // 총합 금액
-    int delivery=3000; // 배송 금액
-    int tot_order=0;
-
     int memberno = (int)session.getAttribute("memberno");
     
     // 출력 순서별 출력
     List<CartVO> list = this.cartProc.list(memberno);
     
-    for (CartVO cartVO: list) {
-      tot = cartVO.getPrice() * cartVO.getCnt(); // 개별 금액        
-      cartVO.setTot(tot);
+    if (list.size() >= 1) {
       
-      tot_sum = tot_sum + cartVO.getTot();
+      int tot =0; // 개별 금액
+      int tot_sum=0; // 총합 금액
+      int delivery=3000; // 배송 금액
+      int tot_order=0;
+
+      for (CartVO cartVO: list) {
+        
+        tot = cartVO.getPrice() * cartVO.getCnt(); // 개별 금액        
+        cartVO.setTot(tot);
+        
+        tot_sum = tot_sum + cartVO.getTot();
+      }
+      
+      tot_order = tot_sum + delivery;
+      
+      mav.addObject("list", list); // request.setAttribute("list", list);
+      mav.addObject("tot_sum", tot_sum);
+      mav.addObject("delivery", delivery);
+      mav.addObject("tot_order", tot_order);
+      
+      mav.setViewName("/payment/create"); // /WEB-INF/views/categrp/list_by_memberno.jsp
+
+    } else {
+      mav.addObject("code", "nonegoods");
+      mav.setViewName("/payment/error_msg");
     }
     
-    tot_order = tot_sum + delivery;
-    
-    mav.addObject("list", list); // request.setAttribute("list", list);
-    mav.addObject("tot_sum", tot_sum);
-    mav.addObject("delivery", delivery);
-    mav.addObject("tot_order", tot_order);
-    
-    mav.setViewName("/payment/create"); // /WEB-INF/views/categrp/list_by_memberno.jsp
-
     return mav;
   }
   
