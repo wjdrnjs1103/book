@@ -59,6 +59,18 @@
     $('#btn_payment').on('click', send);
   });
 
+  //라디오 클릭시, 클릭한 값 바로 출력하기
+/*  function getDelivery(paytype) {
+    if (event.target.value >= 2) {
+      document.getElementById('delivery').innerText="3,000 원";
+      //document.getElementById('total').innerText = ${tot}+3000;
+     } else {
+       document.getElementById('delivery').innerText = "0 원";
+       //document.getElementById('total').innerText = ${tot};
+     }
+  } */
+
+  
   // 나의 주소 가져오기, jQuery ajax 요청
   function my_address() {
     // $('#btn_close').attr("data-focus", "이동할 태그 지정");
@@ -141,19 +153,22 @@
 
 <body>
 <jsp:include page="../menu/top.jsp" flush='false' />
+ <section class="py-5">
+  
+      <DIV class='container c_bottom_10'> 
   <DIV class='title_line'>
     주문, 결재
   </DIV>
 
   <DIV class='content_body'>
 
-  <ASIDE class="aside_left">
+  <ASIDE class="aside_left" style="font-size: 1.3em;">
     주문 상품
   </ASIDE> 
 
   <div class='menu_line'></div>
   
-  <table class="table table-striped" style='width: 100%;'>
+  <table class="table mt-5" style='width: 100%;'>
     <colgroup>
       <col style="width: 20%;"></col>
       <col style="width: 40%;"></col>
@@ -178,7 +193,7 @@
             <c:choose>
               <c:when test="${thumb1.endsWith('jpg') || thumb1.endsWith('png') || thumb1.endsWith('gif')}">
                 <%-- /static/contents/storage/ --%>
-                <%-- <a href="/product/read.do?productno=${productno}"><IMG src="/board/storage/${thumb1 }" style="width: 120px; height: 80px;"></a>  --%>
+                <a href="/product/read.do?productno=${productno}"><IMG src="/product/storage/${thumb1 }" style="width: 120px; height: 80px;"></a>  
               </c:when>
               <c:otherwise> <!-- 이미지가 아닌 일반 파일 -->
                 ${productVO.file1}
@@ -207,7 +222,7 @@
     <input type="hidden" name="paymoney" value=" ${tot_order }">   <%-- 전체 주문 금액 --%>
     
     
-  <ASIDE class="aside_left">
+  <ASIDE class="aside_left" style="font-size: 1.5em;">
     배송 정보<span style="font-size: 0.7em;">(*: 필수 입력)</span>
     <button type="button" id="btn_my_address" class="btn btn-light" style="margin-bottom: 2px;">나의 주소 가져오기</button> 
     <button type="reset" id="btn_reset" class="btn btn-light" style="margin-bottom: 2px;">주소 지우기</button>
@@ -330,17 +345,21 @@
       </div>
     </div>
   
-  <div style='margin-top: 20px; width: 100%; clear: both;'> </div>  
-  <ASIDE class="aside_left">
-    결재 정보<br>
-  </ASIDE> 
+  <div style='margin-top: 20px; width: 100%; clear: both;'> </div>  <br><br>
+  <ASIDE class="aside_left" style="font-size: 1.5em;">
+    결재 정보
+  </ASIDE> &nbsp;
 
   <div class='menu_line'></div>
   <div style=" text-align: left;">
-    <label style="cursor: pointer;"><input type="radio" name="paytype" id="paytype" value="1" checked="checked"> 신용 카드</label>&nbsp;&nbsp;
-    <label style="cursor: pointer;"><input type="radio" name="paytype" id="paytype" value="2"> 모바일</label>&nbsp;&nbsp;
-    <label style="cursor: pointer;"><input type="radio" name="paytype" id="paytype" value="3"> 계좌 이체</label>&nbsp;&nbsp;
-    <label style="cursor: pointer;"><input type="radio" name="paytype" id="paytype" value="4"> 직접 입금</label>&nbsp;&nbsp;
+    <label style="cursor: pointer;"><input type="radio" name="paytype" id="paytype" 
+             value="1" onclick ="getDelivery(${paytype})" checked="checked"> 현장 거래 </label>&nbsp;&nbsp;
+    <label style="cursor: pointer;"><input type="radio" name="paytype" id="paytype" 
+             value="2" onclick ="getDelivery(${paytype})" > 모바일</label>&nbsp;&nbsp;
+    <label style="cursor: pointer;"><input type="radio" name="paytype" id="paytype" 
+             value="3" onclick ="getDelivery(${paytype})" > 계좌 이체</label>&nbsp;&nbsp;
+    <label style="cursor: pointer;"><input type="radio" name="paytype" id="paytype" 
+             value="4" onclick ="getDelivery(${paytype})" > 신용 카드</label>&nbsp;&nbsp;
   </div>
   
   <table class="table table-striped" style='margin-top: 20px; margin-bottom: 50px; width: 100%; clear: both;'>
@@ -350,8 +369,9 @@
           <div class='basket_label' style='font-size: 2.0em;'>상품 금액</div>
           <div class='basket_price' style='font-size: 2.0em;'><fmt:formatNumber value="${tot_sum }" pattern="#,###" /> 원</div>
           
+          
           <div class='basket_label' style='font-size: 2.0em;'>배송비</div>
-          <div class='basket_price' style='font-size: 2.0em;'><fmt:formatNumber value="${delivery }" pattern="#,###" /> 원</div>
+          <div id ="delivery" class='basket_price' style='font-size: 2.0em;'><fmt:formatNumber value="${delivery }" pattern="#,###" /> 원</div>
           
         </td>
         <td style='width: 50%;'>
@@ -368,7 +388,8 @@
      
   </FORM>
   </DIV>
-
+  </DIV>
+  </section>
 <jsp:include page="../menu/bottom.jsp" flush='false' />
 </body>
 

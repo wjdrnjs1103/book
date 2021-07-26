@@ -6,7 +6,7 @@
 <head> 
 <meta charset="UTF-8"> 
 <meta name="viewport" content="user-scalable=yes, initial-scale=1.0, maximum-scale=3.0, width=device-width" /> 
-<title>오류 발생</title>
+<title>Team2</title>
 <%-- /static/css/style.css --%> 
 <link href="/css/style.css" rel="Stylesheet" type="text/css">
 
@@ -26,9 +26,16 @@
       <c:choose>
         <c:when test="${code == 'create'}"> <%-- Java if --%>
           <LI class='li_none'>
-            <span class="span_success">주문 등록에 실패했습니다.</span>
+            <span class='glyphicon glyphicon-exclamation-sign' style='font-size:24px'></span>
+            <br><br>주문 등록에 실패했습니다.
           </LI>                                                                      
-        </c:when>      
+        </c:when>
+        <c:when test="${code == 'nonegoods'}"> <%-- Java if --%>
+          <LI class='li_none'>
+            <span class='glyphicon glyphicon-exclamation-sign' style='font-size:24px'></span>
+            <br><br> 등록된 상품이 없습니다.<br><br> 상품을 등록해 주세요.
+          </LI>                                                                      
+        </c:when>        
         <c:otherwise>
           <LI class='li_none_left'>
             <span class="span_fail">알 수 없는 에러로 작업에 실패했습니다.</span>
@@ -40,8 +47,8 @@
       </c:choose>
       <LI class='li_none'>
         <br>
-        <button type='button' onclick="history.back()" class="btn">다시 시도</button>
-        <button type='button' onclick="location.href='./list.do'" class="btn">목록</button>
+        <button type='button' onclick="history.back()" class="btn btn-dark">다시 시도</button>
+        <button type='button' onclick="location.href='/product/list_by_bookno_search_paging.do'" class="btn btn-dark">상품 목록으로</button>
       </LI>
     </UL>
   </fieldset>

@@ -28,90 +28,90 @@
  
 <body>
 <jsp:include page="../menu/top.jsp" flush='false' />
- <section class="py-5">
+<div class="py-5">
   
-      <DIV class='container c_bottom_10'> 
-  <DIV class='title_line'>
-    ${sessionScope.id }님 주문결재 내역
-  </DIV>
-
-  <DIV class='content_body' style='width: 100%;'>
-
-    <ASIDE class="aside_right">
-      <A href="javascript:location.reload();">새로고침</A>
-    </ASIDE> 
-   
-    <div class='menu_line'></div>
-   
-   
-    <table class="table table-striped" style='width: 100%;'>
-    <colgroup>
-      <col style='width: 5%;'/>
-      <col style='width: 5%;'/>
-      <col style='width: 7%;'/>
-      <col style='width: 15%;'/>
-      <col style='width: 30%;'/>
-      <col style='width: 10%;'/>
-      <col style='width: 10%;'/>
-      <col style='width: 13%;'/>
-      <col style='width: 5%;'/>
-    </colgroup>
-    <TR>
-      <TH class='th_bs'>주문<br>번호</TH>
-      <TH class='th_bs'>회원<br>번호</TH>
-      <TH class='th_bs'>수취인<br>성명</TH>
-      <TH class='th_bs'>수취인<br>전화번호</TH>
-      <TH class='th_bs'>수취인<br>주소</TH>
-      <TH class='th_bs'>결재 타입</TH>
-      <TH class='th_bs'>결재 금액</TH>
-      <TH class='th_bs'>주문일</TH>
-      <TH class='th_bs'>조회</TH>
-    </TR>
-   
-    <c:forEach var="paymentVO" items="${list }">
-      <c:set var="paymentno" value ="${paymentVO.paymentno}" />
-      <c:set var="memberno" value ="${paymentVO.memberno}" />
-      <c:set var="realname" value ="${paymentVO.realname}" />
-      <c:set var="phone" value ="${paymentVO.phone}" />
-      <c:set var="address" value ="(${paymentVO.postcode}) ${paymentVO.address} ${paymentVO.detaddress}" />
-      <c:set var="paytype" value ="${paymentVO.paytype}" />
-      <c:set var="paymoney" value ="${paymentVO.paymoney}" />
-      <c:set var="rdate" value ="${paymentVO.rdate}" />
+  <DIV class='container c_bottom_10'> 
+    <DIV class='title_line'>
+      ${sessionScope.mname }님 주문결재 내역
+    </DIV>
+  
+    <DIV class='content_body' style='width: 100%;'>
+  
+      <ASIDE class="aside_right">
+        <A href="javascript:location.reload();">새로고침</A>
+      </ASIDE> 
+     
+      <div class='menu_line'></div>
+     
+     
+      <table class="table table_top_margin" style='width: 100%;'>
+      <colgroup>
+        <col style='width: 5%;'/>
+        <col style='width: 5%;'/>
+        <col style='width: 7%;'/>
+        <col style='width: 15%;'/>
+        <col style='width: 30%;'/>
+        <col style='width: 10%;'/>
+        <col style='width: 10%;'/>
+        <col style='width: 13%;'/>
+        <col style='width: 5%;'/>
+      </colgroup>
+      <TR class="table_title">
+        <TH class='th_bs'>주문<br>번호</TH>
+        <TH class='th_bs'>회원<br>번호</TH>
+        <TH class='th_bs'>수취인<br>성명</TH>
+        <TH class='th_bs'>수취인<br>전화번호</TH>
+        <TH class='th_bs'>수취인<br>주소</TH>
+        <TH class='th_bs'>결재 타입</TH>
+        <TH class='th_bs'>결재 금액</TH>
+        <TH class='th_bs'>주문일</TH>
+        <TH class='th_bs'>조회</TH>
+      </TR>
+     
+      <c:forEach var="paymentVO" items="${list }">
+        <c:set var="paymentno" value ="${paymentVO.paymentno}" />
+        <c:set var="memberno" value ="${paymentVO.memberno}" />
+        <c:set var="realname" value ="${paymentVO.realname}" />
+        <c:set var="phone" value ="${paymentVO.phone}" />
+        <c:set var="address" value ="(${paymentVO.postcode}) ${paymentVO.address} ${paymentVO.detaddress}" />
+        <c:set var="paytype" value ="${paymentVO.paytype}" />
+        <c:set var="paymoney" value ="${paymentVO.paymoney}" />
+        <c:set var="rdate" value ="${paymentVO.rdate}" />
+           
          
-       
-    <TR>
-      <TD class=td_basic>${paymentno}</TD>
-      <TD class=td_basic><A href="/member/read.do?memberno=${memberno}">${memberno}</A></TD>
-      <TD class='td_basic'>${realname}</TD>
-      <TD class='td_basic'>${phone}</TD>
-      <TD class='td_basic'>${address}</TD>
-      <TD class='td_basic'>
-        <c:choose>
-          <c:when test="${paytype == 1}">신용 카드</c:when>
-          <c:when test="${paytype == 2}">모바일</c:when>
-          <c:when test="${paytype == 3}">계좌 이체</c:when>
-          <c:when test="${paytype == 4}">직접 입금</c:when>
-        </c:choose>
-      </TD>
-      <TD class='td_basic'><fmt:formatNumber value="${paymoney }" pattern="#,###" /></TD>
-      <TD class='td_basic'>${rdate.substring(0,16) }</TD>
-      <TD class='td_basic'>
-        <A href="/orders/list_by_memberno.do?paymentno=${paymentno}">
-          <!-- <img src="/payment/images/bu6.png" title="주문 내역 상세 조회"> -->
-          <span class="glyphicon glyphicon-share" title="주문 내역 상세 조회"></span>
-        </A>
-      </TD>
+      <TR>
+        <TD class=td_basic>${paymentno}</TD>
+        <TD class=td_basic><A href="/member/read.do?memberno=${memberno}">${memberno}</A></TD>
+        <TD class='td_basic'>${realname}</TD>
+        <TD class='td_basic'>${phone}</TD>
+        <TD class='td_basic'>${address}</TD>
+        <TD class='td_basic'>
+          <c:choose>
+            <c:when test="${paytype == 1}">현장거래</c:when>
+            <c:when test="${paytype == 2}">모바일</c:when>
+            <c:when test="${paytype == 3}">계좌 이체</c:when>
+            <c:when test="${paytype == 4}">신용카드</c:when>
+          </c:choose>
+        </TD>
+        <TD class='td_basic'><fmt:formatNumber value="${paymoney }" pattern="#,###" /></TD>
+        <TD class='td_basic'>${rdate.substring(0,16) }</TD>
+        <TD class='td_basic'>
+          <A href="/orders/list_by_memberno.do?paymentno=${paymentno}">
+            <!-- <img src="/payment/images/bu6.png" title="주문 내역 상세 조회"> -->
+            <span class="glyphicon glyphicon-share" title="주문 내역 상세 조회"></span>
+          </A>
+        </TD>
+        
+      </TR>
+      </c:forEach>
       
-    </TR>
-    </c:forEach>
-    
-  </TABLE>
-   
-<!--   <DIV class='bottom_menu'>
-    <button type='button' onclick="location.reload();" class="btn btn-primary">새로 고침</button>
-  </DIV> -->
+    </TABLE>
+     
+  <!--   <DIV class='bottom_menu'>
+      <button type='button' onclick="location.reload();" class="btn btn-primary">새로 고침</button>
+    </DIV> -->
+  </DIV>
 </DIV>
-</section>
  
 <jsp:include page="../menu/bottom.jsp" flush='false' />
 </body>

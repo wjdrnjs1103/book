@@ -87,129 +87,131 @@ function delete_func(cartno) {  // GET -> POST 전송, 상품 삭제
   <input type='hidden' name='cartno' id='cartno'>
   <input type='hidden' name ='cnt' id = 'cnt'>
 </form>
-  <section class="py-5">
+<div class="py-5">
   
-      <DIV class='container c_bottom_10'> 
+  <DIV class='container c_bottom_10' style=""> 
  
-<DIV class='title_line'>
-  찜하기
-</DIV>
-
-<DIV class='content_body'>
-  <ASIDE class="aside_right">
-    <c:if test="${bookno != null}">
-      <A href="/product/list_by_cateno_search_paging?productno=${productno}">쇼핑 계속하기</A>
-      <span class='menu_divide' >│</span>    
-    </c:if>
-    <A href="javascript:location.reload();">새로고침</A>
-  </ASIDE> 
-
-  <DIV class='menu_line'></DIV>
-
-  <table class="table table-striped" style='width: 100%;'>
-    <colgroup>
-      <col style="width: 20%;"></col>
-      <col style="width: 40%;"></col>
-      <col style="width: 20%;"></col>
-      <col style="width: 10%;"></col>
-      <col style="width: 10%;"></col>
-    </colgroup>
-    <%-- table 컬럼 --%>
-<!--     <thead>
-      <tr>
-        <th style='text-align: center;'>파일</th>
-        <th style='text-align: center;'>상품명</th>
-        <th style='text-align: center;'>정가, 할인률, 판매가, 포인트</th>
-        <th style='text-align: center;'>기타</th>
-      </tr>
+    <DIV class='title_line'>
+      찜하기
+    </DIV>
     
-    </thead> -->
+    <DIV class='content_body'>
+      <ASIDE class="aside_right">
+        <c:if test="${bookno != null}">
+          <A href="/product/list_by_cateno_search_paging?productno=${productno}">쇼핑 계속하기</A>
+          <span class='menu_divide' >│</span>    
+        </c:if>
+        <A href="javascript:location.reload();">새로고침</A>
+      </ASIDE> 
     
-    <%-- table 내용 --%>
-    <tbody>
-      <c:choose>
-        <c:when test="${list.size() > 0 }">
-          <c:forEach var="cartVO" items="${list }">
-            <c:set var="cartno" value="${cartVO.cartno }" />
-            <c:set var="productno" value="${cartVO.productno }" />
-            <c:set var="title" value="${cartVO.title }" />
-            <c:set var="thumb1" value="${cartVO.thumb1 }" />
-            <c:set var="price" value="${cartVO.price }" />
-            <c:set var="memberno" value="${cartVO.memberno }" />
-            <c:set var="cnt" value="${cartVO.cnt }" />
-            <c:set var="sdate" value="${cartVO.sdate }" />
-            
-            <tr> 
-              <td style='vertical-align: middle; text-align: center;'>
-                <c:choose>
-                  <c:when test="${thumb1.endsWith('jpg') || thumb1.endsWith('png') || thumb1.endsWith('gif')}">
-                    <%-- /static/contents/storage/ --%>
-                    <a href="/product/read.do?productno=${productno}"><IMG src="/product/storage/${thumb1 }" style="width: 120px; height: 80px;"></a> 
-                  </c:when>
-                  <c:otherwise> <!-- 이미지가 아닌 일반 파일 -->
-                    ${product.file1}
-                  </c:otherwise>
-                </c:choose>
-              </td>  
-              <td style='vertical-align: middle;'>
-                <a href="/product/read.do?productno=${productno}"><strong>${title}</strong></a> 
-              </td> 
-              <td style='vertical-align: middle; text-align: center;'>
-                <fmt:formatNumber value="${price }" pattern="#,###" /><br>
-              </td>
-              <td style='vertical-align: middle; text-align: center;'>
-                <input type='number' id='${cartno }_cnt' min='1' max='100' step='1' value="${cnt }" 
-                  style='width: 52px;'><br>
-                <button type='button' onclick="update_cnt(${cartno})" class='btn' style='margin-top: 5px;'>변경</button>
-              </td>
-              <td style='vertical-align: middle; text-align: center;'>
-                <A href="javascript: delete_func(${cartno })"><span class="glyphicon glyphicon-remove"></span></A>
-                <input type="hidden" id="count" name = "count" value="${count }">
-                ${count }
-                
-                <!-- <form name="frm_count" id = "frm_count" action="/cart/count_goods.do" method="get">
-                  <input type="hidden" id="cart_count" name = "cart_count" value="${cart_count }">
-                  ${cart_count }
-                </form> -->
-              </td>
-            </tr>
-          </c:forEach>
-        
-        
-        
-        </c:when>
-        <c:otherwise>
-          <tr>
-            <td colspan="6" style="text-align: center; font-size: 1.3em;">아직 관심 상품이 없습니다.</td>
+      <DIV class='menu_line'></DIV>
+    
+      <TABLE class='table table_top_margin'>
+        <colgroup>
+          <col style="width: 20%;"></col>
+          <col style="width: 40%;"></col>
+          <col style="width: 20%;"></col>
+          <col style="width: 10%;"></col>
+          <col style="width: 10%;"></col>
+        </colgroup>
+        <%-- table 컬럼 --%>
+         <thead>
+          <TR class="table_title">
+            <th style='text-align: center;'>상품 이미지</th>
+            <th style='text-align: center;'>상품명</th>
+            <th style='text-align: center;'>가격</th>
+            <th style='text-align: center;'>수량</th>
+            <th style='text-align: center;'>기타</th>
           </tr>
-        </c:otherwise>
-      </c:choose>
-      
-      
-    </tbody>
-  </table>
-  
-  <table class="table table-striped" style='margin-top: 50px; margin-bottom: 50px; width: 100%;'>
-    <tbody>
-      <tr>
-        <td style='width: 50%;'>
-          <div class='basket_label'>상품 금액</div>
-        </td>
-        <td style='width: 50%;'>
-          <div class='basket_price'><fmt:formatNumber value="${tot_sum }" pattern="#,###" /> 원</div>
-          
-        </td>
-        <td style='width: 50%;'>
         
+        </thead> 
+        
+        <%-- table 내용 --%>
+        <tbody>
+          <c:choose>
+            <c:when test="${list.size() > 0 }">
+              <c:forEach var="cartVO" items="${list }">
+                <c:set var="cartno" value="${cartVO.cartno }" />
+                <c:set var="productno" value="${cartVO.productno }" />
+                <c:set var="title" value="${cartVO.title }" />
+                <c:set var="thumb1" value="${cartVO.thumb1 }" />
+                <c:set var="price" value="${cartVO.price }" />
+                <c:set var="memberno" value="${cartVO.memberno }" />
+                <c:set var="cnt" value="${cartVO.cnt }" />
+                <c:set var="sdate" value="${cartVO.sdate }" />
+                
+                <tr> 
+                  <td style='vertical-align: middle; text-align: center;'>
+                    <c:choose>
+                      <c:when test="${thumb1.endsWith('jpg') || thumb1.endsWith('png') || thumb1.endsWith('gif')}">
+                        <%-- /static/contents/storage/ --%>
+                        <a href="/product/read.do?productno=${productno}"><IMG src="/product/storage/${thumb1 }" style="width: 120px; height: 80px;"></a> 
+                      </c:when>
+                      <c:otherwise> <!-- 이미지가 아닌 일반 파일 -->
+                        ${product.file1}
+                      </c:otherwise>
+                    </c:choose>
+                  </td>  
+                  <td style='vertical-align: middle;'>
+                    <a href="/product/read.do?productno=${productno}"><strong>${title}</strong></a> 
+                  </td> 
+                  
+                  <td style='vertical-align: middle; text-align: center;'>
+                    <fmt:formatNumber value="${price }" pattern="#,###" /><br>
+                  </td>
+                  <td style='vertical-align: middle; text-align: center;'>
+                    <input type='number' id='${cartno }_cnt' min='1' max='100' step='1' value="${cnt }" 
+                      style='width: 52px;'><br>
+                    <button type='button' onclick="update_cnt(${cartno})" class='btn' style='margin-top: 5px;'>변경</button>
+                  </td>
+                  <td style='vertical-align: middle; text-align: center;'>
+                    <A href="javascript: delete_func(${cartno })"><span class="glyphicon glyphicon-remove"></span></A>
+                    <input type="hidden" id="count" name = "count" value="${count }">
+                    ${count }
+                    
+                    <!-- <form name="frm_count" id = "frm_count" action="/cart/count_goods.do" method="get">
+                      <input type="hidden" id="cart_count" name = "cart_count" value="${cart_count }">
+                      ${cart_count }
+                    </form> -->
+                  </td>
+                </tr>
+              </c:forEach>
+            
+            
+            
+            </c:when>
+            <c:otherwise>
+              <tr>
+                <td colspan="6" style="text-align: center; font-size: 1.3em;">아직 관심 상품이 없습니다.</td>
+              </tr>
+            </c:otherwise>
+          </c:choose>
           
-          <form name='frm' id='frm' style='margin-top: 50px;' action="/payment/create.do" method='get'>
-            <button type='submit' id='btn_order' class='btn btn-outline-dark' style='font-size: 1.5em;'>주문하기</button>
-          </form>
-        <td>
-      </tr>
-    </tbody>
-  </table>   
-</DIV>
+          
+        </tbody>
+      </table>
+      
+      <table class="table table-striped" style='margin-top: 50px; margin-bottom: 50px; width: 100%;'>
+        <tbody>
+          <tr>
+            <td style='width: 50%;'>
+              <div class='basket_label'>상품 금액</div>
+            </td>
+            <td style='width: 50%;'>
+              <div class='basket_price'><fmt:formatNumber value="${tot_sum }" pattern="#,###" /> 원</div>
+              
+            </td>
+            <td style='width: 50%;'>
+            
+              
+              <form name='frm' id='frm' style='margin-top: 50px;' action="/payment/create.do" method='get'>
+                <button type='submit' id='btn_order' class='btn btn-outline-dark' style='font-size: 1.5em;'>주문하기</button>
+              </form>
+            <td>
+          </tr>
+        </tbody>
+      </table>   
+  </DIV>
 </DIV>
 </section>
  
