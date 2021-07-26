@@ -2,7 +2,7 @@
  
 <%
 Cookie cookie = new Cookie("windowOpen", "close"); // 이름, 값
-cookie.setMaxAge(30); // 86400초=1일 (테스트를 위해 30초로 설정)
+cookie.setMaxAge(86400); // 86400
 cookie.setPath("/");
 response.addCookie(cookie);
 %>
