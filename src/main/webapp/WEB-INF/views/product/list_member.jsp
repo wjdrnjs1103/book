@@ -61,7 +61,7 @@ function login_ajax() {
           cart_ajax_post();            
           
         } else {
-          alert('로그인에 실패했습니다.<br>잠시후 다시 시도해주세요.');
+          alert('로그인에 실패했습니다. 계정 또는 패스워드를 확인해주세요.');
           
         }
       },
@@ -71,7 +71,35 @@ function login_ajax() {
       }
     }
   );  //  $.ajax END
+}
 
+<%-- 게시판에 글쓰기 --%>
+function b_c_btn(productno) {
+  var f = $('#frm_login');
+  $('#commgrpno', f).val(productno);  // 게시글 등록시 사용할 커뮤니티 번호를 저장.
+  
+  console.log('-> productno: ' + $('#productno', f).val()); 
+  
+  // console.log('-> id:' + '${sessionScope.id}');
+  if ('${sessionScope.id}' == '') {  // 로그인이 안되어 있다면
+    $('#div_login').show();    // 로그인폼 출력  
+    
+  } else {  // 로그인 한 경우
+    product_create();
+  }  
+}
+
+<%-- 게시글 등록 --%>
+function product_create() {
+  var f = $('#frm_login');
+  var commgrpno = $('#productno', f).val();  // 쇼핑카트 등록시 사용할 상품 번호.
+  
+  var params = "";
+  // params = $('#frm_login').serialize(); // 직렬화, 폼의 데이터를 키와 값의 구조로 조합
+  params += 'productno=' + productno;
+
+  // return;
+  location.href='/product/create.do?bookno=1';
 }
 
 <%-- 찜하기에 상품 추가 --%>
@@ -161,11 +189,11 @@ function cart_ajax(productno, stateno) {
 
 <DIV class='content_body'>
   <ASIDE class="aside_right">
-    <A href="./create.do?bookno=${bookVO.bookno }">등록</A>
+    <button type='button' class="btn btn-basic" id="btn_create"  onclick="b_c_btn(${productno})">등록</button> 
     <span class='menu_divide' >│</span>
-    <A href="javascript:location.reload();">새로고침</A>
+    <button type='button' onclick="location.href='./list_by_bookno_grid.do?bookno=${bookVO.bookno }'" class="btn btn-basic">갤러리형</button>
     <span class='menu_divide' >│</span>
-    <A href="./list_by_bookno_grid.do?bookno=${bookVO.bookno }">갤러리형</A>
+    <button type='button' onclick="location.href='./list_member.do?bookno=${bookVO.bookno }'" class="btn btn-basic">새로고침</button>
   </ASIDE> 
 
   <DIV style="text-align: right; clear: both;">  
@@ -179,7 +207,7 @@ function cart_ajax(productno, stateno) {
           <input type='text' name='word' id='word' value='' style='width: 20%;'>
         </c:otherwise>
       </c:choose>
-      <button type='submit' class="btn btn-dark">검색</button>
+      <button type='submit' style= "font-size: 0.9em" class="btn btn-dark">검색</button>
       <c:if test="${param.word.length() > 0 }">
         <button type='button' 
                      onclick="location.href='./list_by_bookno_search_paging.do?bookno=${bookVO.bookno}&word='">검색 취소</button>  
@@ -222,10 +250,10 @@ function cart_ajax(productno, stateno) {
  
     <div class="form-group">
       <div class="col-md-offset-4 col-md-8">
-        <button type="button" id='btn_login' class="btn btn-warning btn-md">로그인</button>
-        <button type='button' onclick="location.href='./create.do'" class="btn btn-warning btn-md">회원가입</button>
-        <button type='button' id='btn_loadDefault' class="btn btn-danger btn-md">테스트 계정</button>
-        <button type='button' id='btn_cancel' class="btn btn-warning btn-md"
+        <button type="button" id='btn_login' class="btn btn-dark btn-md">로그인</button>
+        <button type='button' onclick="location.href='./create.do'" class="btn btn-dark btn-md">회원가입</button>
+        <button type='button' id='btn_loadDefault' class="btn btn-dark btn-md">테스트 계정</button>
+        <button type='button' id='btn_cancel' class="btn btn-dark btn-md"
                     onclick="$('#div_login').hide();">취소</button>
       </div>
     </div>   

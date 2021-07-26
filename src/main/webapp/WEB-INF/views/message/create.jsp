@@ -73,10 +73,10 @@
         </div>
   
         <div class="form-group text-center">
-            <button type="submit" id="btn_register" class="btn btn-primary">
+            <button type="submit" id="btn_register" class="btn btn-success">
                 보내기<i class="fa fa-check spaceLeft"></i>
             </button>
-            <button type="button" class="btn btn-warning">
+            <button type="button" class="btn btn-basic">
                 취소<i class="fa fa-times spaceLeft"></i>
             </button>
         </div>
