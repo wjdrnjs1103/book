@@ -102,10 +102,19 @@ function read_delete_ajax(messageno) {
             <button type="button" onclick="location.href='./reply.do?send_member=${messageVO.send_member}&productno=${messageVO.productno }'" class="btn btn-primary">
                답장<i class="fa fa-times spaceLeft"></i>
             </button>
-            <button type="submit" class="btn btn-warning">
-               거래확인<i class="fa fa-times spaceLeft"></i>
-            </button>
-            <button type="button" onclick="location.href='./list.do?'" class="btn btn-primary">
+            <c:choose>
+              <c:when test="${stateno == 2}">
+                <button type="button" class="btn btn-warning" disabled>
+                   판매완료<i class="fa fa-times spaceLeft"></i>
+                </button>
+              </c:when>
+              <c:otherwise>
+                <button type="submit" class="btn btn-warning">
+                   거래확인<i class="fa fa-times spaceLeft"></i>
+                </button>
+              </c:otherwise>
+            </c:choose>
+            <button type="button" onclick="location.href='./list.do?${sessionScope.memberno}'" class="btn btn-primary">
                쪽지함<i class="fa fa-times spaceLeft"></i>
             </button>
         </div>

@@ -238,12 +238,15 @@ public class MessageCont {
    * @return
    */
   @RequestMapping(value="/message/read.do", method=RequestMethod.GET )
-  public ModelAndView read(HttpServletRequest request, int messageno) {
+  public ModelAndView read(HttpServletRequest request, int messageno, int productno) {
     
     ModelAndView mav = new ModelAndView();
-
+   
+    int stateno = this.productProc.get_stateno(productno);
+    
     MessageVO messageVO = this.messageProc.read(messageno);
     mav.addObject("messageVO", messageVO); // request.setAttribute("productVO", productVO);
+    mav.addObject("stateno", stateno);
     
     mav.setViewName("/message/read"); // /WEB-INF/views/product/read.jsp
       

@@ -98,5 +98,12 @@ public interface ProductProcInter {
    */
   public int update_stateno(int productno);
   
+  /**
+   * 판매 여부 상태 추출
+   * @param productno
+   * @return
+   */
+  public int get_stateno(int productno);
+  
   
 }

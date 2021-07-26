@@ -267,6 +267,7 @@
           <DIV style="width: 50%; float: left; margin-right: 10px;">
             <IMG src="/product/storage/${productVO.file1saved }" style="width: 100%;">
           </DIV>
+        </c:if> 
           <DIV style="width: 47%; height: 260px; float: left; margin-right: 10px;">
             <span style="font-size: 1.5em; font-weight: bold;">${title }</span><br>
             <span style="font-size: 2.5em;">가격: <fmt:formatNumber value="${productVO.price}" pattern="##,###" />원</span> 
@@ -278,7 +279,7 @@
             <span id="span_animation"></span>
             </form>
           </DIV> 
-        </c:if> 
+        
         <DIV>${productVO.content }</DIV>
       </li>
       <li class="li_none">

@@ -233,12 +233,19 @@ import dev.mvc.tool.Tool;
     @Override
     public int delete(int productno) {
       int cnt = this.productDAO.delete(productno);
+      System.out.println("productno" + productno);
       return cnt;
     }
     
     @Override
     public int update_stateno(int productno) {
       int cnt = this.productDAO.update_stateno(productno);
+      return cnt;
+    }
+
+    @Override
+    public int get_stateno(int productno) {
+      int cnt = this.productDAO.get_stateno(productno);
       return cnt;
     }
     

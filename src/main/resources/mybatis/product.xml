@@ -132,12 +132,19 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     WHERE productno=#{productno}
   </delete>
   
-    <!-- 상품 정보 변경 -->
+  <!-- 상품 정보 변경 -->
   <update id="update_stateno" parameterType="int">
     UPDATE product
     SET stateno=2
     WHERE productno = #{productno}
   </update> 
+  
+  <!-- 상품 정보 변경 -->
+  <select id="get_stateno" parameterType="int" resultType="int">
+    SELECT stateno
+    FROM product
+    WHERE productno = #{productno}
+  </select> 
 
          
 </mapper> 

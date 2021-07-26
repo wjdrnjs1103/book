@@ -137,7 +137,7 @@ function read_delete_ajax(messageno) {
               <A href="">${messageVO.sender }</A>
             </TD>
             <TD class="td_bs_left">
-              <A href="/message/read.do?messageno=${messageVO.messageno }&sender=${messageVO.sender}">${messageVO.title }</A>
+              <A href="/message/read.do?messageno=${messageVO.messageno }&sender=${messageVO.sender}&productno=${messageVO.productno}">${messageVO.title }</A>
             </TD>
             <TD class="td_bs">${messageVO.s_date.substring(0, 10) }</TD>
      
