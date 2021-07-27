@@ -25,33 +25,6 @@ public class SellingCont {
     System.out.println("-> SellingCont created.");
   }
   
-  /**
-   * Ajax 등록 처리
-   * INSERT INTO selling(sellno, productno, memberno, selldate)
-      VALUES(sell_seq.nextval, #{productno}, #{memberno}, sysdate)
-   * @param session
-   * @param productno
-   * @return
-   */
-  /**
-  @RequestMapping(value="/selling/create.do", method=RequestMethod.POST)
-  @ResponseBody
-  public String create(HttpSession session, int productno) {
-    SellingVO sellingVO = new SellingVO();
-    sellingVO.setProductno(productno);
-    
-    int memberno = (Integer)session.getAttribute("memberno");
-    sellingVO.setMemberno(memberno);
-    
-    int cnt = this.sellingProc.create(sellingVO); // 등록처리
-    
-    JSONObject json = new JSONObject();
-    json.put("cnt", cnt);
-    
-    System.out.println("-> Selling Create: "+ json.toString());
-    
-    return json.toString();
-  }*/
   
   /**
    * 회원별 전체 판매 목록

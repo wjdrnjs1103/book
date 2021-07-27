@@ -9,7 +9,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   <!-- 판매 상품 등록 -->
   <insert id="create" parameterType="dev.mvc.selling.SellingVO">
     INSERT INTO selling(sellno, productno, memberno)
-    VALUES(sell_seq.nextval, #{productno}, #{memberno})
+    VALUES(#{sellno}, #{productno}, #{memberno})
   </insert>
 
   <!-- 회원별 전체 판매 상품 목록 -->
@@ -35,7 +35,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     SELECT s.sellno, p.productno, m.memberno, m.id, p.title, p.price, p.thumb1, p.rdate, p.stateno, p.cnt
     FROM selling s, product p, member m
     WHERE (s.productno = p.productno) AND (s.memberno = m.memberno)
-               AND p.memberno=#{memberno} AND p.stateno=2
+               AND p.memberno=1 AND p.stateno=2
     ORDER BY sellno DESC
   </select>
 

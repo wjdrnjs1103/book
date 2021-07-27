@@ -24,6 +24,8 @@ import dev.mvc.book.BookProcInter;
 import dev.mvc.book.BookVO;
 import dev.mvc.bookgrp.BookgrpProcInter;
 import dev.mvc.bookgrp.BookgrpVO;
+import dev.mvc.register.RegisterProcInter;
+import dev.mvc.register.RegisterVO;
 import dev.mvc.selling.SellingProcInter;
 import dev.mvc.selling.SellingVO;
 //import dev.mvc.member.MemberProcInter;
@@ -47,6 +49,10 @@ public class ProductCont {
   @Autowired
   @Qualifier("dev.mvc.selling.SellingProc")
   private SellingProcInter sellingProc;
+  
+  @Autowired
+  @Qualifier("dev.mvc.register.RegisterProc")
+  private RegisterProcInter registerProc;
   
   public ProductCont() {
     System.out.println("-> ProductCont created.");
@@ -73,16 +79,23 @@ public class ProductCont {
    * @return
    */
   @RequestMapping(value = "/product/create.do", method = RequestMethod.GET)
-  public ModelAndView create(int bookno) {
+  public ModelAndView create(int bookno, HttpSession session) {
     ModelAndView mav = new ModelAndView();
     
     BookVO bookVO = this.bookProc.read(bookno);
     BookgrpVO bookgrpVO = this.bookgrpProc.read(bookVO.getBookgrpno());
     
+    int memberno = (int)session.getAttribute("memberno");
+    RegisterVO registerVO =this.registerProc.read(memberno);
+       
+    
+    mav.addObject("registerVO", registerVO);
     mav.addObject("bookVO", bookVO);
     mav.addObject("bookgrpVO", bookgrpVO);
     
-    mav.setViewName("/product/create"); 
+    mav.setViewName("/product/create"); // /webapp/WEB-INF/views/product/create.jsp
+    // String content = "장소:\n인원:\n준비물:\n비용:\n기타:\n";
+    // mav.addObject("content", content);
 
     return mav; // forward
   }
@@ -93,7 +106,7 @@ public class ProductCont {
    * @return
    */
   @RequestMapping(value = "/product/create.do", method = RequestMethod.POST)
-  public ModelAndView create(HttpServletRequest request, HttpSession session, ProductVO productVO) {
+  public ModelAndView create(HttpSession session,HttpServletRequest request, ProductVO productVO) {
     ModelAndView mav = new ModelAndView();
     
     // -------------------------------------------------------------------
@@ -153,27 +166,41 @@ public class ProductCont {
 //      bookProc.increaseCnt(productVO.getbookno()); // 글수 증가
 //    }
     
- // -------------------------------------------------------------------
+    // -------------------------------------------------------------------
     //  판매 상품 등록
     // -------------------------------------------------------------------
     
+    /*
+     <insert id="create" parameterType="dev.mvc.product.ProductDAOInter">
+      <selectKey keyProperty="productno" resultType="int" order="BEFORE">
+        SELECT product_seq.nextval FROM dual
+      </selectKey>
+        
+      INSERT INTO product(productno, bookno, memberno, title, content, cnt, 
+                                   word, rdate, file1, file1saved, thumb1, size1, price, stateno)
+      VALUES(product_seq.nextval, #{bookno}, #{memberno}, #{title}, #{content}, #{cnt}, 
+                 #{word}, sysdate, #{file1}, #{file1saved}, #{thumb1}, #{size1}, #{price}, #{stateno})
+    </insert>
+     */
     
-      int productno = productVO.getProductno();
+      
       
       SellingVO sellingVO = new SellingVO(); 
+      
       if (cnt == 1) { // 상품 등록이 정상적으로 된 경우
+
       
         int memberno = (int)session.getAttribute("memberno");
-        productVO.setMemberno(memberno); // 회원 번호 저장
+        //productVO.setMemberno(memberno); // 회원 번호 저장
         
         // selling Insert 
-        sellingVO.setProductno(productno);
+        sellingVO.setProductno(productVO.getProductno()); // Productno가 안 들어감
         sellingVO.setMemberno(memberno); 
-        sellingVO.setSellno(productno);
+        sellingVO.setSellno(productVO.getProductno());
         
         System.out.println("selling_productno:" + sellingVO.getProductno());
         System.out.println("selling_memberno:" + sellingVO.getMemberno());
-        System.out.println("selling_sellno: "+ sellingVO.getSellno()); 
+        System.out.println("selling_sellno: "+sellingVO.getSellno());
         
         this.sellingProc.create(sellingVO); // 판매 내역 등록
       }// if end
