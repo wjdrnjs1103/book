@@ -24,7 +24,15 @@ public class CartVO {
   private int cnt;
   /** 금액 */
   private int tot;
+  /** 등록된 상품의 수량 != CartVO.cnt */
+  private int product_cnt;
   
+  public int getProduct_cnt() {
+    return product_cnt;
+  }
+  public void setProduct_cnt(int product_cnt) {
+    this.product_cnt = product_cnt;
+  }
   public int getTot() {
     return tot;
   }

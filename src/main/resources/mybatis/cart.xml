@@ -13,7 +13,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   
   <!-- 회원별 관심 상품 목록 출력 -->
   <select id="list" resultType="dev.mvc.cart.CartVO" parameterType="int">
-    SELECT i.cartno, p.productno, p.title, p.thumb1, p.price, i.cnt, i.memberno, i.sdate
+    SELECT i.cartno, p.productno, p.title, p.thumb1, p.price, i.cnt, i.memberno, i.sdate, p.cnt AS product_cnt
     FROM cart i, product p
     WHERE (i.productno = p.productno) AND i.memberno=#{memberno}
     ORDER BY cartno ASC
