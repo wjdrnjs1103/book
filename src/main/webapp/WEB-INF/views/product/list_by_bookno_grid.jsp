@@ -83,7 +83,8 @@
                 </a><br>
                 <a href="./read.do?productno=${productno}">${title}</a> <br>
                 <%-- <del><fmt:formatNumber value="${price}" pattern="#,###" /></del> --%>
-                <span style="color: #FF0000; font-size: 1.0em;">가격: ${price}원</span>
+                <span style="color: #FF0000; font-size: 1.0em;">가격: ${price}원</span><br>
+                <span style="color: #FF0000; font-size: 1.0em;">수량: ${cnt }</span>
                 <%-- <strong><fmt:formatNumber value="${price}" pattern="##,###" /></strong> --%>
               </c:when>
               <c:otherwise> <!-- 이미지가 아닌 일반 파일 -->
@@ -98,10 +99,11 @@
           </c:when>
           <c:otherwise> <%-- 파일이 없는 경우 기본 이미지 출력 --%>
             <a href="./read.do?productno=${productno}">
-              <img src='/product/images/noimage.png' style='width: 100%; height: 140px;'>
+              <img src='/product/storage/noimage.png' style='width: 100%; height: 140px;'>
             </a><br>
             <a href="./read.do?productno=${productno}">${title}</a> <br>
-            <span style="color: #FF0000; font-size: 1.0em;">가격: ${price}원</span>
+            <span style="color: #FF0000; font-size: 1.0em;">가격: ${price}원</span><br>
+            <span style="color: #FF0000; font-size: 1.0em;">수량: ${cnt }</span>
           </c:otherwise>
         </c:choose>         
       </DIV>  

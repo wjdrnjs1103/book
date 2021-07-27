@@ -64,9 +64,10 @@ function openNotice(){
 }
 
 <%-- 찜하기에 상품 추가 --%>
-function cart_ajax(productno, stateno) {
-  var f = $('#frm_login');
+function cart_ajax(productno, stateno, bookno) {
+  var f = $('#frm');
   $('#productno', f).val(productno); // 쇼핑카트 등록시 사용할 상품 번호를 저장.
+  $('#bookno',f).val(bookno);
 
   //stateno = 2;
   console.log('-> productno:' +$('#productno', f).val());
@@ -93,14 +94,17 @@ function cart_ajax(productno, stateno) {
  
  <%-- 찜하기에 상품 등록 --%>
  function cart_ajax_post() {
-   var f = $('#frm_login');
+   var f = $('#frm');
    var productno = $('#productno', f).val();
+   var bookno = $('#bookno',f).val();
  
    console.log('->cart productno:' + productno);
- 
+   console.log('->bookno:' + bookno);
+   
    var params = "";
    params += 'productno=' + productno;
-   //console.log("-> cart_ajax_post: "+params);
+   //params += 'bookno=' + bookno;
+   console.log("-> cart_ajax_post: "+params);
  
    $.ajax(
        {
@@ -118,7 +122,7 @@ function cart_ajax(productno, stateno) {
              var sw = confirm('선택한 상품을 찜하는데 성공하였습니다. \n 찜하기 목록으로 이동하시겠습니까?');
              if (sw == true) {
                // 찜하기로 이동
-               location.href='/cart/list.do?bookno='+${bookVO.bookno};
+               location.href='/cart/list.do?bookno='+bookno;
              }
            } else {
              alert('선택한 상품을 찜하는데 실패했습니다. \n 잠시 후 다시 시도해주세요.')
@@ -152,7 +156,9 @@ function cart_ajax(productno, stateno) {
                             <a href="/product/read.do?productno=${productVO.productno}&now_page=1&word=${productVO.word }&stateno=${productVO.stateno}"><IMG src="/product/storage/${productVO.thumb1 }" style="width: 100%; height: 100%;"></a> 
                           </c:when>
                           <c:otherwise> <!-- 이미지가 아닌 일반 파일 -->
-                            <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="..." />
+                            <a href="/product/read.do?productno=${productVO.productno}&now_page=1&word=${productVO.word }&stateno=${productVO.stateno}">
+                              <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="..." />
+                            </a>
                           </c:otherwise>
                         </c:choose>
                         <!-- Product details-->
@@ -174,6 +180,9 @@ function cart_ajax(productno, stateno) {
                         </div>
                         <!-- Product actions-->
                         <div class="card-footer p-4 pt-0 border-top-0 bg-transparent" style="text-align: center;">
+                        <form name='frm' id='frm' method="POST" action=''>
+                          <input type="hidden" name="productno" id="productno" value="${productVO.productno }">
+                          <input type='hidden' name='bookno' id = 'bookno' value='${productVO.bookno }'>
                           <c:choose>
                             <c:when test="${productVO.memberno == sessionScope.memberno }">
                               <button type='button' id='btn_mypost' class="btn btn-danger" style='margin-bottom: 2px;'
@@ -181,9 +190,10 @@ function cart_ajax(productno, stateno) {
                             </c:when>
                             <c:otherwise>
                               <button type='button' id='btn_cart' class="btn btn-danger" style='margin-bottom: 2px;'
-                                      onclick="cart_ajax(${productVO.productno}, ${productVO.stateno })">찜하기</button><br>
+                                      onclick="cart_ajax(${productVO.productno}, ${productVO.stateno }, ${productVO.bookno })">찜하기</button><br>
                             </c:otherwise>
                           </c:choose>
+                        </form>
                         </div>
                     </div>
                 </div>
