@@ -145,6 +145,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     FROM product
     WHERE productno = #{productno}
   </select> 
+  
+    <!-- 최근 게시글 출력 -->
+  <select id="load" resultType="dev.mvc.product.ProductVO">
+    SELECT productno, bookno, memberno, title, content, cnt, word, rdate, file1, file1saved, thumb1, size1, price, stateno
+    FROM product
+    WHERE stateno=1
+    ORDER BY productno DESC
+  </select> 
 
          
 </mapper> 

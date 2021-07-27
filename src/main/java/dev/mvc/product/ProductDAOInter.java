@@ -78,6 +78,7 @@ public interface ProductDAOInter {
    * @param productno
    * @return
    */
+  
   public int update_stateno(int productno);
   
   /**

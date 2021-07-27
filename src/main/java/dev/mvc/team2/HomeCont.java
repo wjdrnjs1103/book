@@ -22,8 +22,6 @@ public class HomeCont {
   public HomeCont() {
     System.out.println("-> HomeCont created.");
   }
-  
-
 
   // http://localhost:9091
   @RequestMapping(value = {"/", "/index.do"}, method = RequestMethod.GET)
