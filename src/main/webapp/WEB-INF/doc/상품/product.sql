@@ -4,19 +4,19 @@
 DROP TABLE product CASCADE CONSTRAINTS;
 
 CREATE TABLE product(
-		productno                     		NUMBER(10)		 NOT NULL		 PRIMARY KEY,
-		bookno                        		NUMBER(10)		 NULL ,
-		memberno                      		NUMBER(10)		 NULL ,
-		title                         		VARCHAR2(100)		 NOT NULL,
-		content                       		CLOB		 NOT NULL,
-		cnt                           		NUMBER(7)		 DEFAULT 0    NOT NULL,
-		word                          		VARCHAR2(300)		 NULL ,
-		rdate                         		DATE		 NOT NULL,
-		file1                         		VARCHAR2(100)		 NULL ,
-		file1saved                    		VARCHAR2(100)		 NULL ,
-		thumb1                         		VARCHAR2(100)		 NULL ,
-		size1                          		NUMBER(10)		 DEFAULT 0		 NULL ,
-		price                         		NUMBER(10)		 DEFAULT 0		 NOT NULL,
+    productno                         NUMBER(10)     NOT NULL    PRIMARY KEY,
+    bookno                            NUMBER(10)     NULL ,
+    memberno                          NUMBER(10)     NULL ,
+    title                             VARCHAR2(100)    NOT NULL,
+    content                           CLOB     NOT NULL,
+    cnt                               NUMBER(7)    DEFAULT 0    NOT NULL,
+    word                              VARCHAR2(300)    NULL ,
+    rdate                             DATE     NOT NULL,
+    file1                             VARCHAR2(100)    NULL ,
+    file1saved                        VARCHAR2(100)    NULL ,
+    thumb1                            VARCHAR2(100)    NULL ,
+    size1                             NUMBER(10)     DEFAULT 0     NULL ,
+    price                             NUMBER(10)     DEFAULT 0     NOT NULL,
         stateno                          NUMBER(1)         DEFAULT 1        NOT NULL,
   FOREIGN KEY (bookno) REFERENCES book (bookno),
   FOREIGN KEY (memberno) REFERENCES member (memberno)
@@ -73,5 +73,3 @@ WHERE memberno=(
 SELECT memberno
 FROM product
 WHERE productno =60);
-
-
