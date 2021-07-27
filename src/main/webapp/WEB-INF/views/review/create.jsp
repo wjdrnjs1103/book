@@ -11,6 +11,25 @@
 
 <title>Team2</title>
  
+<style type="text/css">
+*{margin:0; padding:0;}
+.star{
+  display:inline-block;
+  width: 55px;
+  height: 60px;
+  cursor: pointer;
+}
+.star{
+  background: url(http://gahyun.wooga.kr/main/img/testImg/star.png) no-repeat 0px 0; 
+  background-size: 55px; 
+  margin-right: -3px;
+}
+
+.star.on{
+  background-image: url(http://gahyun.wooga.kr/main/img/testImg/star_on.png);
+}
+</style>
+
 <!-- /static 기준 -->
 <!-- Core theme CSS (includes Bootstrap)-->
 <link href="../css/style.css" rel="stylesheet" type="text/css">
@@ -30,12 +49,34 @@
 
 <script type="text/javascript">
 $(function() {
-	$('.starRev span').click(function(){
-	    $(this).parent().children('span').removeClass('on');
-	    $(this).addClass('on').prevAll('span').addClass('on');
-	    return false;
-	});
+  $(".star").on('click',function(){
+	   var idx = $(this).index();
+	   $(".star").removeClass("on");
+	     for(var i=0; i<=idx; i++){
+	        $(".star").eq(i).addClass("on");
+	   }
+	 });    
 });
+
+function star1(){
+    $('#score').attr('value', 1);
+}
+
+function star2(){
+	  $('#score').attr('value', 2);
+}
+
+function star3(){
+    $('#score').attr('value', 3);
+}
+
+function star4(){
+    $('#score').attr('value', 4);
+}
+
+function star5(){
+    $('#score').attr('value', 5);
+}
 
 
 
@@ -65,21 +106,22 @@ $(function() {
             <span style='font-weight:bold; width: 100%;'>${productVO.title}</span><span style="color:gray; font-size: 0.8em;"> (상품 번호: ${param.productno})</span>
         </div>
         
-        <%-- 아직 별 입력 받지 못하고 있음 개발할 예정 --%>
         <div class="form-group" >
-            <span >별점과 리뷰를 남겨주세요.</span><br>
-            <div class="starRev" >
-              <input name="score" id="score" value="">
-              <span class="starR1 on">별1_왼쪽</span>
-              <span class="starR2">별1_오른쪽</span>
-              <span class="starR1">별2_왼쪽</span>
-              <span class="starR2">별2_오른쪽</span>
-              <span class="starR1">별3_왼쪽</span>
-              <span class="starR2">별3_오른쪽</span>
-              <span class="starR1">별4_왼쪽</span>
-              <span class="starR2">별4_오른쪽</span>
-              <span class="starR1">별5_왼쪽</span>
-              <span class="starR2">별5_오른쪽</span>
+            <span style="font-weight:bold;">별점과 리뷰를 남겨주세요.<span style="font-size: 0.8em; color:gray;"> (별 1개당, 1점)</span></span>　
+            <input type="hidden" id="score" name="score" value=1 min=1 max=5 step=1></input><br> 
+            <!-- <p id="score" class="star_rating">
+                <a href="" class="input_score()" id="star1">★</a>
+                <a href="" class="input_score()" id="star2">★</a>
+                <a href="" class="input_score()" id="star3">★</a>
+                <a href="" class="input_score()" id="star4">★</a>
+                <a href="" class="input_score()" id="star5">★</a>
+            </p>-->
+            <div class="star-box">
+              <span class="star on" onclick="star1()"></span>         
+              <span class="star" onclick="star2()"></span>
+              <span class="star" onclick="star3()"></span>
+              <span class="star" onclick="star4()"></span>
+              <span class="star" onclick="star5()"></span>
             </div>
         </div>
                 

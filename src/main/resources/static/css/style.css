@@ -10976,26 +10976,15 @@ textarea:-ms-input-placeholder {color:#bbb; padding-left: 3px;}
     border: 1px solid #e0e0e0;
 }
 
-.starR1{
-    background: url('http://miuu227.godohosting.com/images/icon/ico_review.png') no-repeat -52px 0;
+.star_{
+    background: url('/css/images/star.png') no-repeat 0 0;
     background-size: auto 100%;
-    width: 15px;
+    width: 33px;
     height: 30px;
     float:left;
     text-indent: -9999px;
     cursor: pointer;
 }
-.starR2{
-    background: url('http://miuu227.godohosting.com/images/icon/ico_review.png') no-repeat right 0;
-    background-size: auto 100%;
-    width: 15px;
-    height: 30px;
-    float:left;
-    text-indent: -9999px;
-    cursor: pointer;
-}
-.starR1.on{background-position:0 0;}
-.starR2.on{background-position:-15px 0;}
 
 /* Commgrp_Board(커뮤니티)에서 보여질 Join css ①*/
 /* div 문단의 크기 */
