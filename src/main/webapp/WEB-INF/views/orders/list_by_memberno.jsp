@@ -49,7 +49,7 @@
   
   <DIV class='container c_bottom_10' style=""> 
       <DIV class='title_line'>
-        ${sessionScope.mname }님 주문 결재 상세 내역
+        ${sessionScope.mname }님 주문 결제 상세 내역
       </DIV>
     
       <DIV class='content_body' style='width: 100%;'>
@@ -110,7 +110,7 @@
             <TD class='td_basic'>${cnt }</TD>
             <TD class='td_basic'>
               <c:choose>
-                <c:when test="${states == 1}">결재 완료</c:when>
+                <c:when test="${states == 1}">결제 완료</c:when>
                 <c:when test="${states == 2}">상품 준비중</c:when>
                 <c:when test="${states == 3}">배송 시작</c:when>
                 <c:when test="${states == 4}">배달중</c:when>
@@ -143,7 +143,7 @@
        
       <DIV class='bottom_menu'>
         <button type='button' onclick="location.href='/payment/list_by_memberno.do?memberno=${memberno}'" 
-                    class="btn btn-dark" style="font-size:1.2em;">결재 목록</button>
+                    class="btn btn-dark" style="font-size:1.2em;">결제 목록</button>
       </DIV>
     </DIV>
   </DIV>

@@ -157,7 +157,7 @@
   
       <DIV class='container c_bottom_10'> 
   <DIV class='title_line'>
-    주문, 결재
+    주문, 결제
   </DIV>
 
   <DIV class='content_body'>
@@ -347,7 +347,7 @@
   
   <div style='margin-top: 20px; width: 100%; clear: both;'> </div>  <br><br>
   <ASIDE class="aside_left" style="font-size: 1.5em;">
-    결재 정보
+    결제 정보
   </ASIDE> &nbsp;
 
   <div class='menu_line'></div>
@@ -378,7 +378,7 @@
         </td>
         <td style='width: 50%;'>
           <br>
-           <button type='button' id='btn_payment' class="btn btn-outline-dark float-right" style='font-size: 1.5em;'>결재하기</button>
+           <button type='button' id='btn_payment' class="btn btn-outline-dark float-right" style='font-size: 1.5em;'>결제하기</button>
         </td>
       </tr>
     </tbody>

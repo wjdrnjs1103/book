@@ -32,7 +32,7 @@
   
   <DIV class='container c_bottom_10'> 
     <DIV class='title_line'>
-      ${sessionScope.mname }님 주문결재 내역
+      ${sessionScope.mname }님 주문결제 내역
     </DIV>
   
     <DIV class='content_body' style='width: 100%;'>
@@ -62,8 +62,8 @@
         <TH class='th_bs'>수취인<br>성명</TH>
         <TH class='th_bs'>수취인<br>전화번호</TH>
         <TH class='th_bs'>수취인<br>주소</TH>
-        <TH class='th_bs'>결재 타입</TH>
-        <TH class='th_bs'>결재 금액</TH>
+        <TH class='th_bs'>결제 타입</TH>
+        <TH class='th_bs'>결제 금액</TH>
         <TH class='th_bs'>주문일</TH>
         <TH class='th_bs'>조회</TH>
       </TR>
