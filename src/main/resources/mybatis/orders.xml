@@ -13,8 +13,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   <select id="list_by_memberno" resultType="dev.mvc.orders.OrdersVO" parameterType="HashMap">
     SELECT o.ordersno, o.paymentno, o.memberno, p.productno, p.title, p.price, m.mname,
                 o.cnt, o.tot, o.states, o.rdate
-    FROM orders o, product p, member m 
-    WHERE (o.productno = p.productno) AND (m.memberno = o.memberno) AND 
+    FROM member m, orders o LEFT OUTER JOIN product p ON o.productno = p.productno
+    WHERE (m.memberno = o.memberno) AND 
                 paymentno=#{paymentno} AND o.memberno=#{memberno}
     ORDER BY ordersno DESC
   </select>

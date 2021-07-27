@@ -63,19 +63,15 @@
        
         <table class="table table_top_margin" style='width: 100%;'>
           <colgroup>
-            <col style='width: 5%;'/>
             <col style='width: 10%;'/>
-            <col style='width: 30%;'/>
+            <col style='width: 50%;'/>
             <col style='width: 5%;'/>
             <col style='width: 5%;'/>
             <col style='width: 15%;'/>
             <col style='width: 15%;'/>
-            <col style='width: 10%;'/>
-            <col style='width: 5%;'/>
            
           </colgroup>
           <TR class="table_title">
-            <TH class='th_bs'>주문<br>번호</TH>
             <TH class='th_bs'>회원<br>이름</TH>
   <!--           <TH class='th_bs'>상품<br>번호</TH> -->
             <TH class='th_bs'>상품명</TH>
@@ -83,8 +79,6 @@
             <TH class='th_bs'>수량</TH>
             <TH class='th_bs'>배송상태</TH>
             <TH class='th_bs'>주문일</TH>
-            <TH class='th_bs'>환불신청</TH>
-            <TH class='th_bs'>리뷰</TH>
           </TR>
          
           <c:forEach var="ordersVO" items="${list }">
@@ -101,33 +95,40 @@
             <c:set var="mname" value ="${ordersVO.mname}" />
                
           <TR>
-            <TD class=td_basic>${ordersno}</TD>
-            <TD class=td_basic>${mname}</TD>
-            <!--<TD class=td_basic><A href="/member/read.do?memberno=${memberno}">${memberno}</A></TD>-->
-            <%-- <TD class=td_basic><A href="/product/read.do?productno=${productno}">${productno}</A></TD> --%>
-            <TD class='td_left'>${title}</TD>
-            <TD class='td_left'><fmt:formatNumber value="${price }" pattern="#,###" /></TD>
-            <TD class='td_basic'>${cnt }</TD>
-            <TD class='td_basic'>
-              <c:choose>
-                <c:when test="${states == 1}">결제 완료</c:when>
-                <c:when test="${states == 2}">상품 준비중</c:when>
-                <c:when test="${states == 3}">배송 시작</c:when>
-                <c:when test="${states == 4}">배달중</c:when>
-                <c:when test="${states == 5}">오늘 도착</c:when>
-                <c:when test="${states == 6}">배달 완료</c:when>
-              </c:choose>
-            </TD>
+            <c:choose>
+              <c:when test="${productno != '' }"> <%-- 상품이 존재할 때 --%>
+                <TD class=td_basic>${mname}</TD>
+                <!--<TD class=td_basic><A href="/member/read.do?memberno=${memberno}">${memberno}</A></TD>-->
+                <%-- <TD class=td_basic><A href="/product/read.do?productno=${productno}">${productno}</A></TD> --%>
+                <TD class='td_left'><A href="/product/read.do?productno=${productno}">${title}</A></TD>
+                <TD class='td_left'><fmt:formatNumber value="${price }" pattern="#,###" /></TD>
+                <TD class='td_basic'>${cnt }</TD>
+                <TD class='td_basic'>
+                  <c:choose>
+                    <c:when test="${states == 1}">결제 완료</c:when>
+                    <c:when test="${states == 2}">상품 준비중</c:when>
+                    <c:when test="${states == 3}">배송 시작</c:when>
+                    <c:when test="${states == 4}">배달중</c:when>
+                    <c:when test="${states == 5}">오늘 도착</c:when>
+                    <c:when test="${states == 6}">배달 완료</c:when>
+                  </c:choose>
+                </TD>
+                
+                <TD class='td_basic'>${rdate.substring(0,16) }</TD>
+              
+              </c:when>
+              <c:when test="${productno =='' }"> <%-- 상품이 삭제 되었을 때 --%>
+                <TD class='td_basic'></TD>
+                <TD class='td_left'>해당 상품이 삭제되었습니다</TD>
+                <TD></TD>
+                <TD></TD>
+                <TD></TD>
+                <TD></TD>
+              </c:when>
+              
+            </c:choose>
+            </TR>
             
-            <TD class='td_basic'>${rdate.substring(0,16) }</TD>
-            <TD class='td_basic'>
-              <A href="/refund/create.do?ordersno=${ordersno }">환불신청</A>
-            </TD>
-            <TD class='td_basic'>
-              <a class="glyphicon glyphicon-share" title="리뷰 작성" href="../review/create.do?productno=${productno }">
-              </A>
-            </TD>
-          </TR>
           </c:forEach>
           
       </TABLE>

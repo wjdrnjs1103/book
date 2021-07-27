@@ -91,7 +91,7 @@
                 </c:otherwise>
               </c:choose>
             </td> 
-            <TD class="td_basic">${title }</TD> 
+            <TD class="td_basic"><A href="/product/read.do?productno=${productno }">${title}</A></TD> 
             <TD class=td_basic>${cnt}</TD>
             <TD class='td_basic'><fmt:formatNumber value="${price }" pattern="#,###" /></TD>
             <TD class='td_basic'>
@@ -108,7 +108,7 @@
           </c:when>
             <c:otherwise>
               <tr>
-                <td colspan="6" style="text-align: center; font-size: 1.3em;">아직 관심 상품이 없습니다.</td>
+                <td colspan="6" style="text-align: center; font-size: 1.3em;">아직 판매한 상품이 없습니다</td>
               </tr>
             </c:otherwise>
           </c:choose>
