@@ -64,11 +64,12 @@
         <table class="table table_top_margin" style='width: 100%;'>
           <colgroup>
             <col style='width: 10%;'/>
-            <col style='width: 50%;'/>
+            <col style='width: 40%;'/>
             <col style='width: 5%;'/>
             <col style='width: 5%;'/>
             <col style='width: 15%;'/>
             <col style='width: 15%;'/>
+            <col style='width: 10%;'/>
            
           </colgroup>
           <TR class="table_title">
@@ -79,6 +80,7 @@
             <TH class='th_bs'>수량</TH>
             <TH class='th_bs'>배송상태</TH>
             <TH class='th_bs'>주문일</TH>
+            <TH class='th_bs'>리뷰 등록</TH>
           </TR>
          
           <c:forEach var="ordersVO" items="${list }">
@@ -115,11 +117,15 @@
                 </TD>
                 
                 <TD class='td_basic'>${rdate.substring(0,16) }</TD>
+                <TD class='td_basic'>
+                  <A href="/review/create.do?productno=${productno }">리뷰 등록</A>
+                </TD>
               
               </c:when>
               <c:when test="${productno =='' }"> <%-- 상품이 삭제 되었을 때 --%>
                 <TD class='td_basic'></TD>
                 <TD class='td_left'>해당 상품이 삭제되었습니다</TD>
+                <TD></TD>
                 <TD></TD>
                 <TD></TD>
                 <TD></TD>
@@ -145,7 +151,6 @@
       <DIV class='bottom_menu'>
         <button type='button' onclick="location.href='/payment/list_by_memberno.do?memberno=${memberno}'" 
                     class="btn btn-dark" style="font-size:1.2em;">결제 목록</button>
-      </DIV>
     </DIV>
   </DIV>
 </DIV>
