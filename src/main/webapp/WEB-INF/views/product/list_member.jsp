@@ -306,6 +306,7 @@ function cart_ajax(productno, stateno) {
           
             <span style="font-size: 1.1em;">가격: <fmt:formatNumber value="${productVO.price}" pattern="##,###" /></span>                      
             <br>
+            <span style="font-size: 1.1em;">수량: ${productVO.cnt }</span><br>
             <c:choose>
               <c:when test="${memberno == sessionScope.memberno }">
                 <button type='button' id='btn_mypost' class="btn btn-danger" style='margin-bottom: 2px;'
