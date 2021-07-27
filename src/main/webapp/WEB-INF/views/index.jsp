@@ -193,6 +193,14 @@ function cart_ajax(productno, stateno, bookno) {
                                       onclick="cart_ajax(${productVO.productno}, ${productVO.stateno }, ${productVO.bookno })">찜하기</button><br>
                             </c:otherwise>
                           </c:choose>
+                          <c:choose>
+                            <c:when test="${productVO.stateno ==1 }">
+                              <h4 style='font-size: 1.3em;'>판매중</h4>
+                            </c:when>
+                            <c:otherwise>
+                              <h4 style='color: #FF0000; font-size: 1.3em;' class="font-weight-bold">판매 완료</h4>
+                            </c:otherwise>
+                          </c:choose><br>
                         </form>
                         </div>
                     </div>
