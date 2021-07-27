@@ -68,7 +68,7 @@ function delete_func(cartno) {  // GET -> POST 전송, 상품 삭제
     // return;
     
     frm.submit();
-    
+    alert("수량이 변경되었습니다.");
   }
 
 </script>
@@ -162,12 +162,11 @@ function delete_func(cartno) {  // GET -> POST 전송, 상품 삭제
                   </td>
                   <td style='vertical-align: middle; text-align: center;'>
                     <input type='number' id='${cartno }_cnt' min='1' max='${product_cnt }' step='1' value="${cnt }"  style='width: 52px;'><br>
-                    <button type='button' onclick="update_cnt(${cartno})" class='btn' style='margin-top: 5px;'>변경</button>
+                    <button type='button' onclick="update_cnt(${cartno})" class='btn btn-warning' style='margin-top: 5px;'>수량 변경</button>
                   </td>
                   <td style='vertical-align: middle; text-align: center;'>
                     <A href="javascript: delete_func(${cartno })"><span class="glyphicon glyphicon-remove"></span></A>
-                    <input type="hidden" id="count" name = "count" value="${count }">
-                    ${count }
+                    
                     
                     <!-- <form name="frm_count" id = "frm_count" action="/cart/count_goods.do" method="get">
                       <input type="hidden" id="cart_count" name = "cart_count" value="${cart_count }">

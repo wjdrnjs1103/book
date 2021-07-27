@@ -163,5 +163,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
                                   WHERE productno =#{productno} )
   </select>
 
+  <!-- 상품 수량 변경 -->
+  <update id="update_cnt" parameterType="dev.mvc.product.ProductVO">
+    UPDATE product
+    SET cnt = #{cnt}
+    WHERE productno=#{productno}
+  </update>
          
 </mapper> 

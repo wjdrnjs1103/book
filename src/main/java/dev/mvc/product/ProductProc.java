@@ -261,4 +261,11 @@ import dev.mvc.tool.Tool;
       return mname;
     }
     
+    @Override
+    public int update_cnt(ProductVO productVO) {
+      int cnt = this.productDAO.update_cnt(productVO);
+      return cnt;
+    }
+    
+    
 }

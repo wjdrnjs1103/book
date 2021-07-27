@@ -270,7 +270,8 @@
         </c:if> 
           <DIV style="width: 47%; height: 260px; float: left; margin-right: 10px;">
             <span style="font-size: 1.5em; font-weight: bold;">${title }</span><br>
-            <span style="font-size: 2.5em;">가격: <fmt:formatNumber value="${productVO.price}" pattern="##,###" />원</span> 
+            <span style="font-size: 2.5em;">가격: <fmt:formatNumber value="${productVO.price}" pattern="##,###" />원</span> <br>
+            <span style="font-size: 2.5em;">수량: ${productVO.cnt }</span>
             <form>
             <button type='button' onclick="send_msg(${param.stateno})" class="btn btn-warning">메세지</button>
             <button type='button' id = 'btn_cart' onclick="cart_ajax(${productno}, ${param.stateno })" class="btn btn-danger">관심상품</button>

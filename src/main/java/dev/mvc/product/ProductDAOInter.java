@@ -100,6 +100,11 @@ public interface ProductDAOInter {
    */
   public String get_mname(int productno);
   
-  
+  /**
+   * 상품 수량 변경
+   * @param productno
+   * @return
+   */
+  public int update_cnt(ProductVO productVO);  
   
 }

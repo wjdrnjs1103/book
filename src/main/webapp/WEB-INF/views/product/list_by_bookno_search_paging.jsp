@@ -270,7 +270,8 @@ function cart_ajax(productno, stateno) {
           </td> 
           <td style='vertical-align: middle; text-align: center;'>
           
-            <span style="font-size: 1.1em;">가격: <fmt:formatNumber value="${productVO.price}" pattern="##,###" /></span>                      
+            <span style="font-size: 1.1em;">가격: <fmt:formatNumber value="${productVO.price}" pattern="##,###" /></span><br>                      
+            <span style="font-size: 1.1em;">수량: ${productVO.cnt }</span>
             <br>
             <button type='button' id='btn_cart' class="btn btn-danger" style='margin-bottom: 2px;'
                         onclick="cart_ajax(${productno}, ${stateno })">찜하기 </button><br>

@@ -134,7 +134,10 @@ public class PaymentCont {
         ProductVO productVO = this.productProc.read(productno);
         int tot = productVO.getPrice() * cartVO.getCnt();
         
-     // Orders에 같은 productno가 있는지 확인
+        //-----------------------------------------------------------------
+        // 남는 수량이 다 소진될 때까지 판매중으로 만들기
+        //-----------------------------------------------------------------
+        // Orders에 같은 productno가 있는지 확인
         int sum = 0;
         int exist = this.ordersProc.exist(productno); // Orders에 해당 productno가 존재하는가?
         if (exist >= 1) {
@@ -156,6 +159,19 @@ public class PaymentCont {
           this.productProc.update_stateno(productno);
           System.out.println("업데이트");
         }
+      //----------------------------------------------------------------
+        
+        //----------------------------------------------------------------
+        // 상품 리스트에 남은 수량 변경
+        //---------------------------------------------------------------
+        int product_cnt = productVO.getCnt(); // ProductVO에 저장된 상품 수량
+        int remain_cnt = product_cnt - tot_sum;
+        
+        productVO.setCnt(remain_cnt);
+        this.productProc.update_cnt(productVO);
+        
+        // 끝
+        //-----------------------------------------------------------------      
         
         ordersVO.setTot(tot);
         // 배송 상태(states):  1: 결재 완료, 2: 상품 준비중, 3: 배송 시작, 4: 배달중, 5: 오늘 도착, 6: 배달 완료  
