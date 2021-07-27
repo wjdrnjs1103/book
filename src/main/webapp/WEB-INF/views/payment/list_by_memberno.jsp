@@ -87,10 +87,9 @@
         <TD class='td_basic'>${address}</TD>
         <TD class='td_basic'>
           <c:choose>
-            <c:when test="${paytype == 1}">현장거래</c:when>
-            <c:when test="${paytype == 2}">모바일</c:when>
-            <c:when test="${paytype == 3}">계좌 이체</c:when>
-            <c:when test="${paytype == 4}">신용카드</c:when>
+            <c:when test="${paytype == 1}">모바일</c:when>
+            <c:when test="${paytype == 2}">계좌 이체</c:when>
+            <c:when test="${paytype == 3}">신용카드</c:when>
           </c:choose>
         </TD>
         <TD class='td_basic'><fmt:formatNumber value="${paymoney }" pattern="#,###" /></TD>

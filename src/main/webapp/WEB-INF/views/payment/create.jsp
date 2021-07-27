@@ -353,13 +353,11 @@
   <div class='menu_line'></div>
   <div style=" text-align: left;">
     <label style="cursor: pointer;"><input type="radio" name="paytype" id="paytype" 
-             value="1" onclick ="getDelivery(${paytype})" checked="checked"> 현장 거래 </label>&nbsp;&nbsp;
+             value="1" onclick ="getDelivery(${paytype})" checked="checked"> 모바일 </label>&nbsp;&nbsp;
     <label style="cursor: pointer;"><input type="radio" name="paytype" id="paytype" 
-             value="2" onclick ="getDelivery(${paytype})" > 모바일</label>&nbsp;&nbsp;
+             value="2" onclick ="getDelivery(${paytype})" > 계좌 이체</label>&nbsp;&nbsp;
     <label style="cursor: pointer;"><input type="radio" name="paytype" id="paytype" 
-             value="3" onclick ="getDelivery(${paytype})" > 계좌 이체</label>&nbsp;&nbsp;
-    <label style="cursor: pointer;"><input type="radio" name="paytype" id="paytype" 
-             value="4" onclick ="getDelivery(${paytype})" > 신용 카드</label>&nbsp;&nbsp;
+             value="3" onclick ="getDelivery(${paytype})" > 신용 카드</label>&nbsp;&nbsp;
   </div>
   
   <table class="table table-striped" style='margin-top: 20px; margin-bottom: 50px; width: 100%; clear: both;'>
