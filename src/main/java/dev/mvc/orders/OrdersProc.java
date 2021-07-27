@@ -23,5 +23,17 @@ public class OrdersProc implements OrdersProcInter {
     List<OrdersVO> list = this.ordersDAO.list_by_memberno(map);
     return list;
   }
+  
+  @Override
+  public int sum_cnt(int productno) {
+    int cnt = this.ordersDAO.sum_cnt(productno);
+    return cnt;
+  }
+
+  @Override
+  public int exist(int productno) {
+    int cnt = this.ordersDAO.exist(productno);
+    return cnt;
+  }
 
 }

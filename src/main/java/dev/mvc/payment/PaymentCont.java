@@ -134,6 +134,28 @@ public class PaymentCont {
         ProductVO productVO = this.productProc.read(productno);
         int tot = productVO.getPrice() * cartVO.getCnt();
         
+     // Orders에 같은 productno가 있는지 확인
+        int sum = 0;
+        int exist = this.ordersProc.exist(productno); // Orders에 해당 productno가 존재하는가?
+        if (exist >= 1) {
+          sum = this.ordersProc.sum_cnt(productno);
+          //System.out.println("존재한다");
+        }
+        
+        // product의 cnt와 order와 cart의 cnt 합를 비교해서 product의 cnt보다 cart에서 가져간 cnt가 더 적으면 return null
+        //System.out.println("Productno:" + productno);
+        //System.out.println("Product의 cnt:"+productVO.getCnt());
+        //System.out.println("Cart의 cnt:" + cartVO.getCnt());
+        //System.out.println("Orders의 cnt:"+ ordersVO.getCnt());
+        //System.out.println("Orders의 SUM(cnt):"+sum);
+        
+        int tot_sum = cartVO.getCnt() + sum; // 장바구니+결제된 상품의 수량의 합        
+        
+        if (tot_sum >= productVO.getCnt()) {
+          this.productProc.update_stateno(productno);
+          //System.out.println("업데이트");
+        }
+        
         ordersVO.setTot(tot);
         // 배송 상태(states):  1: 결재 완료, 2: 상품 준비중, 3: 배송 시작, 4: 배달중, 5: 오늘 도착, 6: 배달 완료  
         ordersVO.setStates(1);

@@ -3,11 +3,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="dev.mvc.orders.OrdersDAOInter">
+  <!-- 구입한 상품의 상세 내역 등록 -->
   <insert id="create" parameterType="dev.mvc.orders.OrdersVO">
     INSERT INTO orders(ordersno, paymentno, memberno, productno, cnt, tot, states, rdate)
     VALUES(orders_seq.nextval, #{paymentno}, #{memberno}, #{productno}, #{cnt}, #{tot}, #{states}, sysdate)
   </insert>
   
+  <!-- 구입한 상품에 대한 회원별 목록 -->
   <select id="list_by_memberno" resultType="dev.mvc.orders.OrdersVO" parameterType="HashMap">
     SELECT o.ordersno, o.paymentno, o.memberno, p.productno, p.title, p.price, m.mname,
                 o.cnt, o.tot, o.states, o.rdate
@@ -15,6 +17,20 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     WHERE (o.productno = p.productno) AND (m.memberno = o.memberno) AND 
                 paymentno=#{paymentno} AND o.memberno=#{memberno}
     ORDER BY ordersno DESC
+  </select>
+  
+  <!-- Orders의 한 상품의 cnt 합산 -->
+  <select id="sum_cnt" resultType="int" parameterType="int">
+    SELECT SUM(cnt)
+    FROM orders
+    WHERE productno=#{productno}
+  </select>
+  
+  <!-- 해당 상품 번호가 있는지 확인 -->
+  <select id="exist" resultType="int" parameterType="int">
+    SELECT count(*)
+    FROM orders
+    WHERE productno = #{productno}
   </select>
 
 </mapper>
