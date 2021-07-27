@@ -266,7 +266,7 @@ function cart_ajax(productno, stateno) {
             </c:choose>
           </td>  
           <td style='vertical-align: middle;'>
-            <a href="./read.do?productno=${productno}&now_page=${param.now_page }&stateno=${stateno}"><strong>${title}</strong><br> ${content}</a> 
+            <a href="./read.do?productno=${productno}&now_page=${param.now_page }&stateno=${stateno}"><strong>${title}</strong><br></a> 
           </td> 
           <td style='vertical-align: middle; text-align: center;'>
           

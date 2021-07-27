@@ -76,6 +76,9 @@ public class MessageCont {
     BookgrpVO bookgrpVO = this.bookgrpProc.read(bookVO.getBookgrpno());
     mav.addObject("bookgrpVO", bookgrpVO); 
     
+    String mname = this.productProc.get_mname(productno);
+    mav.addObject("mname", mname);
+    
     mav.setViewName("/message/create"); // webapp/message/create.jsp
    
     return mav; // forward
@@ -83,7 +86,7 @@ public class MessageCont {
   
   /**
    * 쪽지 답장 폼
-   * http://localhost:9091/message/message.do?
+   * http://localhost:9091/message/reply.do
    * @return
    */
   @RequestMapping(value="/message/reply.do", method=RequestMethod.GET )
@@ -132,7 +135,7 @@ public class MessageCont {
    * @return
    */
   @RequestMapping(value="/message/reply.do", method=RequestMethod.POST )
-  public ModelAndView create(MessageVO messageVO, int productno, int send_member) {
+  public ModelAndView reply(HttpSession session, MessageVO messageVO, int productno, int send_member) {
     ModelAndView mav = new ModelAndView();
     
     int recv_member = this.messageProc.get_memberno(productno); // get_memberno 함수로 게시글 작성자의 회원번호 추출
@@ -144,10 +147,10 @@ public class MessageCont {
     
     List<MessageVO> list = this.messageProc.list(recv_member);
     mav.addObject("list", list); // request.setAttribute("list", list);
-    
     mav.addObject("cnt", cnt); // redirect parameter 적용
+    int memberno = (int)session.getAttribute("memberno");
     
-    mav.setViewName("/message/list"); // webapp/message/list.jsp
+    mav.setViewName("redirect:/message/list.do"); // webapp/message/list.jsp
    
     return mav; // forward
   }

@@ -28,10 +28,6 @@
 <link rel="icon" type="/image/x-icon" href="assets/favicon.ico" />
 
 <script type="text/javascript">
-function update_stateno(productno){
-  
-}
-
 function read_delete_ajax(messageno) {
   var params = "";
   // params = $('#frm').serialize(); // 직렬화, 폼의 데이터를 키와 값의 구조로 조합
@@ -79,33 +75,62 @@ function read_delete_ajax(messageno) {
 <jsp:include page="../menu/top.jsp" />
   <div class="container">
     <div class="col-md-6 col-md-offset-3" style="text-align: center;">                        
-      <h3>${param.sender } 님의 쪽지  </h3>
+      <h3>${scheduleVO.classname }  </h3>
     </div>
     <%-- 책에 대한 정보 표기 --%>
     <div class="page-header"></div>
 
     <div class="col-sm-6 col-md-offset-3" >
       <form name='frm' id='frm' style='margin-top: 50px;' action="/product/update_stateno.do" method='post'>
-        <input type='hidden' name='productno' id='productno' value=${messageVO.productno }> 
+        <input type='hidden' name='classno' id='classno' value=${scheduleVO.classno }> 
         <div class="form-group">
-            <label for="inputName">제목</label>
-            <input type="text" class="form-control" name="title" id="title" value='${messageVO.title }' disabled>
+            <label for="inputName">시작 시간</label>
+            <input type="text" class="form-control" name="starttime" id="starttime" value='${scheduleVO.starttime }' disabled>
+        </div>
+        <div class="form-group">
+            <label for="inputName">종료 시간</label>
+            <input type="text" class="form-control" name="endtime" id="endtime" value='${scheduleVO.endtime }' disabled>
+        </div>
+        
+        <div class="form-group">
+            <label for="inputMobile">강의일</label>
+            <c:choose>
+              <c:when test="${scheduleVO.cday == 0 }">
+                <input type="text" class="form-control" name="cday" id="cday" value='월요일' disabled>
+              </c:when>
+              <c:when test="${scheduleVO.cday == 1 }">
+                <input type="text" class="form-control" name="cday" id="cday" value='화요일' disabled>
+              </c:when>
+              <c:when test="${scheduleVO.cday == 2 }">
+                <input type="text" class="form-control" name="cday" id="cday" value='수요일' disabled>
+              </c:when>
+              <c:when test="${scheduleVO.cday == 3 }">
+                <input type="text" class="form-control" name="cday" id="cday" value='목요일' disabled>
+              </c:when>
+              <c:when test="${scheduleVO.cday == 4 }">
+                <input type="text" class="form-control" name="cday" id="cday" value='금요일' disabled>
+              </c:when>
+            </c:choose>
         </div>
 
         <div class="form-group">
-            <label for="inputMobile">내용</label>
-            <textarea name='contents' id='contents' required="required" class="form-control" rows="12" style='width: 100%;'disabled>${messageVO.contents }</textarea>
+            <label for="inputMobile">교재</label>
+            <c:choose> 
+              <c:when test='${scheduleVO.textbook == "" }'>
+                <input type="text" class="form-control" name="textbook" id="textbook" value='미등록' disabled>
+                <button type="button" class="btn btn-primary" onclick="location.href='./list.do?memberno=${sessionScope.memberno }'">등록하기</button>
+              </c:when>
+              <c:otherwise>
+                <input type="text" class="form-control" name="textbook" id="textbook" value='${scheduleVO.textbook }' disabled>
+              </c:otherwise>
+            </c:choose>
         </div>
-  
-        <div class="form-group text-center">
-
-            <button type="button" onclick="location.href='./reply.do?send_member=${messageVO.send_member}&productno=${messageVO.productno }'" class="btn btn-primary">
-               답장<i class="fa fa-times spaceLeft"></i>
-            </button>
-            <button type="button" onclick="location.href='./list.do?memberno=${sessionScope.memberno}'" class="btn btn-primary">
-               쪽지함<i class="fa fa-times spaceLeft"></i>
-            </button>
+        
+        <div class="form-group">
+            <label for="inputMobile">교수</label>
+            <input type="text" class="form-control" name="title" id="title" value='${scheduleVO.professor }' disabled>
         </div>
+ 
       </form>
     </div>
   </div> <!-- container// -->

@@ -180,8 +180,25 @@ public class ScheduleCont {
     int cnt = this.scheduleProc.delete(classno); // 삭제 처리
     mav.addObject("cnt", cnt);  // request 객체에 저장
    
-   
     mav.setViewName("redirect:/schedule/list.do");   
+
+  
+    return mav;
+  }
+  
+  /**
+  *  시간표 상세
+  * @param classno 조회할 카테고리 번호
+  * @return
+  */
+  @RequestMapping(value="/schedule/read_by_classno.do", method=RequestMethod.GET )
+  public ModelAndView read_by_classno(int classno) {
+    ModelAndView mav = new ModelAndView();
+   
+    ScheduleVO scheduleVO = this.scheduleProc.read_by_classno(classno); // 삭제 정보
+    mav.addObject("scheduleVO", scheduleVO);  // request 객체에 저장
+   
+    mav.setViewName("/schedule/read");   
 
   
     return mav;

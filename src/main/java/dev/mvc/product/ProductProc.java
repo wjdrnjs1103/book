@@ -254,5 +254,11 @@ import dev.mvc.tool.Tool;
       List<ProductVO> list =this.productDAO.load();
       return list;
     }
+
+    @Override
+    public String get_mname(int productno) {
+      String mname = this.productDAO.get_mname(productno);
+      return mname;
+    }
     
 }

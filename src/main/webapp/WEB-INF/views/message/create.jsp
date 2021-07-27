@@ -52,7 +52,7 @@
           <span style="font-size: 1.5em; font-weight: bold;">상품명: ${productVO.title }</span><br>
         </DIV>
         <DIV style="width: 50%; float: rigth; margin-right: 10px;" ><br>
-          <span style="font-size: 1.5em; font-weight: bold;">판매자: ${productVO.memberno }</span><br>
+          <span style="font-size: 1.5em; font-weight: bold;">판매자: ${mname}</span><br>
         </DIV>
         <DIV style="width: 50%; float: rigth; margin-right: 10px;"><br>
           <span style="font-size: 1.5em; font-weight: bold;">가격: ${productVO.price }</span><br>

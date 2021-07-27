@@ -59,7 +59,7 @@
       </div>
       <div class="form-group">
           <label for="inputPassword">비밀번호</label>
-          <input type="text" class="form-control" name="passwd" id="passwd" value='${ck_passwd }' placeholder="비밀번호를 입력해주세요">
+          <input type="password" class="form-control" name="passwd" id="passwd" value='${ck_passwd }' placeholder="비밀번호를 입력해주세요">
           <Label>
             <input type='checkbox' name='passwd_save' value='Y' 
                       ${ck_passwd_save == 'Y' ? "checked='checked'" : "" }> 저장

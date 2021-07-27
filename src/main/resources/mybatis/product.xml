@@ -153,6 +153,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     WHERE stateno=1
     ORDER BY productno DESC
   </select> 
+  
+   <!-- 상품번호에 따른 회원이름 출력 -->
+  <select id="get_mname" resultType="String" parameterType="int">
+    SELECT mname
+    FROM member
+    WHERE memberno=( SELECT memberno
+                                  FROM product
+                                  WHERE productno =#{productno} )
+  </select>
 
          
 </mapper> 

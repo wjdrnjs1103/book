@@ -810,7 +810,7 @@ public class ProductCont {
        
        int cnt = this.productProc.delete(productno); // DBMS 삭제
        
-       mav.setViewName("redirect:/product/list_by_bookno_search_paging.do"); 
+       mav.setViewName("redirect:/product/list_member.do"); 
 
        return mav; // forward
      }  

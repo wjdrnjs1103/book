@@ -75,7 +75,7 @@
         
         <%-- <button type='button' onclick="location.href='./list_by_bookno.do?bookno=${param.bookno}'" class="btn btn-primary">목록</button> --%>
         <%-- <button type='button' onclick="location.href='./list_by_bookno_search.do?bookno=${param.bookno}'" class="btn btn-primary">목록</button> --%>
-        <button type='button' onclick="location.href='./list_by_bookno_search_paging.do?bookno=${param.bookno}'" class="btn btn-dark">목록</button>
+        <button type='button' onclick="location.href='./list_member.do?bookno=${param.bookno}'" class="btn btn-dark">목록</button>
       </LI>
     </UL>
   </fieldset>

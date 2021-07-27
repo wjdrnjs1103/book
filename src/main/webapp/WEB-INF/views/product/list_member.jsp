@@ -293,9 +293,14 @@ function cart_ajax(productno, stateno) {
                 ${file1}
               </c:otherwise>
             </c:choose>
+            <c:choose>
+              <c:when test="${thumb1=='' }">
+                <a href="./read.do?productno=${productno}&now_page=${param.now_page }&word=${param.word }&stateno=${stateno}"><IMG src="/product/storage/noimage.png" style="width: 130px; height: 170px;"></a>
+              </c:when>
+            </c:choose>
           </td>  
           <td style='vertical-align: middle;'>
-            <a href="./read.do?productno=${productno}&now_page=${param.now_page }&stateno=${stateno}"><strong>${title}</strong><br> ${content}</a> 
+            <a href="./read.do?productno=${productno}&now_page=${param.now_page }&stateno=${stateno}"><strong>${title}</strong><br></a> 
           </td> 
           <td style='vertical-align: middle; text-align: center;'>
           

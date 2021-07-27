@@ -91,7 +91,7 @@ function load(memberno) {
           for (cday[i]; cday[i]<=5; cday[i]++){
             for (starttime[i]; starttime[i]<=endtime[i]; starttime[i]++){
               $('#'+starttime[i]+'_'+cday[i]).attr('rowspan', (endtime[i]-starttime[i])); 
-              $('#'+starttime[i]+'_'+cday[i]).html('<h4><A href="/schedule/read.do?classno='+ classno[i] +'">'+classname[i]+'</A></h4>');
+              $('#'+starttime[i]+'_'+cday[i]).html('<h4><A href="/schedule/read_by_classno.do?classno='+ classno[i] +'">'+classname[i]+'</A></h4>');
               $('#'+starttime[i]+'_'+cday[i]).css('background', randomColor());
               
               for (starttime[i]; starttime[i]<endtime[i]-1; starttime[i]++){

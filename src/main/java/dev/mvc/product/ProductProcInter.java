@@ -111,5 +111,11 @@ public interface ProductProcInter {
    */
   public List<ProductVO> load();
   
+  /**
+   * 회원 이름추출
+   * @return
+   */
+  public String get_mname(int productno);
+  
   
 }

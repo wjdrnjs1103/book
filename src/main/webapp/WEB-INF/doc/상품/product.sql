@@ -9,7 +9,7 @@ CREATE TABLE product(
 		memberno                      		NUMBER(10)		 NULL ,
 		title                         		VARCHAR2(100)		 NOT NULL,
 		content                       		CLOB		 NOT NULL,
-		cnt                           		NUMBER(7)		 DEFAULT 0		 NOT NULL,
+		cnt                           		NUMBER(7)		 DEFAULT 0    NOT NULL,
 		word                          		VARCHAR2(300)		 NULL ,
 		rdate                         		DATE		 NOT NULL,
 		file1                         		VARCHAR2(100)		 NULL ,
@@ -66,4 +66,12 @@ WHERE productno = 1;
 SELECT productno, bookno, memberno, title, content, cnt, word, rdate, file1, file1saved, thumb1, size1, price, stateno
 FROM product
 ORDER BY productno ASC;
+
+SELECT mname
+FROM member
+WHERE memberno=( 
+SELECT memberno
+FROM product
+WHERE productno =60);
+
 
