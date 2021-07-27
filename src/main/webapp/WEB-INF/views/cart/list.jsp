@@ -1,6 +1,7 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ page import="dev.mvc.product.ProductVO" %>
  
 <!DOCTYPE html> 
 <html lang="ko"> 
@@ -160,7 +161,8 @@ function delete_func(cartno) {  // GET -> POST 전송, 상품 삭제
                     <fmt:formatNumber value="${price }" pattern="#,###" /><br>
                   </td>
                   <td style='vertical-align: middle; text-align: center;'>
-                    <input type='number' id='${cartno }_cnt' min='1' max='100' step='1' value="${cnt }" 
+                  <% ProductVO productVO = new ProductVO(); %>
+                    <input type='number' id='${cartno }_cnt' min='1' max='<%= productVO.getCnt() %>' step='1' value="${cnt }" 
                       style='width: 52px;'><br>
                     <button type='button' onclick="update_cnt(${cartno})" class='btn' style='margin-top: 5px;'>변경</button>
                   </td>
