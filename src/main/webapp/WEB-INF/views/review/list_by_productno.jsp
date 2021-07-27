@@ -113,7 +113,7 @@
                       
                     
                       <TR>
-                        <TD class="td_bs_left" style="padding-left: 50px; padding-top:20px; " >
+                        <TD class="td_bs_left" style="padding-left: 50px; padding-top:20px; padding-bottom:3%;" >
                           <span style="width: 25%; font-size: 1.0em; color:gray;">${writer}</span>
                           <span style="float:right; padding-right:70%; font-size: 0.9em; color:gray;">${rdate.substring(0, 16) }</span>
                           <div style="padding-top: 7px;" onclick="location.href='./read.do?reviewno=${reviewno}'">
@@ -125,18 +125,16 @@
                             <c:when test="${thumb.endsWith('jpg') || thumb.endsWith('png') || thumb.endsWith('gif')}">
                               <%-- /static/contents/storage/ --%>
                               <a href="./read.do?reviewno=${reviewno}"><IMG src="/review/storage/${thumb }" style="width: 100px; height: 90px; margin-bottom: 7px;"></a><br>
-                              <span style="color:gray;">조회수(<span style="color:black;">${rcnt }</span>)</span>                              
+                              <span style="color:gray;">조회 (<span style="color:black;">${rcnt }</span>)</span>                              
                             </c:when>
                             <c:otherwise> <!-- 이미지가 아닌 일반 파일 -->
-                              <a style="width: 80px; height: 90px;">${file1}</a>
-                              <span style="margin-top: 10px; color:gray;">평점 : <span style="color:black;">${score }</span></span><br>
+                              <a style="width: 80px; height: 90px; "><img src="/review/images/bin.png" style="width: 100px; height: 0.5px; "></a><br>
                               <span style="color:gray;">조회 : <span style="color:black;">${rcnt }</span></span>                              
                             </c:otherwise>
                           </c:choose>
                         </td>
-                        <td style="padding-top: 45px;"> 
-                          <span class="starR1 on">별1_왼쪽</span>
-                          <span class="starR2 on">별1_오른쪽</span>　
+                        <td style="padding-top: 3%; padding-bottom:1%;"> 
+                          <span class="star_ on"></span>　
                           <span style=" color:gray;">(<span style="color:black;">${score }</span>)</span> 
                         </td>
                       </TR>   
