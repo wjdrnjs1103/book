@@ -248,5 +248,11 @@ import dev.mvc.tool.Tool;
       int cnt = this.productDAO.get_stateno(productno);
       return cnt;
     }
+
+    @Override
+    public List<ProductVO> load() {
+      List<ProductVO> list =this.productDAO.load();
+      return list;
+    }
     
 }

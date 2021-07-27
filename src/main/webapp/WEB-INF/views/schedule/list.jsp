@@ -41,7 +41,6 @@
     $('#btn_update_cancel').on('click', cancel);
     $('#btn_delete_cancel').on('click', cancel);
   });
-
   function cancel() {
     $('#panel_create').css("display","");  
     $('#panel_update').css("display","none"); 
@@ -76,6 +75,38 @@
       );  //  $.ajax END
   }
   
+  function update(memberno) {
+    var frm_update = $('#frm_create');
+    
+    var memberno = $('#memberno', frm_update).val();
+    var cday = $('#cday', frm_update).val();
+    var starttime = $('#starttime', frm_update).val();
+    var endtime = $('#endtime', frm_update).val();
+    var professor = $('#professor', frm_update).val();
+    var textbook = $('#textbook', frm_update).val();
+    var classname = $('#classname', frm_update).val();   
+ 
+    if(classname == 0) {
+      alert("강의명을 입력해주세요");
+      return;
+    } else if (professor == 0) {
+      alert("교수를 입력해주세요");
+      return;
+    } else if(isCross(starttime, endtime)==false) {
+      alert("시간설정을 다시해주세요");
+      return;
+    } else {
+      if(isOverlap(starttime, endtime, cday)==false) {
+        console.log("isOverlap 요일교차체크");
+        alert("해당 요일에 겹치는 강의가 있습니다.");
+        return;
+      } else {
+        alert("강의가 등록되었습니다. 시간표 불러오기를 통해 확인해주세요.");
+        frm_update.submit();
+      }
+    } 
+  }
+  
   function create(memberno) {
     var frm_create = $('#frm_create');
     
@@ -108,7 +139,6 @@
     }
    
   }
-  
   function isOverlap(starttime, endtime, cday) {
     console.log("isOverlap 함수진입");
     for(var i =0;  i<classno_arr.length; i++){
@@ -119,15 +149,13 @@
       
       for (cday_arr[i]; cday_arr[i]<5; cday_arr[i]++){
         if(cday == cday_arr[i]){
-          if(starttime < endtime_arr[i]){
+          if(starttime < endtime_arr[i] && endtime > starttime_arr[i]){
             console.log("입력된 요일", cday);
             console.log("비교군 요일", cday_arr[i]);
             console.log("입력된 starttime", starttime);
             console.log("입력된 endtime", endtime);
             console.log("비교군 starttime", starttime_arr[i]);
             console.log("비교군 endtime", endtime_arr[i]);
-            return false;
-          } else if(starttime_arr[i] > endtime) {
             return false;
           } else {
             break;
@@ -137,9 +165,8 @@
         break;
       }
     }
-    return true;
   }
-
+  
   function isCross(starttime, endtime) {
     console.log("isCross 함수진입");
     if (Number(starttime) >= Number(endtime)) {
@@ -158,7 +185,6 @@
     var params = "";
     // params = $('#frm').serialize(); // 직렬화, 폼의 데이터를 키와 값의 구조로 조합
     params = 'classno=' + classno; // 공백이 값으로 있으면 안됨.
-
     $.ajax(
       {
         url: '/schedule/read_ajax.do',
@@ -175,7 +201,6 @@
           var professor = rdata.professor;
           var textbook = rdata.textbook;
           var cday = rdata.cday;
-
           var frm_update = $('#frm_update');
           $('#classno', frm_update).val(classno);
           $('#classname', frm_update).val(classname);
@@ -184,7 +209,7 @@
           $('#professor', frm_update).val(professor);
           $('#textbook', frm_update).val(textbook);
           $('#cday', frm_update).val(cday);
-          
+
         },
         // Ajax 통신 에러, 응답 코드가 200이 아닌경우, dataType이 다른경우 
         error: function(request, status, error) { // callback 함수
@@ -192,15 +217,12 @@
         }
       }
     );  //  $.ajax END
-
   } 
-
   // 삭제 폼(자식 레코드가 없는 경우의 삭제)
   function read_delete_ajax(classno) {
     $('#panel_create').css("display","none"); // hide, 태그를 숨김
     $('#panel_update').css("display","none"); // hide, 태그를 숨김  
     $('#panel_delete').css("display",""); // show, 숨겨진 태그 출력 
-
     var params = "";
     // params = $('#frm').serialize(); // 직렬화, 폼의 데이터를 키와 값의 구조로 조합
     params = 'classno=' + classno; // 공백이 값으로 있으면 안됨.
@@ -221,7 +243,6 @@
           $('#classno', frm_delete).val(classno);
           
           
-
         },
         // Ajax 통신 에러, 응답 코드가 200이 아닌경우, dataType이 다른경우 
         error: function(request, status, error) { // callback 함수
@@ -229,7 +250,6 @@
         }
       }
     );  //  $.ajax END
-
   } 
   
 </script>
@@ -287,7 +307,13 @@
         <label>강의명</label>
         <input type='text' name='classname' id='classname' value='' required="required" style='width: 10%;'>
         <label>요일</label>
-        <input type='text' name='cday' id='cday' value='' required="required" style='width: 10%;'>
+        <select name="cday" id='cday' value='' required="required" style='width: 10%;'>
+          <option value="0">월요일</option>
+          <option value="1">화요일</option>
+          <option value="2">수요일</option>
+          <option value="3">목요일</option>
+          <option value="4">금요일</option>
+        </select>
         <label>교수</label>
         <input type='text' name='professor' id='professor' value='' required="required" style='width: 10%;'>
         <label>교재</label>
@@ -299,7 +325,7 @@
         <input type='number' name='endtime' id='endtime' value='18' required="required" 
                   min='9' max='18' step='1' style='width: 5%;'>
           
-        <button type="submit" class="btn btn-dark">저장</button>
+        <button type="submit" onclick="update(${sessionScope.memberno})"   class="btn btn-dark">저장</button>
         <button type="button" onclick="cancel();"  class="btn btn-dark">취소</button>
       </FORM>
     </DIV>
@@ -389,4 +415,3 @@
 </body>
  
 </html>
-

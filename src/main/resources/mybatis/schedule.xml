@@ -10,6 +10,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     SELECT classno, memberno, cday, classname, starttime, endtime, professor, textbook
     FROM schedule
     WHERE memberno = #{memberno}
+    ORDER BY classno DESC
   </select>
   
   <!-- 조회 -->
@@ -17,6 +18,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     SELECT classno, memberno, cday, classname, starttime, endtime, professor, textbook
     FROM schedule
     WHERE memberno = #{memberno}
+    ORDER BY classno DESC
   </select>
   
   <!-- 조회 -->
@@ -24,6 +26,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     SELECT classno, memberno, cday, classname, starttime, endtime, professor, textbook
     FROM schedule
     WHERE  classno = #{classno}
+    ORDER BY classno DESC
   </select>
   
   <!-- 등록 -->

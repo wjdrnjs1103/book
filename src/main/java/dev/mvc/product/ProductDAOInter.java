@@ -87,4 +87,10 @@ public interface ProductDAOInter {
    */
   public int get_stateno(int productno);
   
+  /**
+   * 최근게시글 추출
+   * @return
+   */
+  public List<ProductVO> load();
+  
 }

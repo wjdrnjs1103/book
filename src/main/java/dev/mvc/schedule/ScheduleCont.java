@@ -128,7 +128,6 @@ public class ScheduleCont {
                                method=RequestMethod.GET )
   @ResponseBody
   public String read_ajax(int classno) {
-    System.out.println("read_ajax ok");
     ScheduleVO scheduleVO = this.scheduleProc.read_by_classno(classno);
      
     JSONObject json = new JSONObject();

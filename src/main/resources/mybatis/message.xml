@@ -59,6 +59,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     SELECT messageno, title, contents, recv_member, send_member, s_date, productno
     FROM message
     WHERE messageno = #{messageno}
+    ORDER BY messageno DESC
   </select>  
   
 </mapper>
