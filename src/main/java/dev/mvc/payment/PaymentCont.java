@@ -139,7 +139,7 @@ public class PaymentCont {
         int exist = this.ordersProc.exist(productno); // Orders에 해당 productno가 존재하는가?
         if (exist >= 1) {
           sum = this.ordersProc.sum_cnt(productno);
-          //System.out.println("존재한다");
+          System.out.println("존재한다");
         }
         
         // product의 cnt와 order와 cart의 cnt 합를 비교해서 product의 cnt보다 cart에서 가져간 cnt가 더 적으면 return null
@@ -147,13 +147,14 @@ public class PaymentCont {
         //System.out.println("Product의 cnt:"+productVO.getCnt());
         //System.out.println("Cart의 cnt:" + cartVO.getCnt());
         //System.out.println("Orders의 cnt:"+ ordersVO.getCnt());
-        //System.out.println("Orders의 SUM(cnt):"+sum);
+        
         
         int tot_sum = cartVO.getCnt() + sum; // 장바구니+결제된 상품의 수량의 합        
         
+        
         if (tot_sum >= productVO.getCnt()) {
           this.productProc.update_stateno(productno);
-          //System.out.println("업데이트");
+          System.out.println("업데이트");
         }
         
         ordersVO.setTot(tot);
@@ -161,7 +162,7 @@ public class PaymentCont {
         ordersVO.setStates(1);
         this.ordersProc.create(ordersVO);
         
-        int update_stateno = this.productProc.update_stateno(productno);
+        //int update_stateno = this.productProc.update_stateno(productno);
         
         // 3. 주문된 상품 cart에서 delete
         int delete_cnt = this.cartProc.delete(cartno);
