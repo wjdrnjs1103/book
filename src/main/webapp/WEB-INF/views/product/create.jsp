@@ -32,9 +32,52 @@
     CKEDITOR.replace('content');  // <TEXTAREA>태그 id 값
   });
 
-  $(function(){
+ /*  $(function(){
  
-  });
+  }); */
+  
+  function check_null(str) {
+    var sw = false;
+    if (str == "" || str.trim().length == 0 || str == null || str == undefined || typeof str == "object") {
+      sw = true;  // 값이 없는 경우  
+    }
+    return sw;
+  }
+  
+  function send() {
+    if (check_null($('#title').val()))  {
+      alert('전공서적의 제목을 기입해주세요.');
+      $('#title').focus();
+      return;
+    } 
+
+    if (check_null($('#content').val()))  {
+      alert('내용을 입력해주세요.');
+      $('#content').focus();
+      return;
+    } 
+
+    if (check_null($('#word').val()))  {
+      alert('검색어를 입력해주세요.');
+      $('#word').focus();
+      return;
+    }    
+
+    if (check_null($('#price').val()))  {
+      alert('가격을 입력해주세요.');
+      $('#price').focus();
+      return;
+    }     
+     
+    if (check_null($('#cnt').val()))  {
+      alert('수량을 입력해주세요.');
+      $('#cnt').focus();
+      return;
+    }     
+
+    frm.submit();
+  }
+  
 </script>
  
 </head> 
@@ -89,43 +132,45 @@
               enctype="multipart/form-data">
     <input type="hidden" name="bookgrpno" value="${bookVO.bookgrpno }"> 
     <input type="hidden" name="bookno" value="${param.bookno }">
-    <input type="hidden" name="memberno" value='${registerVO.memberno }'> <%-- 관리자 개발후 변경 필요 --%>
+    <input type="hidden" name="memberno" value='${registerVO.memberno }'>
     
+ 
     <div class="form-group">
-       <label class="control-label col-md-2">도서명</label>
+       <label for="title" class="control-label col-md-2">도서명</label>
        <div class="col-md-10">
-         <input type='text' name='title' value='전공서적의 제목을 기입해주세요.' required="required" 
+         <input type='text' name='title' placeholder='전공서적의 제목을 기입해주세요.' required="required" 
                    autofocus="autofocus" class="form-control" style='color: #888888; width: 100%;'>
        </div>
     </div>
+    
     <div class="form-group">
-       <label class="control-label col-md-2">도서설명</label>
+       <label for="content" class="control-label col-md-2">도서설명</label>
        <div class="col-md-10">
-         <textarea name='content' id='content' required="required" class="form-control" rows="12" style='color: #888888; width: 100%;'>전공서적에 대한 정보(책의 상태, 출판사, 발행년도 등)를 기입해주세요.</textarea>
+         <textarea name='content' id='content' required="required" class="form-control" rows="12" style='color: #888888; width: 100%;' >전공서적에 대한 정보(책의 상태, 출판사, 발행년도 등)를 기입해주세요.</textarea>
        </div>
     </div>
  
     <div class="form-group">
-       <label class="control-label col-md-2">검색어</label>
+       <label for="word" class="control-label col-md-2">검색어</label>
        <div class="col-md-10">
-         <input type='text' name='word' value='컴퓨터,1학년,소프트웨어,전공' required="required" 
+         <input type='text' name='word' placeholder='컴퓨터,1학년,소프트웨어,전공' required="required" 
                     class="form-control" style='color: #888888; width: 100%;'>
        </div>
     </div>   
     
    <div class="form-group">
-     <label class="control-label col-md-2">판매가</label>
+     <label for="price" class="control-label col-md-2">판매가</label>
        <div class="col-md-10">
-         <input type='number' name='price' required="required" value="0"
+         <input type='number' name='price' required="required" placeholder="0"
                     min="0" max="10000000" step="10" 
                     class="form-control" style='width: 100%;'>
        </div>
     </div>   
     
     <div class="form-group">
-     <label class="control-label col-md-2">수량</label>
+     <label for="cnt" class="control-label col-md-2">수량</label>
        <div class="col-md-10">
-         <input type='number' name="cnt" required="required" value="1"
+         <input type='number' name="cnt" required="required" placeholder="1"
                     min="0" max="10000000" step="1" 
                     class="form-control" style='width: 100%;'>
        </div>
